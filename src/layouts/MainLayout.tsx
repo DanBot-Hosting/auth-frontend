@@ -1,6 +1,5 @@
 import { AppShell } from '@mantine/core';
 import { Header } from '@components/header';
-import type { CombinedUser } from '@util/types/common';
 import type { ReactNode } from 'react';
 
 export function MainLayout({ children, user }: { user: CombinedUser, children: ReactNode }) {

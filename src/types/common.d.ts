@@ -1,6 +1,4 @@
-import type { APIErrorCodes } from '../constants';
-
-export interface APIResponse<T> {
+interface APIResponse<T> {
   success?: boolean;
   error?: APIError;
   data: T;
@@ -8,15 +6,15 @@ export interface APIResponse<T> {
 
 interface APIError {
   message: string;
-  code: keyof typeof APIErrorCodes;
+  code: keyof typeof import("../util/constants").APIErrorCodes;
 }
 
-export type CombinedUser = {
+type CombinedUser = {
 	pterodactylUser: PterodactylUser;
 	dbUser: User;
 }
 
-export interface User {
+interface User {
 	email: string;
 	passwordHash?: string | null;
 	emailVerified: boolean;
@@ -24,13 +22,13 @@ export interface User {
 	username: string;
 	firstName: string;
 	lastName: string;
-	avatarURL?: string | null;
+	avatarURL?: string;
 	linked: boolean;
 	linkedAt?: Date | null;
 	roles: UserRoles;
 }
 
-export interface PterodactylUser { 
+interface PterodactylUser { 
 	id: string;
 	username: string;
 	email: string;

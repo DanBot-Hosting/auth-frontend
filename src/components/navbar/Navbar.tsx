@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { Avatar, Divider, Group, Navbar as MantineNavbar, NavLink, Text } from "@mantine/core";
 import { NavbarLinks } from "@util/constants";
-import type { CombinedUser } from "@util/types/common";
 
 export function Navbar({ user }: { user: CombinedUser}) {
     const { pathname } = useRouter();

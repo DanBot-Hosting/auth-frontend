@@ -25,7 +25,6 @@ import {
   IconSettingsCode,
 } from '@tabler/icons-react';
 import useStyles from './header.styles';
-import type { CombinedUser } from '@util/types/common';
 
 function UserMenu({ user }: { user: CombinedUser }) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
