@@ -20,7 +20,6 @@ import { showNotification } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
 import { apiFetch, getErrorMessage } from '@util/util';
 import { DashboardLayout } from '@layouts/DashboardLayout';
-import type { CombinedUser } from '@util/types/common';
 
 export default function Dashboard({ user }: { user: CombinedUser }) {
   const router = useRouter();
@@ -247,7 +246,7 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
           mt={10}
           sx={{ width: '20rem' }}
           disabled={inputsDisabled}
-          onClick={(e) => handleChanges(e)}
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleChanges(e)}
         >
           Update profile
         </Button>

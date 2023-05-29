@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { AppShell } from '@mantine/core';
 import { Header } from '@components/header';
 import { Navbar } from '@components/navbar';
-import type { CombinedUser } from '@util/types/common';
 
 export function DashboardLayout({ children, user }: { user: CombinedUser, children: ReactNode }) {
   const { push } = useRouter();

@@ -1,4 +1,3 @@
-import type { APIResponse } from '@util/types/common';
 import { ErrorMessages } from '@util/constants';
 
 export async function apiFetch<T>(

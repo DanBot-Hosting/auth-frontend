@@ -11,8 +11,6 @@ import { Notifications } from '@mantine/notifications';
 import { MainLayout } from '@layouts/MainLayout';
 import { apiFetch } from '@util/util';
 import type { NextPage } from 'next';
-import type { CombinedUser } from '@util/types/common';
-import type { APIFetchUserResponse } from '@util/types/responses';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,8 +72,10 @@ export default function App(
 
 App.getInitialProps = async (appContext: AppContext) => {
   const appProps = await NextApp.getInitialProps(appContext);
+  const token = getCookie('idToken', appContext.ctx);
+
   const user = await apiFetch<APIFetchUserResponse>('/users/@me', {
-    idToken: getCookie('idToken', appContext.ctx) ?? null,
+    idToken: typeof token === "boolean" ? null : token,
   }).catch(() => null);
   
   delete user?.data?.dbUser?.passwordHash;

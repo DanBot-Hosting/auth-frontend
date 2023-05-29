@@ -17,7 +17,6 @@ import { setCookie } from 'cookies-next';
 import { useMutation } from '@tanstack/react-query';
 import { apiFetch, getErrorMessage } from '@util/util';
 import dayjs from 'dayjs'
-import type { APILoginResponse } from '@util/types/responses';
 
 type PageProps = { opened: boolean; setOpened: (opened: boolean) => void };
 

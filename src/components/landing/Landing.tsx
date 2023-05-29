@@ -5,7 +5,6 @@ import { useMediaQuery } from '@mantine/hooks';
 import { LoginModal, SignUpModal } from '@components/auth';
 import { IconAlertCircle } from '@tabler/icons-react';
 import useStyles from './landing.styles';
-import { CombinedUser } from '@util/types/common';
 
 export function Landing({ user }: { user: CombinedUser }) {
   const { classes } = useStyles();
