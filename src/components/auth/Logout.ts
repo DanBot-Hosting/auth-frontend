@@ -9,9 +9,6 @@ export async function logout() {
       idToken: getCookie('idToken') as string,
     });
 
-    console.log(error?.message, error?.code, error, success, data);
-    console.log('hi');
-
     if (success) {
       await deleteCookie('idToken');
       showNotification({

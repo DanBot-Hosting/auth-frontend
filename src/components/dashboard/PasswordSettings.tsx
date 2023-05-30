@@ -56,7 +56,6 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
       });
       return;
     } catch (err) {
-      console.log(err);
       setLoading(false);
       const { title, message } = getErrorMessage('UNKNOWN');
       showNotification({ title, message, color: 'red' });

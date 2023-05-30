@@ -23,7 +23,6 @@ export default function VerifyEmailPage() {
       }),
   });
 
-  console.log(isSuccess, isError, data?.error?.message, data);
   useEffect(() => {
     if (isSuccess) setLoading(false);
   }, [isSuccess]);
