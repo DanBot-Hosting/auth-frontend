@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import {
   Button,
   Checkbox,
@@ -12,8 +13,6 @@ import {
   useMantineTheme,
   createStyles,
   rem,
-  Box,
-  LoadingOverlay,
 } from '@mantine/core';
 import { setCookie } from 'cookies-next';
 import { showNotification } from '@mantine/notifications';
@@ -21,6 +20,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from '@mantine/form';
 import { apiFetch, getErrorMessage } from '@util/util';
 import dayjs from 'dayjs';
+
+const LoadingOverlay = dynamic(() => import('@mantine/core').then((mod) => mod.LoadingOverlay));
 
 type PageProps = { opened: boolean; setOpened: (opened: boolean) => void };
 
@@ -82,7 +83,7 @@ export function LoginModal({ opened, setOpened }: PageProps) {
       router.push('/dashboard');
       setLoading(false);
     } catch (err) {
-      console.error(err)
+      console.error(err);
       setLoading(false);
       const { message, title } = getErrorMessage('UNKNOWN');
       showNotification({

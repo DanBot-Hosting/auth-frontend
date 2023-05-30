@@ -1,17 +1,18 @@
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { Title, Text, Group, Button, Alert, Stack } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import { LoginModal, SignUpModal } from '@components/auth';
 import { IconAlertCircle } from '@tabler/icons-react';
 import useStyles from './landing.styles';
 
-export function Landing({ user }: { user: CombinedUser }) {
+const LoginModal = dynamic(() => import('@components/auth').then((mod) => mod.LoginModal));
+const SignUpModal = dynamic(() => import('@components/auth').then((mod) => mod.SignUpModal));
+
+export function Landing({ user, isMobile }: { user: CombinedUser; isMobile: boolean }) {
   const { classes } = useStyles();
   const { push } = useRouter();
   const [signUpModalOpened, setSignUpModalOpened] = useState(false);
   const [loginModalOpened, setLoginModalOpened] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 600px)');
 
   return (
     <>
@@ -45,8 +46,8 @@ export function Landing({ user }: { user: CombinedUser }) {
           </Group>
         )}
 
-        {isMobile ? (
-          <Group sx={{ position: 'fixed', bottom: '1rem', maxWidth: '350px' }}>
+        {!user && (
+          <Group className={classes.cookieAlert}>
             <Alert
               title="Cookie Usage"
               color="yellow"
@@ -58,21 +59,6 @@ export function Landing({ user }: { user: CombinedUser }) {
               to function. By continuing, you agree to this.
             </Alert>
           </Group>
-        ) : (
-          !user && (
-            <Group sx={{ position: 'fixed', bottom: '1rem' }}>
-              <Alert
-                title="Cookie Usage"
-                color="yellow"
-                withCloseButton={false}
-                variant="outline"
-                icon={<IconAlertCircle size="1rem" />}
-              >
-                This website uses cookies to store your session token. This is necessary for the
-                site to function. By continuing, you agree to this.
-              </Alert>
-            </Group>
-          )
         )}
       </Stack>
     </>

@@ -12,3 +12,7 @@ interface APIFetchUserResponse {
   pterodactylUser: import('./common').PterodactylUser;
   dbUser: import('./common').User;
 }
+
+interface APIResetPasswordResponse {
+  idToken: string;
+}
