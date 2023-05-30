@@ -1,16 +1,20 @@
-import { PterodactylUser, User } from "./common";
+import { PterodactylUser, User } from './common';
 
 export interface APILoginResponse {
-    idToken: string;
+  idToken: string;
 }
 
 export interface APISignUpResponse {
-    idToken: string;
-    pterodactylUser: PterodactylUser;
-    dbUser: User
+  idToken: string;
+  pterodactylUser: PterodactylUser;
+  dbUser: User;
 }
 
 export interface APIFetchUserResponse {
-    pterodactylUser: PterodactylUser;
-    dbUser: User;
+  pterodactylUser: PterodactylUser;
+  dbUser: User;
+}
+
+export interface APIResetPasswordResponse {
+    idToken: string;
 }

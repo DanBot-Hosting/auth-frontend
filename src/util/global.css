@@ -2,9 +2,13 @@
   width: 8px;
 }
 
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 10rem;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -1,16 +1,33 @@
-import { useEffect, type ReactNode } from 'react';
-import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { AppShell } from '@mantine/core';
-import { Header } from '@components/header';
-import { Navbar } from '@components/navbar';
+import { useEffect, type ReactNode } from 'react';
 import type { CombinedUser } from '@util/types/common';
 
-export function DashboardLayout({ children, user }: { user: CombinedUser, children: ReactNode }) {
+const Header = dynamic(() => import('@components/header').then((mod) => mod.Header));
+const Navbar = dynamic(() => import('@components/navbar').then((mod) => mod.Navbar));
+
+export function DashboardLayout({
+  children,
+  user,
+  isMobile,
+}: {
+  user: CombinedUser;
+  children: ReactNode;
+  isMobile: boolean;
+}) {
   const { push } = useRouter();
 
   useEffect(() => {
-    if (!user ?? !user?.dbUser) push('/');
-  })
-  
-  return <AppShell header={<Header user={user} />} navbar={<Navbar user={user} />}>{children}</AppShell>;
+    if (!user) push('/');
+    return;
+  }, [user]);
+
+  return isMobile ? (
+    <AppShell header={<Header user={user} />}>{children}</AppShell>
+  ) : (
+    <AppShell header={<Header user={user} />} navbar={<Navbar user={user} />}>
+      {children}
+    </AppShell>
+  );
 }

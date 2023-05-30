@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import {
   Button,
   Checkbox,
@@ -8,7 +9,6 @@ import {
   PasswordInput,
   TextInput,
   Title,
-  LoadingOverlay,
   useMantineTheme,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -16,10 +16,12 @@ import { showNotification } from '@mantine/notifications';
 import { setCookie } from 'cookies-next';
 import { useMutation } from '@tanstack/react-query';
 import { apiFetch, getErrorMessage } from '@util/util';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import type { APILoginResponse } from '@util/types/responses';
 
 type PageProps = { opened: boolean; setOpened: (opened: boolean) => void };
+
+const LoadingOverlay = dynamic(() => import('@mantine/core').then((mod) => mod.LoadingOverlay));
 
 export function SignUpModal({ opened, setOpened }: PageProps) {
   const [loading, setLoading] = useState(false);
@@ -49,7 +51,14 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
     mutationFn: () => {
       return apiFetch<APILoginResponse>('/users/create', {
         method: 'POST',
-        body: JSON.stringify({ firstName: form.values.firstName, lastName: form.values.lastName, email: form.values.email, username: form.values.username, avatarURL: form.values.avatarURL, password: form.values.password }),
+        body: JSON.stringify({
+          firstName: form.values.firstName,
+          lastName: form.values.lastName,
+          email: form.values.email,
+          username: form.values.username,
+          avatarURL: form.values.avatarURL,
+          password: form.values.password,
+        }),
       });
     },
   });
@@ -145,7 +154,9 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
 
         <Group mt="md" position="apart">
           <Checkbox label="Agree to TOS" {...form.getInputProps('tos')} />
-          <Button type="submit" disabled={!form.values.tos ?? loading}>Submit</Button>
+          <Button type="submit" disabled={!form.values.tos ?? loading}>
+            Submit
+          </Button>
         </Group>
       </form>
     </Modal>

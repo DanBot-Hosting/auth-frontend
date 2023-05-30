@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   Header as MantineHeader,
   Group,
@@ -13,9 +14,13 @@ import {
   rem,
   UnstyledButton,
   Avatar,
+  NavLink,
+  Title,
+  Anchor,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ColorSchemeToggle } from '@components/colorSchemeToggle';
+import { logout } from '@components/auth';
 import Link from 'next/link';
 import {
   IconLogout,
@@ -26,10 +31,12 @@ import {
 } from '@tabler/icons-react';
 import useStyles from './header.styles';
 import type { CombinedUser } from '@util/types/common';
+import { HeaderLinks, NavbarLinks } from '@util/constants';
 
 function UserMenu({ user }: { user: CombinedUser }) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const { classes, cx } = useStyles();
+  const { push } = useRouter();
 
   return (
     <Menu
@@ -47,8 +54,18 @@ function UserMenu({ user }: { user: CombinedUser }) {
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>Settings</Menu.Label>
-        <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>Account settings</Menu.Item>
-        <Menu.Item icon={<IconLogout size="0.9rem" stroke={1.5} />}>Logout</Menu.Item>
+        <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+          <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>Account settings</Menu.Item>
+        </Link>
+        <Menu.Item
+          icon={<IconLogout size="0.9rem" stroke={1.5} />}
+          onClick={() => {
+            logout();
+            push('/');
+          }}
+        >
+          Logout
+        </Menu.Item>
 
         {user.dbUser.roles !== 'USER' && (
           <>
@@ -86,6 +103,17 @@ export function Header({ user }: { user: CombinedUser }) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const { classes, theme, cx } = useStyles();
 
+  const headerLinks = HeaderLinks.map((link, i) => (
+    <Anchor component="a" key={i} href={link.link} target="_blank" className={classes.link}>
+      {' '}
+      {link.label}
+    </Anchor>
+  ));
+
+  const navbarLinks = NavbarLinks.map((item, i) => (
+    <NavLink key={i} component="a" href={item.link} label={item.label} />
+  ));
+
   return (
     <Box className={classes.container}>
       <MantineHeader height={60} px="md">
@@ -106,26 +134,13 @@ export function Header({ user }: { user: CombinedUser }) {
             spacing={0}
             className={cx(classes.hiddenMobile, classes.child)}
           >
-            <a href="https://danbot.host" target="_blank" className={classes.link}>
-              Website
-            </a>
-            <a href="https://panel.danbot.host" target="_blank" className={classes.link}>
-              Panel
-            </a>
-            <a href="https://discord.com/invite/dbh" target="_blank" className={classes.link}>
-              Discord
-            </a>
+            {headerLinks}
           </Group>
 
           <div className={cx(classes.hiddenMobile, classes.child)}>
             <ColorSchemeToggle />
+            {user && <UserMenu user={user} />}
           </div>
-
-          {user && (
-            <div className={classes.child}>
-              <UserMenu user={user} />
-            </div>
-          )}
         </Group>
       </MantineHeader>
 
@@ -134,22 +149,21 @@ export function Header({ user }: { user: CombinedUser }) {
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="Navigation"
+        title={<Title order={4}>Navigation</Title>}
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
-
-          <a href="https://danbot.host" target="_blank" className={classes.link}>
-            Website
-          </a>
-          <a href="https://panel.danbot.host" target="_blank" className={classes.link}>
-            Panel
-          </a>
-          <a href="https://discord.com/invite/dbh" target="_blank" className={classes.link}>
-            Discord
-          </a>
+          <Title order={5} p="sm">
+            General
+          </Title>
+          {headerLinks}
+          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
+          <Title order={5} p="sm">
+            Dashboard
+          </Title>
+          {navbarLinks}
         </ScrollArea>
       </Drawer>
     </Box>

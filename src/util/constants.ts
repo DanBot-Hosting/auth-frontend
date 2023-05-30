@@ -4,6 +4,9 @@ export enum APIErrorCodes {
   'auth/unauthorized',
 
   'auth/user-not-found',
+  'auth/email-in-use',
+  'auth/incorrect-password',
+  'auth/new-password-same-as-old-password',
 
   'auth/id-token-not-found',
   'auth/id-token-revoked',
@@ -47,6 +50,21 @@ export const ErrorMessages = {
     title: 'User Not Found',
     message:
       'Data for your email was not found. Please try again. If this problem persists, please contact the developers.',
+  },
+
+  'auth/email-in-use': {
+    title: 'Email In Use',
+    message: 'A user with that email already exists. Please try again with a different email.',
+  },
+
+  'auth/incorrect-password': {
+    title: 'Incorrect Password',
+    message: 'The password you entered is incorrect. Please try again.',
+  },
+
+  'auth/new-password-same-as-old-password': {
+    title: 'Same Passwords',
+    message: 'The new password cannot be the same as the old password. Please try again.',
   },
 
   'auth/id-token-not-found': {
@@ -101,17 +119,35 @@ export const ErrorMessages = {
   },
 } as const;
 
-import { IconUser, IconWallet } from "@tabler/icons-react";
+import { IconUser, IconWallet, IconWorldWww, IconBrandDiscord } from '@tabler/icons-react';
 
 export const NavbarLinks = [
   {
     label: 'Account',
     link: '/dashboard',
-    icon: IconUser
+    icon: IconUser,
   },
   {
     label: 'Payments',
     link: '/dashboard/payments',
-    icon: IconWallet
-  }
-]
+    icon: IconWallet,
+  },
+];
+
+export const HeaderLinks = [
+  {
+    label: 'Website',
+    link: 'https://danbot.host',
+    icon: IconWorldWww,
+  },
+  {
+    label: 'Panel',
+    link: 'https://panel.danbot.host',
+    icon: IconWorldWww,
+  },
+  {
+    label: 'Discord',
+    link: 'https://danbot.host/discord',
+    icon: IconBrandDiscord,
+  },
+];

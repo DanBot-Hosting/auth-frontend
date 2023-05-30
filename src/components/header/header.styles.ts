@@ -9,10 +9,10 @@ export default createStyles((theme) => ({
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
-    ':first-of-type': {
+    ':first-child': {
       marginRight: 'auto',
     },
-    ':last-of-type': {
+    ':last-child': {
       marginLeft: 'auto',
     },
   },
