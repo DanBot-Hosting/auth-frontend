@@ -35,7 +35,7 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
       setInputsDisabled(true);
       setEmailDialogOpened(true);
     }
-  }, []);
+  }, [user?.dbUser.emailVerified]);
 
   useEffect(() => {
     if (loading) {
