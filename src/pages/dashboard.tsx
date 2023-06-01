@@ -64,7 +64,6 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
       setEmailSending(true);
 
       const { success, error, data } = await mutateEmailVerification();
-      console.log(data, error);
 
       if (!success ?? !isEmailVerificationSuccessful ?? !data) {
         setEmailSending(false);

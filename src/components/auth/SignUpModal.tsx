@@ -86,7 +86,6 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
       router.push('/dashboard');
       setLoading(false);
     } catch (err) {
-      console.log(err);
       setLoading(false);
       const { message, title } = getErrorMessage('UNKNOWN');
       showNotification({

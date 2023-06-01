@@ -59,8 +59,8 @@ function UserMenu({ user }: { user: CombinedUser }) {
         <Menu.Item
           icon={<IconLogout size="0.9rem" stroke={1.5} />}
           onClick={() => {
-            logout();
-            push('/');
+            // Logout is an asynchronous function therefore it needs to be awaited
+            logout().then(() => push('/'));
           }}
         >
           Logout

@@ -6,7 +6,6 @@ import { useMutation } from '@tanstack/react-query';
 import { getCookie, setCookie } from 'cookies-next';
 import { apiFetch, getErrorMessage } from '@util/util';
 import type { PageProps } from './index';
-import type { APIResetPasswordResponse } from '@util/types/responses';
 
 const Loader = dynamic(() => import('@mantine/core').then((mod) => mod.Loader));
 
@@ -57,7 +56,6 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
       });
       return;
     } catch (err) {
-      console.log(err);
       setLoading(false);
       const { title, message } = getErrorMessage('UNKNOWN');
       showNotification({ title, message, color: 'red' });

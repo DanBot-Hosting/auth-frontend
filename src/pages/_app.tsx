@@ -89,10 +89,9 @@ export default function App(
 
 App.getInitialProps = async (appContext: AppContext) => {
   const appProps = await NextApp.getInitialProps(appContext);
-  const token = getCookie('idToken', appContext.ctx);
 
   const user = await apiFetch<APIFetchUserResponse>('/users/@me', {
-    idToken: typeof token === "boolean" ? null : token,
+    idToken: getCookie('idToken', appContext.ctx)?.toString(),
   }).catch(() => null);
 
   /**

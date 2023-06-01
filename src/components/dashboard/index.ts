@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import { CombinedUser } from '@util/types/common';
 
 export * from './GeneralSettings';
 export * from './PasswordSettings';
