@@ -30,7 +30,9 @@ export default function VerifyEmailPage() {
     <Center>
       <LoadingOverlay visible={loading} />
       {error ?? data?.error?.message ? (
-        <Title>An error occurred. Please try again later.</Title>
+        <Title mt="lg" order={2}>
+          An error occurred. Please try again later.
+        </Title>
       ) : null}
       <Title mt="lg" order={2}>
         {isSuccess ? 'Your email has been verified! You can close this tab now.' : ''}
