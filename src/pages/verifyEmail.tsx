@@ -12,14 +12,13 @@ export default function VerifyEmailPage() {
   const { query } = useRouter();
   const [loading, setLoading] = useState(true);
 
-  const token = getCookie('idToken');
 
   const { data, error, isSuccess, isError } = useQuery({
     queryKey: ['verifyEmail', query.code],
     queryFn: () =>
       apiFetch(`/users/verifyEmail?code=${query.code}`, {
         method: 'POST',
-        idToken: typeof token === "boolean" ? null : token,
+        idToken: getCookie('idToken')?.toString(),
       }),
   });
 
