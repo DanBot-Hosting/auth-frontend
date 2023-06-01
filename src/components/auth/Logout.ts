@@ -7,10 +7,13 @@ export async function logout() {
     const { error, success, data } = await apiFetch('/auth/logout', {
       method: 'POST',
       idToken: getCookie('idToken') as string,
+      // Otherwise Bad Request
+      body: JSON.stringify({})
     });
 
     if (success) {
-      await deleteCookie('idToken');
+      // No need for awaiting the deleteCookie, it's synchronous
+      deleteCookie('idToken');
       showNotification({
         title: 'Logged out',
         message: 'You have been logged out. Redirecting to home page.',
