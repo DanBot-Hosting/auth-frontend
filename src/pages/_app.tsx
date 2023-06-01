@@ -95,6 +95,10 @@ App.getInitialProps = async (appContext: AppContext) => {
     idToken: typeof token === "boolean" ? null : token,
   }).catch(() => null);
 
+  /**
+   * Slow only in certain scenarios
+   * @see {@link https://stackoverflow.com/q/27397034/14301934 Why is 'delete' slow in javascript?}
+   */
   delete user?.data?.dbUser?.passwordHash;
 
   return {
