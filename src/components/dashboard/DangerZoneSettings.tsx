@@ -56,7 +56,6 @@ export function DangerZoneSettings({ user, loading, setLoading, inputsDisabled }
           },
           onConfirm: async () => {
             setLoading(true);
-            console.log('deletionCode', deletionCode);
             // await mutateDeleteUser();
             setLoading(false);
 
