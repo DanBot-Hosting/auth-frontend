@@ -94,6 +94,10 @@ App.getInitialProps = async (appContext: AppContext) => {
     idToken: getCookie('idToken', appContext.ctx)?.toString(),
   }).catch(() => null);
 
+  /**
+   * Slow only in certain scenarios
+   * @see {@link https://stackoverflow.com/q/27397034/14301934 Why is 'delete' slow in javascript?}
+   */
   delete user?.data?.dbUser?.passwordHash;
 
   return {

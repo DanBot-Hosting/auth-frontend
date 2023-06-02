@@ -30,11 +30,12 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!user.dbUser.emailVerified) {
+    // Add "?" for asynchronous cases
+    if (!user?.dbUser.emailVerified) {
       setInputsDisabled(true);
       setEmailDialogOpened(true);
     }
-  }, []);
+  }, [user?.dbUser.emailVerified]);
 
   useEffect(() => {
     if (loading) {
@@ -42,7 +43,7 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
     } else if (user?.dbUser?.emailVerified) {
       setInputsDisabled(false);
     }
-  });
+  }, [loading, user?.dbUser.emailVerified]);
 
   const { mutateAsync: mutateEmailVerification, isSuccess: isEmailVerificationSuccessful } =
     useMutation({
@@ -51,6 +52,7 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
         return apiFetch<{ emailSent: string }>(`/users/verifyEmail`, {
           idToken: getCookie('idToken') as string,
           method: 'POST',
+          body: '{}',
         });
       },
     });
@@ -137,7 +139,11 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
       >
         <Stack spacing="xs">
           <Title order={4}>Email Not Verified</Title>
-          <Text size="sm" style={{ marginBottom: 10 }}>
+          <Text
+            size="sm"
+            // use sx over style property for avoiding inline styles
+            sx={{ marginBottom: 10 }}
+          >
             Your email has not yet been verified. Please verify it before being able to make changes
             to your account.
           </Text>
