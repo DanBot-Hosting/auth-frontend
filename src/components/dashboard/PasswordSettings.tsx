@@ -14,7 +14,7 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-  const { mutateAsync, data, error, isSuccess } = useMutation({
+  const { mutateAsync: mutateResetPassword, isSuccess } = useMutation({
     mutationFn: () =>
       apiFetch<APIResetPasswordResponse>('/users/password', {
         method: 'PATCH',
@@ -27,18 +27,18 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
       }),
   });
 
-  async function handlePasswordChange(e: any) {
-    e.preventDefault();
+  async function handlePasswordChange(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
 
     setLoading(true);
 
     try {
-     await mutateAsync();
+      const { data, error, success } = await mutateResetPassword();
       setLoading(false);
 
-      if (!data?.success) {
+      if (!success ?? !isSuccess ?? error) {
         setLoading(false);
-        const { title, message } = getErrorMessage(data?.error?.code ?? 'UNKNOWN');
+        const { title, message } = getErrorMessage(error?.code ?? 'UNKNOWN');
         showNotification({
           title,
           message,
@@ -47,7 +47,7 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
         return;
       }
 
-      setCookie('idToken', data?.data.idToken);
+      setCookie('idToken', data.idToken);
 
       showNotification({
         title: 'Password Changed',
@@ -122,7 +122,7 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
       </Stack>
 
       <Group mt="sm">
-        <Button color="green" disabled={inputsDisabled} onClick={(e) => handlePasswordChange(e)}>
+        <Button color="green" disabled={inputsDisabled} onClick={handlePasswordChange}>
           Update password
         </Button>
         <Button size="sm" variant="subtle" disabled={inputsDisabled}>
