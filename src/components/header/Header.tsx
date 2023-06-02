@@ -87,12 +87,6 @@ function UserMenu({ user }: { user: CombinedUser }) {
             )}
           </>
         )}
-        <Menu.Divider />
-
-        <Menu.Label>Danger zone</Menu.Label>
-        <Menu.Item color="red" icon={<IconTrash size="0.9rem" stroke={1.5} />}>
-          Delete account
-        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );
