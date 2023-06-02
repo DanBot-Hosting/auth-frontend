@@ -70,27 +70,6 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
       }),
   });
 
-  async function openDeleteModal(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-    openConfirmModal();
-
-    enableLoading();
-    const { error } = await mutateDeleteUser({});
-    disableLoading();
-
-    if (error ?? !isDeleteUserSuccessful) {
-      const { message, title } = getErrorMessage(error?.code ?? 'UNKNOWN');
-      showNotification({
-        message,
-        title,
-        color: 'red',
-      });
-
-      // Handle 'auth/deletion-request-already-sent' error
-      if (error?.code !== APIErrorCodes[11]) return closeConfirmModal();
-    }
-  }
-
   return (
     <>
       <Title mt={50} order={4}>
@@ -100,7 +79,7 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
         color="red"
         sx={{ width: '20rem' }}
         disabled={inputsDisabled}
-        onClick={openDeleteModal}
+        onClick={openConfirmModal}
       >
         Delete Account
       </Button>
@@ -123,7 +102,23 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
           <Button
             type="submit"
             color="red"
-            onClick={() => {
+            onClick={async () => {
+              enableLoading();
+              const { error } = await mutateDeleteUser({});
+              disableLoading();
+
+              if (error ?? !isDeleteUserSuccessful) {
+                const { message, title } = getErrorMessage(error?.code ?? 'UNKNOWN');
+                showNotification({
+                  message,
+                  title,
+                  color: 'red',
+                });
+
+                // Handle 'auth/deletion-request-already-sent' error
+                if (error?.code !== APIErrorCodes[11]) return closeConfirmModal();
+              }
+
               closeConfirmModal();
               openSubmitModal();
             }}
