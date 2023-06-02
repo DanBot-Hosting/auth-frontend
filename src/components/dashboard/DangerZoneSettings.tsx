@@ -78,7 +78,7 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
     const { error } = await mutateDeleteUser({});
     disableLoading();
 
-    if (error || !isDeleteUserSuccessful) {
+    if (error ?? !isDeleteUserSuccessful) {
       const { message, title } = getErrorMessage(error?.code ?? 'UNKNOWN');
       showNotification({
         message,
