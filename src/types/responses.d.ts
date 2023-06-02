@@ -16,3 +16,7 @@ interface APIFetchUserResponse {
 interface APIResetPasswordResponse {
   idToken: string;
 }
+
+interface APIDeleteUserResponse {
+  codeSent: boolean;
+}
