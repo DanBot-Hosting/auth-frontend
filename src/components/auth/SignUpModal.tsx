@@ -14,7 +14,7 @@ import {
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { setCookie } from 'cookies-next';
-import { useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { apiFetch, getErrorMessage } from '@util/util';
 import dayjs from 'dayjs';
 
@@ -24,7 +24,7 @@ const LoadingOverlay = dynamic(() => import('@mantine/core').then((mod) => mod.L
 
 export function SignUpModal({ opened, setOpened }: PageProps) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const { push } = useRouter();
   const theme = useMantineTheme();
   const form = useForm({
     validateInputOnChange: true,
@@ -46,9 +46,10 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
     },
   });
 
-  const { mutateAsync, isSuccess } = useMutation({
-    mutationFn: () => {
-      return apiFetch<APILoginResponse>('/users/create', {
+  const { trigger } = useSWRMutation(
+    '/users/create',
+    (key) =>
+      apiFetch<APILoginResponse>(key, {
         method: 'POST',
         body: JSON.stringify({
           firstName: form.values.firstName,
@@ -58,9 +59,8 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
           avatarURL: form.values.avatarURL,
           password: form.values.password,
         }),
-      });
-    },
-  });
+      }),
+  )
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -68,11 +68,11 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
     try {
       setLoading(true);
 
-      const { success, error, data } = await mutateAsync();
+      const response = await trigger();
 
-      if (!success ?? !isSuccess ?? !data) {
+      if (!response ?? !response?.success ?? !response?.data) {
         setLoading(false);
-        const { message, title } = getErrorMessage(error?.code);
+        const { message, title } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
         showNotification({
           message,
           title,
@@ -81,13 +81,18 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
         return;
       }
 
-      const date = dayjs().add(1, 'month').toDate();
-      setCookie('idToken', data.idToken, { expires: date });
-      router.push('/dashboard');
+      const expires = dayjs().add(1, 'month').toDate();
+      setCookie('idToken', response.data.idToken, { expires });
+
+      // Push to dashboard takes time to load
+      setOpened(false);
+      push('/dashboard');
+
       setLoading(false);
     } catch (err) {
       setLoading(false);
       const { message, title } = getErrorMessage('UNKNOWN');
+
       showNotification({
         message,
         title,
@@ -117,7 +122,7 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
             placeholder="John"
             {...form.getInputProps('firstName')}
           />
-          <TextInput label="First Name" placeholder="Doe" {...form.getInputProps('lastName')} />
+          <TextInput label="Last Name" placeholder="Doe" {...form.getInputProps('lastName')} />
         </Group>
 
         <Group mt="sm">

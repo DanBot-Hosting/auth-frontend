@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Stack, Title, Text, Group, PasswordInput, Button } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { getCookie, setCookie } from 'cookies-next';
 import { apiFetch, getErrorMessage } from '@util/util';
 import type { PageProps } from './index';
@@ -14,18 +14,17 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-  const { mutateAsync: mutateResetPassword, isSuccess } = useMutation({
-    mutationFn: () =>
-      apiFetch<APIResetPasswordResponse>('/users/password', {
-        method: 'PATCH',
-        idToken: getCookie('idToken') as string,
-        body: JSON.stringify({
-          email: user.dbUser.email,
-          currentPassword,
-          newPassword,
-        }),
+  const { trigger: mutateResetPassword } = useSWRMutation('/users/password', (key) =>
+    apiFetch<APIResetPasswordResponse>(key, {
+      method: 'PATCH',
+      idToken: getCookie('idToken') as string,
+      body: JSON.stringify({
+        email: user.dbUser.email,
+        currentPassword,
+        newPassword,
       }),
-  });
+    })
+  );
 
   async function handlePasswordChange(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -33,12 +32,12 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
     setLoading(true);
 
     try {
-      const { data, error, success } = await mutateResetPassword();
+      const response = await mutateResetPassword();
       setLoading(false);
 
-      if (!success ?? !isSuccess ?? error) {
+      if (!response ?? !response?.success ?? response?.error) {
         setLoading(false);
-        const { title, message } = getErrorMessage(error?.code ?? 'UNKNOWN');
+        const { title, message } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
         showNotification({
           title,
           message,
@@ -47,7 +46,7 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
         return;
       }
 
-      setCookie('idToken', data.idToken);
+      setCookie('idToken', response.data.idToken);
 
       showNotification({
         title: 'Password Changed',
