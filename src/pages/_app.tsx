@@ -9,6 +9,7 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider, useMantineTheme } fr
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { MainLayout } from '@layouts/MainLayout';
+import { RouterTransition } from '@components/routerTransition';
 import { apiFetch } from '@util/util';
 import { cache } from '@util/emotionCache';
 import type { NextPage } from 'next';
@@ -69,6 +70,7 @@ export default function App(
                 <Component {...pageProps} user={props.user} isMobile={isMobile} />
               </MainLayout>
             )}
+            <RouterTransition />
           </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
