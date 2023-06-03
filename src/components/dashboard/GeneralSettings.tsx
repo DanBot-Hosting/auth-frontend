@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { Title, Stack, TextInput, Text, Button } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { apiFetch, getErrorMessage } from '@util/util';
 import { getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
@@ -90,16 +90,15 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
     />
   ));
 
-  const { mutateAsync, isSuccess } = useMutation({
-    mutationKey: ['updateUser'],
-    mutationFn: (variables: Record<string, any>) => {
-      return apiFetch<{ idToken: string }>('/users/update', {
+  const { trigger: mutateUpdateUser } = useSWRMutation(
+    '/users/update',
+    (key: string, { arg }: { arg: Record<string, any> }) =>
+      apiFetch<{ idToken: string }>(key, {
         idToken: getCookie('idToken') as string,
         method: 'PUT',
-        body: JSON.stringify(variables),
-      });
-    },
-  });
+        body: JSON.stringify(arg),
+      })
+  );
 
   async function handleChanges(e: any) {
     e.preventDefault();
@@ -107,7 +106,7 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
     try {
       setLoading(true);
 
-      const { success, error, data } = await mutateAsync({
+      const response = await mutateUpdateUser({
         username,
         email,
         firstName,
@@ -115,9 +114,9 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
         avatarURL,
       });
 
-      if (!success ?? !isSuccess ?? !data) {
+      if (!response ?? !response?.success ?? !response?.data) {
         setLoading(false);
-        const { message, title } = getErrorMessage(error?.code);
+        const { message, title } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
         showNotification({
           message,
           title,
@@ -127,7 +126,7 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       }
 
       const date = dayjs().add(1, 'month').toDate();
-      setCookie('idToken', data.idToken, { expires: date });
+      setCookie('idToken', response.data.idToken, { expires: date });
 
       setLoading(false);
 

@@ -4,7 +4,6 @@ import { useState, type ReactElement, type ReactNode } from 'react';
 import NextApp, { AppProps, AppContext } from 'next/app';
 import { useMediaQuery } from '@mantine/hooks';
 import { getCookie, setCookie } from 'cookies-next';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider, useMantineTheme } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
@@ -13,14 +12,6 @@ import { MainLayout } from '@layouts/MainLayout';
 import { apiFetch } from '@util/util';
 import { cache } from '@util/emotionCache';
 import type { NextPage } from 'next';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement, user: CombinedUser, isMobile: boolean) => ReactNode;
@@ -66,21 +57,19 @@ export default function App(
           withNormalizeCSS
         >
           <Notifications />
-          <QueryClientProvider client={queryClient}>
-            <ModalsProvider>
-              {Component.getLayout ? (
-                getLayout(
-                  <Component {...pageProps} user={props.user} isMobile={isMobile} />,
-                  props.user,
-                  isMobile
-                )
-              ) : (
-                <MainLayout user={props.user}>
-                  <Component {...pageProps} user={props.user} isMobile={isMobile} />
-                </MainLayout>
-              )}
-            </ModalsProvider>
-          </QueryClientProvider>
+          <ModalsProvider>
+            {Component.getLayout ? (
+              getLayout(
+                <Component {...pageProps} user={props.user} isMobile={isMobile} />,
+                props.user,
+                isMobile
+              )
+            ) : (
+              <MainLayout user={props.user}>
+                <Component {...pageProps} user={props.user} isMobile={isMobile} />
+              </MainLayout>
+            )}
+          </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

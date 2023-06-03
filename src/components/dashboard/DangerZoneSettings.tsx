@@ -1,45 +1,23 @@
 import { useRouter } from 'next/router';
 import { Button, Title, Text, Center, PinInput, LoadingOverlay, Modal, Group } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { UseMutateAsyncFunction, useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { getCookie, deleteCookie } from 'cookies-next';
 import { apiFetch, getErrorMessage } from '@util/util';
 import { PageProps } from './index';
 import { APIErrorCodes } from '@util/constants';
 import { useDisclosure } from '@mantine/hooks';
+import { useState } from 'react';
 
-async function confirmDeletionWithCode({
-  deletionCode,
-  toggleLoading,
-  mutate,
-}: {
-  deletionCode: string;
-  toggleLoading: () => void;
-  mutate: UseMutateAsyncFunction<
-    APIResponse<APIDeleteUserResponse>,
-    unknown,
-    {
-      code?: string | undefined;
-    },
-    unknown
-  >;
-}): Promise<boolean> {
-  toggleLoading();
-  const { error: errorDeleting, success: successfullyDeleted } = await mutate({
-    code: deletionCode,
-  });
-  toggleLoading();
-
-  if (successfullyDeleted) {
+async function notifyDeletionStatus({ status }: { status?: APIError | true }): Promise<void> {
+  if (status === true) {
     showNotification({
       title: 'Account Deleted',
       message: 'Your account has been successfully deleted.',
       color: 'green',
     });
-
-    return true;
-  } else if (errorDeleting) {
-    const { message, title } = getErrorMessage(errorDeleting?.code);
+  } else {
+    const { message, title } = getErrorMessage(status?.code ?? 'UNKNOWN');
 
     showNotification({
       message,
@@ -47,12 +25,12 @@ async function confirmDeletionWithCode({
       color: 'red',
     });
   }
-
-  return false;
 }
 
 export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
-  const [visible, { toggle: toggleLoading, open: enableLoading, close: disableLoading }] =
+  const [deletionCode, setDeletionCode] = useState('000000');
+
+  const [visible, { open: enableLoading, close: disableLoading }] =
     useDisclosure(false);
   // Not using @mantine/modals because of state management issues with loading overlay ^
   const [confirmModalOpened, { close: closeConfirmModal, open: openConfirmModal }] =
@@ -61,14 +39,19 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
     useDisclosure(false);
   const { push } = useRouter();
 
-  const { mutateAsync: mutateDeleteUser, isSuccess: isDeleteUserSuccessful } = useMutation({
-    mutationKey: ['deleteUser'],
-    mutationFn: ({ code }: { code?: string }) =>
-      apiFetch<APIDeleteUserResponse>(`/users/delete${code ? `?code=${code}` : ''}`, {
-        idToken: getCookie('idToken') as string,
-        method: 'DELETE',
-      }),
-  });
+  const fetcher = (url: string) =>
+    apiFetch<APIDeleteUserResponse>(url, {
+      idToken: getCookie('idToken')?.toString(),
+      method: 'DELETE',
+    });
+
+  // Verification code mutation
+  const { trigger: mutateVerificationCode } = useSWRMutation('/users/delete', fetcher);
+  // User deletion code mutation
+  const { trigger: mutateDeleteUser } = useSWRMutation(
+    `/users/delete?code=${deletionCode}`,
+    fetcher
+  );
 
   return (
     <>
@@ -104,11 +87,11 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
             color="red"
             onClick={async () => {
               enableLoading();
-              const { error } = await mutateDeleteUser({});
+              const response = await mutateVerificationCode();
               disableLoading();
 
-              if (error ?? !isDeleteUserSuccessful) {
-                const { message, title } = getErrorMessage(error?.code ?? 'UNKNOWN');
+              if (!response || response?.error) {
+                const { message, title } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
                 showNotification({
                   message,
                   title,
@@ -116,7 +99,7 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
                 });
 
                 // Handle 'auth/deletion-request-already-sent' error
-                if (error?.code !== APIErrorCodes[11]) return closeConfirmModal();
+                if (response?.error?.code !== APIErrorCodes[11]) return closeConfirmModal();
               }
 
               closeConfirmModal();
@@ -142,17 +125,21 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
             length={6}
             size="lg"
             onComplete={async (deletionCode) => {
+              setDeletionCode(deletionCode);
+
               enableLoading();
               // Confirm deletion with if statements + mutation checking on backend
-              const status = await confirmDeletionWithCode({
-                deletionCode,
-                toggleLoading,
-                mutate: mutateDeleteUser,
+              const response = await mutateDeleteUser();
+              disableLoading();
+
+              const status = response?.success || response?.error;
+              notifyDeletionStatus({
+                status,
               });
 
               closeConfirmModal();
               closeSubmitModal();
-              if (status) {
+              if (!status) {
                 deleteCookie('idToken');
                 push('/');
               }

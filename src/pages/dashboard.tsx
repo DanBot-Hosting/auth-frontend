@@ -1,11 +1,10 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { Title, Dialog, Stack, Text, Button, Divider, Loader } from '@mantine/core';
+import { Title, Dialog, Stack, Text, Button, Divider } from '@mantine/core';
 import { getCookie } from 'cookies-next';
 import { showNotification } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { apiFetch, getErrorMessage } from '@util/util';
 
 const DashboardLayout = dynamic(() =>
@@ -22,8 +21,6 @@ const DangerZoneSettings = dynamic(() =>
 );
 
 export default function Dashboard({ user }: { user: CombinedUser }) {
-  const router = useRouter();
-
   const [inputsDisabled, setInputsDisabled] = useState(true);
   const [emailDialogOpened, setEmailDialogOpened] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
@@ -45,17 +42,14 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
     }
   }, [loading, user?.dbUser.emailVerified]);
 
-  const { mutateAsync: mutateEmailVerification, isSuccess: isEmailVerificationSuccessful } =
-    useMutation({
-      mutationKey: ['verifyEmail'],
-      mutationFn: () => {
-        return apiFetch<{ emailSent: string }>(`/users/verifyEmail`, {
-          idToken: getCookie('idToken') as string,
-          method: 'POST',
-          body: '{}',
-        });
-      },
-    });
+  const { trigger: mutateEmailVerification } = useSWRMutation(
+    '/users/verifyEmail',
+    (key) => apiFetch<{ emailSent: string }>(key, {
+      idToken: getCookie('idToken') as string,
+      method: 'POST',
+      body: '{}',
+    })
+  );
 
   async function handleEmailVerify(e: any) {
     e.preventDefault();
@@ -63,11 +57,11 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
     try {
       setEmailSending(true);
 
-      const { success, error, data } = await mutateEmailVerification();
+      const response = await mutateEmailVerification();
 
-      if (!success ?? !isEmailVerificationSuccessful ?? !data) {
+      if (!response ?? !response?.success ?? !response?.data) {
         setEmailSending(false);
-        const { message, title } = getErrorMessage(error?.code);
+        const { message, title } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
         showNotification({
           message,
           title,
@@ -85,7 +79,6 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
       });
       return;
     } catch (err) {
-      console.error(err);
       setEmailSending(false);
       const { message, title } = getErrorMessage('UNKNOWN');
       showNotification({

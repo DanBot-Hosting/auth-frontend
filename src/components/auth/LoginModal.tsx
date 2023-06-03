@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { setCookie } from 'cookies-next';
 import { showNotification } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { useForm } from '@mantine/form';
 import { apiFetch, getErrorMessage } from '@util/util';
 import dayjs from 'dayjs';
@@ -27,7 +27,7 @@ type PageProps = { opened: boolean; setOpened: (opened: boolean) => void };
 
 export function LoginModal({ opened, setOpened }: PageProps) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const { push } = useRouter();
   const theme = useMantineTheme();
   const useStyles = createStyles({
     text: {
@@ -48,14 +48,14 @@ export function LoginModal({ opened, setOpened }: PageProps) {
     },
   });
 
-  const { mutateAsync, isSuccess } = useMutation({
-    mutationFn: ({ email, password }: { email: string; password: string }) => {
-      return apiFetch<APILoginResponse>('/auth/login', {
+  const { trigger } = useSWRMutation(
+    '/auth/login',
+    (key, { arg }: { arg: { email: string; password: string } }) =>
+      apiFetch<APILoginResponse>(key, {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
-      });
-    },
-  });
+        body: JSON.stringify(arg),
+      })
+  );
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -65,11 +65,11 @@ export function LoginModal({ opened, setOpened }: PageProps) {
     try {
       setLoading(true);
 
-      const { success, error, data } = await mutateAsync({ email, password });
+      const response = await trigger({ email, password });
 
-      if (!success ?? !isSuccess ?? !data) {
+      if (!response?.success ?? !response?.data) {
         setLoading(false);
-        const { message, title } = getErrorMessage(error?.code);
+        const { message, title } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
         showNotification({
           message,
           title,
@@ -78,12 +78,15 @@ export function LoginModal({ opened, setOpened }: PageProps) {
         return;
       }
 
-      const date = dayjs().add(1, 'month').toDate();
-      setCookie('idToken', data.idToken, { expires: date });
-      router.push('/dashboard');
+      const expires = dayjs().add(1, 'month').toDate();
+      setCookie('idToken', response.data.idToken, { expires });
+
+      // Push to dashboard takes time to load
+      setOpened(false);
+      push('/dashboard');
+
       setLoading(false);
     } catch (err) {
-      console.error(err);
       setLoading(false);
       const { message, title } = getErrorMessage('UNKNOWN');
       showNotification({

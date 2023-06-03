@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Stack, Title, Text, Group, PasswordInput, Button } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import useSWRMutation from 'swr/mutation';
 import { getCookie, setCookie } from 'cookies-next';
 import { apiFetch, getErrorMessage } from '@util/util';
 import type { PageProps } from './index';
@@ -14,31 +14,30 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-  const { mutateAsync, data, error, isSuccess } = useMutation({
-    mutationFn: () =>
-      apiFetch<APIResetPasswordResponse>('/users/password', {
-        method: 'PATCH',
-        idToken: getCookie('idToken') as string,
-        body: JSON.stringify({
-          email: user.dbUser.email,
-          currentPassword,
-          newPassword,
-        }),
+  const { trigger: mutateResetPassword } = useSWRMutation('/users/password', (key) =>
+    apiFetch<APIResetPasswordResponse>(key, {
+      method: 'PATCH',
+      idToken: getCookie('idToken') as string,
+      body: JSON.stringify({
+        email: user.dbUser.email,
+        currentPassword,
+        newPassword,
       }),
-  });
+    })
+  );
 
-  async function handlePasswordChange(e: any) {
-    e.preventDefault();
+  async function handlePasswordChange(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
 
     setLoading(true);
 
     try {
-     await mutateAsync();
+      const response = await mutateResetPassword();
       setLoading(false);
 
-      if (!data?.success) {
+      if (!response ?? !response?.success ?? response?.error) {
         setLoading(false);
-        const { title, message } = getErrorMessage(data?.error?.code ?? 'UNKNOWN');
+        const { title, message } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
         showNotification({
           title,
           message,
@@ -47,7 +46,7 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
         return;
       }
 
-      setCookie('idToken', data?.data.idToken);
+      setCookie('idToken', response.data.idToken);
 
       showNotification({
         title: 'Password Changed',
@@ -122,7 +121,7 @@ export function PasswordSettings({ user, inputsDisabled, loading, setLoading }: 
       </Stack>
 
       <Group mt="sm">
-        <Button color="green" disabled={inputsDisabled} onClick={(e) => handlePasswordChange(e)}>
+        <Button color="green" disabled={inputsDisabled} onClick={handlePasswordChange}>
           Update password
         </Button>
         <Button size="sm" variant="subtle" disabled={inputsDisabled}>
