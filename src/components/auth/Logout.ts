@@ -8,7 +8,7 @@ export async function logout() {
       method: 'POST',
       idToken: getCookie('idToken') as string,
       // Otherwise Bad Request
-      body: "{}"
+      body: '{}',
     });
 
     if (success) {

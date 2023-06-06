@@ -46,21 +46,19 @@ export function SignUpModal({ opened, setOpened }: PageProps) {
     },
   });
 
-  const { trigger } = useSWRMutation(
-    '/users/create',
-    (key) =>
-      apiFetch<APILoginResponse>(key, {
-        method: 'POST',
-        body: JSON.stringify({
-          firstName: form.values.firstName,
-          lastName: form.values.lastName,
-          email: form.values.email,
-          username: form.values.username,
-          avatarURL: form.values.avatarURL,
-          password: form.values.password,
-        }),
+  const { trigger } = useSWRMutation('/users/create', (key) =>
+    apiFetch<APILoginResponse>(key, {
+      method: 'POST',
+      body: JSON.stringify({
+        firstName: form.values.firstName,
+        lastName: form.values.lastName,
+        email: form.values.email,
+        username: form.values.username,
+        avatarURL: form.values.avatarURL,
+        password: form.values.password,
       }),
-  )
+    })
+  );
 
   async function handleSubmit(e: any) {
     e.preventDefault();
