@@ -30,8 +30,7 @@ async function notifyDeletionStatus({ status }: { status?: APIError | true }): P
 export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
   const [deletionCode, setDeletionCode] = useState('000000');
 
-  const [visible, { open: enableLoading, close: disableLoading }] =
-    useDisclosure(false);
+  const [visible, { open: enableLoading, close: disableLoading }] = useDisclosure(false);
   // Not using @mantine/modals because of state management issues with loading overlay ^
   const [confirmModalOpened, { close: closeConfirmModal, open: openConfirmModal }] =
     useDisclosure(false);
@@ -92,14 +91,15 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
 
               if (!response || response?.error) {
                 const { message, title } = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
+
+                // Handle 'auth/deletion-request-already-sent' error
+                if (response?.error?.code !== APIErrorCodes[11]) return closeConfirmModal();
+
                 showNotification({
                   message,
                   title,
                   color: 'red',
                 });
-
-                // Handle 'auth/deletion-request-already-sent' error
-                if (response?.error?.code !== APIErrorCodes[11]) return closeConfirmModal();
               }
 
               closeConfirmModal();
@@ -116,6 +116,7 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
         onClose={closeSubmitModal}
         closeOnEscape={false}
         closeOnClickOutside={false}
+        withCloseButton={false}
         title={<Title order={4}>Enter the deletion code sent to your email</Title>}
       >
         <LoadingOverlay visible={visible} zIndex={1001} />
@@ -137,13 +138,22 @@ export function DangerZoneSettings({ user, inputsDisabled }: PageProps) {
                 status,
               });
 
-              closeConfirmModal();
-              closeSubmitModal();
-              if (!status) {
-                deleteCookie('idToken');
-                push('/');
+              if (status === true) {
+                closeConfirmModal();
+                closeSubmitModal();
+                if (!status) {
+                  deleteCookie('idToken');
+                  push('/');
+                }
+                disableLoading();
               }
-              disableLoading();
+
+              const error = getErrorMessage(response?.error?.code ?? 'UNKNOWN');
+              showNotification({
+                message: error.message,
+                title: error.title,
+                color: 'red',
+              });
             }}
           />
         </Center>

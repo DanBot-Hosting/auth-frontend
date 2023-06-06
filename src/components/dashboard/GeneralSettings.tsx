@@ -5,14 +5,13 @@ import { Title, Stack, TextInput, Text, Button } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import useSWRMutation from 'swr/mutation';
 import { apiFetch, getErrorMessage } from '@util/util';
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import type { PageProps } from './index';
 
 const Loader = dynamic(() => import('@mantine/core').then((mod) => mod.Loader));
 
 export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: PageProps) {
-  const { push } = useRouter();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -39,6 +38,9 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       ),
       value: username,
       onChange: setUsername,
+      props: {
+        rightSection: loading && user.dbUser.username !== username && <Loader size="sm" />,
+      },
     },
     {
       label: (
@@ -48,6 +50,9 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       ),
       value: email,
       onChange: setEmail,
+      props: {
+        rightSection: loading && user.dbUser.email !== email && <Loader size="sm" />,
+      },
     },
     {
       label: (
@@ -57,6 +62,9 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       ),
       value: firstName,
       onChange: setFirstName,
+      props: {
+        rightSection: loading && user.dbUser.firstName !== firstName && <Loader size="sm" />,
+      },
     },
     {
       label: (
@@ -66,6 +74,9 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       ),
       value: lastName,
       onChange: setLastName,
+      props: {
+        rightSection: loading && user.dbUser.lastName !== lastName && <Loader size="sm" />,
+      },
     },
     {
       label: (
@@ -75,6 +86,9 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       ),
       value: avatarURL,
       onChange: setAvatarURL,
+      props: {
+        rightSection: loading && user.dbUser.avatarURL !== avatarURL && <Loader size="sm" />,
+      },
     },
   ];
 
@@ -86,7 +100,7 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       value={input.value}
       onChange={(e) => input.onChange(e.currentTarget.value)}
       disabled={inputsDisabled}
-      rightSection={loading && <Loader size="sm" />}
+      {...input.props}
     />
   ));
 
@@ -126,6 +140,7 @@ export function GeneralSettings({ user, inputsDisabled, loading, setLoading }: P
       }
 
       const date = dayjs().add(1, 'month').toDate();
+      deleteCookie('idToken'); // cookie has to be deleted before it can be set again because directly overwriting/setting the cookie causes invalid jwt format
       setCookie('idToken', response.data.idToken, { expires: date });
 
       setLoading(false);

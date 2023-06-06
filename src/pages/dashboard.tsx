@@ -21,19 +21,21 @@ const DangerZoneSettings = dynamic(() =>
 );
 
 export default function Dashboard({ user }: { user: CombinedUser }) {
-  const [inputsDisabled, setInputsDisabled] = useState(true);
+  const [inputsDisabled, setInputsDisabled] = useState(false);
   const [emailDialogOpened, setEmailDialogOpened] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  /**
   useEffect(() => {
     // Add "?" for asynchronous cases
     if (!user?.dbUser.emailVerified) {
-      setInputsDisabled(true);
-      setEmailDialogOpened(true);
+     // setInputsDisabled(true);
+    //  setEmailDialogOpened(true);
     }
   }, [user?.dbUser.emailVerified]);
 
+  */
   useEffect(() => {
     if (loading) {
       setInputsDisabled(true);
@@ -41,7 +43,6 @@ export default function Dashboard({ user }: { user: CombinedUser }) {
       setInputsDisabled(false);
     }
   }, [loading, user?.dbUser.emailVerified]);
-
   const { trigger: mutateEmailVerification } = useSWRMutation(
     '/users/verifyEmail',
     (key) => apiFetch<{ emailSent: string }>(key, {
