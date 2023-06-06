@@ -1,0 +1,21 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+        - main
+      jobs:
+            deploy:
+              name: deploy
+              runs-on: ubuntu-latest
+              
+              steps:
+              - name: install ssh keys
+                run: |
+                  install -m 600 -D /dev/null ~/.ssh/id_rsa
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+                  ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+              - name: connect and pull
+                run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /root/auth-server-beta && git checkout main && git pull && yarn && pm2 restart 0 && exit"
+              - name: cleanup
+                run: rm -rf ~/.ssh
