@@ -4,10 +4,12 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { css } from "@styles/css";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { footerData } from "@/utils/constants";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: '--font-inter',
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -34,6 +36,7 @@ export default function RootLayout({
         <div className={mode}>
           <Header />
           {children}
+          <Footer footerData={footerData} />
         </div>
       </body>
     </html>
