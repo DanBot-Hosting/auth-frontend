@@ -33,6 +33,8 @@ function generateOpacities(
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
+  // Whether to update the .gitignore file.
+  gitignore: true,
 
   // Where to look for your css declarations
   include: [
@@ -65,11 +67,6 @@ export default defineConfig({
           "hsl(224.3, 45.1%, 90%)",
           "hsl(224.3, 45.1%, 10%)"
         ),
-      },
-    },
-    tokens: {
-      fonts: {
-        body: { value: "system-ui, sans-serif" },
       },
     },
   },
