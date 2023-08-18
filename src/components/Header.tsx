@@ -1,8 +1,7 @@
-"use client";
 import { css, cx } from "@styles/css";
 import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDown } from "@/utils/icons";
 import { token } from "@styles/tokens";
 
 interface UserHeaderData {

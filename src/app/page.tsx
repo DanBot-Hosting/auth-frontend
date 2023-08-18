@@ -1,7 +1,9 @@
+import { ToggleTheme } from "@/components/ToggleTheme";
+
 export default function Home() {
   return (
     <main>
-      yes
+      <ToggleTheme />
     </main>
   );
 }

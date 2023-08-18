@@ -1,6 +1,7 @@
 import "./global.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import { css } from "@styles/css";
 import { Header } from "@/components/Header";
 
@@ -24,8 +25,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const theme = cookieStore.get("theme")?.value ?? "light";
+
   return (
-    <html lang="en" data-color-mode="dark">
+    <html lang="en" data-color-mode={theme}>
       <body className={inter.className}>
         <div className={mode}>
           <Header />
