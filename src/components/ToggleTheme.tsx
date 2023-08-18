@@ -105,23 +105,8 @@ const shadow = css({
 });
 
 export function ToggleTheme() {
-  function getCookie(name: string) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-  }
-
-  function fireTransition() {
-    const mode = getCookie("theme");
-
-    const toggled = mode === "dark" ? "light" : "dark";
-    document.querySelector("html")?.setAttribute("data-color-mode", toggled);
-
-    toggleTheme();
-  }
-
   return (
-    <div className={themeButton} onClick={fireTransition}>
+    <div className={themeButton} onClick={() => toggleTheme()}>
       <Moon size={24} weight="fill" className={moon} id="moon" />
       <Sun size={24} weight="fill" className={sun} id="sun" />
       <div className={shadow} />

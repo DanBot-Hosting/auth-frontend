@@ -26,9 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = cookies();
+  const theme = cookieStore.get("theme")?.value ?? "light";
 
-  // const theme = cookieStore.get("theme")?.value ?? "light";
-  const theme = "light";
   return (
     <html lang="en" data-color-mode={theme}>
       <body className={inter.className}>
