@@ -1,10 +1,10 @@
 import { css } from "@styles/css";
 
-export function SimpleLogo() {
-  const fillColor = css({
-    fill: "text.100",
-  });
+const fillColor = css({
+  fill: "text.100",
+});
 
+export function SimpleLogo() {
   return (
     <svg
       width="50"
