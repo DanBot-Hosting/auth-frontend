@@ -86,7 +86,7 @@ export function Header({
 
   const userManagement = (
     <span className={cx(part, signSection)}>
-      <Avatar width={40} height={40} src={user.avatarUrl} alt={user.username} />
+      <Avatar size={40} src={user.avatarUrl} alt={user.username} />
       <CaretDown size={18} weight="light" color={token("colors.text.50")} />
       <div />
     </span>
