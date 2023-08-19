@@ -11,7 +11,6 @@ const footer = css({
   overflow: "hidden",
 
   background: "pillbackground.10",
-  backdropFilter: "blur(10px)",
 });
 
 const column = css({

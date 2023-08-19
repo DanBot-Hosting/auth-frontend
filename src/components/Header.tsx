@@ -3,6 +3,7 @@ import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
 import { CaretDown } from "@/utils/icons";
 import { token } from "@styles/tokens";
+import { headerData } from "@/utils/constants";
 
 interface UserHeaderData {
   username: string;
@@ -33,6 +34,13 @@ const logo = css({
   flexDir: "column",
   justifyContent: "center",
   alignItems: "center",
+  cursor: "pointer",
+  transition: "filter .2s ease-in-out",
+
+  _hover: {
+    filter: "drop-shadow(0 0 8px token(colors.text.20))",
+    transition: "filter .2s ease-in-out",
+  }
 });
 
 const button = css({
@@ -49,6 +57,12 @@ const button = css({
 
 const additionalLink = css({
   color: "text.60",
+  transition: "color .3s ease-in-out",
+
+  _hover: {
+    color: "text.90",
+    transition: "color .3s ease-in-out",
+  }
 });
 
 const signSection = css({
@@ -56,6 +70,10 @@ const signSection = css({
   justifyContent: "center",
   alignItems: "center",
   gap: "0.625rem",
+});
+
+const account = css({
+  cursor: "pointer",
 });
 
 const secondaryButton = css({
@@ -85,7 +103,7 @@ export function Header({
   );
 
   const userManagement = (
-    <span className={cx(part, signSection)}>
+    <span className={cx(part, signSection, account)}>
       <Avatar width={40} height={40} src={user.avatarUrl} alt={user.username} />
       <CaretDown size={18} weight="light" color={token("colors.text.50")} />
       <div />
@@ -95,11 +113,14 @@ export function Header({
   return (
     <div className={header}>
       <span className={part}>
-        <a className={logo}>
+        <a className={logo} href="/">
           <SimpleLogo />
         </a>
-        <a className={cx(additionalLink, button)}>Panel</a>
-        <a className={cx(additionalLink, button)}>Discord</a>
+        {Object.keys(headerData).map((key, i) => (
+          <a key={i} className={cx(additionalLink, button)} href={headerData[key]}>
+            {key}
+          </a>
+        ))}
       </span>
       {user ? userManagement : signManagement}
     </div>
