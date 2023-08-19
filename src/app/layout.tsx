@@ -36,7 +36,7 @@ const wrapper = css({
   // Literally makes 200% better
   // And also is considered my personal hacky way to fix
   // "Parent element overflow hidden for position fixed child"
-  clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+  clipPath: "inset(0)",
 
   bg: "background.100",
 });
