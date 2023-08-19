@@ -33,6 +33,11 @@ const wrapper = css({
   minHeight: "100vh",
   zIndex: "1",
 
+  // Literally makes 200% better
+  // And also is considered my personal hacky way to fix
+  // "Parent element overflow hidden for position fixed child"
+  clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+
   bg: "background.100",
 });
 
@@ -42,6 +47,17 @@ const main = css({
   margin: "0 auto",
   position: "relative",
   zIndex: "2",
+});
+
+const mesh = css({
+  "& > canvas": {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    zIndex: "1",
+  }
 });
 
 const footer = css({
@@ -85,7 +101,9 @@ export default function RootLayout({
           <Header />
         </header>
         <div className={wrapper}>
-          <Mesh />
+          <div className={mesh}>
+            <Mesh />
+          </div>
           <main className={main}>
             {children}
           </main>

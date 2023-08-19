@@ -3,7 +3,6 @@ import { css, cx } from "@styles/css";
 import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
 import { CaretDown } from "@/utils/icons";
-import { token } from "@styles/tokens";
 import { headerData } from "@/utils/constants";
 import { useRef } from "react";
 import Link from "next/link";
