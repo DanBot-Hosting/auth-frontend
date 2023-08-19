@@ -59,7 +59,7 @@ const gear = css({
   _groupHover: {
     color: "hsla(0, 0%, 98%, 0.8)",
     transition: "color .20s ease-in-out",
-  }
+  },
 });
 
 export function Avatar({ alt, configurable, size, ...props }: AvatarProps) {
