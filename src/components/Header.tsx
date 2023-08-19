@@ -6,6 +6,7 @@ import { CaretDown } from "@/utils/icons";
 import { token } from "@styles/tokens";
 import { headerData } from "@/utils/constants";
 import { useRef } from "react";
+import Link from "next/link";
 
 interface UserHeaderData {
   username: string;
@@ -144,17 +145,17 @@ export function Header({
   return (
     <div className={header}>
       <span className={part}>
-        <a className={logo} href="/">
+        <Link className={logo} href="/">
           <SimpleLogo />
-        </a>
+        </Link>
         {Object.keys(headerData).map((key, i) => (
-          <a
+          <Link
             key={i}
             className={cx(additionalLink, button)}
             href={headerData[key]}
           >
             {key}
-          </a>
+          </Link>
         ))}
       </span>
       {user ? userManagement : signManagement}

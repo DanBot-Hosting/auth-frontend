@@ -1,5 +1,6 @@
 import { css } from "@styles/css";
 import { FooterData } from "@/utils/constants";
+import Link from "next/link";
 
 const footer = css({
   display: "flex",
@@ -76,7 +77,7 @@ export function Footer({ footerData }: { footerData: FooterData }) {
             <ul className={links}>
               {footerData[key as keyof FooterData].map((update, i) => (
                 <li key={i} className={listItem}>
-                  <a href={update.link} className={anchor}>{update.label}</a>
+                  <Link href={update.link} className={anchor}>{update.label}</Link>
                 </li>
               ))}
             </ul>
