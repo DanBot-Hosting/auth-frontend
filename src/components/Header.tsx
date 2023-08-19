@@ -55,7 +55,7 @@ const button = css({
   alignItems: "center",
 
   borderRadius: "0.625rem",
-  fontWeight: "500",
+  fontWeight: "400",
 });
 
 const additionalLink = css({
