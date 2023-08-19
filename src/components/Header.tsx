@@ -1,9 +1,11 @@
+"use client";
 import { css, cx } from "@styles/css";
 import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
 import { CaretDown } from "@/utils/icons";
 import { token } from "@styles/tokens";
 import { headerData } from "@/utils/constants";
+import { useRef } from "react";
 
 interface UserHeaderData {
   username: string;
@@ -40,7 +42,7 @@ const logo = css({
   _hover: {
     filter: "drop-shadow(0 0 8px token(colors.text.20))",
     transition: "filter .2s ease-in-out",
-  }
+  },
 });
 
 const button = css({
@@ -62,7 +64,7 @@ const additionalLink = css({
   _hover: {
     color: "text.90",
     transition: "color .3s ease-in-out",
-  }
+  },
 });
 
 const signSection = css({
@@ -74,6 +76,19 @@ const signSection = css({
 
 const account = css({
   cursor: "pointer",
+});
+
+const caret = css({
+  color: "text.50",
+  transition: "transform .15s ease-in-out",
+
+  "&[data-active=\"true\"]": {
+    // Rotate -180 degrees instead of 180 degrees
+    // In order to have transition rotating
+    // counter-clockwise
+    transform: "rotate(-180deg)",
+    transition: "transform .15s ease-in-out",
+  }
 });
 
 const secondaryButton = css({
@@ -95,18 +110,34 @@ export function Header({
 }: {
   user?: UserHeaderData;
 }) {
+  const caretRef = useRef<SVGSVGElement>(null);
+
+  function showAccountDropdown() {
+    const currentVisibility = caretRef.current?.getAttribute("data-active");
+    caretRef.current?.setAttribute(
+      "data-active",
+      (!(currentVisibility === "true"))?.toString()
+    );
+  }
+
+  const userManagement = (
+    <span className={cx(part, signSection, account)} onClick={showAccountDropdown}>
+      <Avatar width={40} height={40} src={user.avatarUrl} alt={user.username} />
+      <CaretDown
+        size={18}
+        weight="light"
+        className={caret}
+        ref={caretRef}
+        data-active="false"
+      />
+      <div />
+    </span>
+  );
+
   const signManagement = (
     <span className={cx(part, signSection)}>
       <div className={cx(secondaryButton, button)}>Sign in</div>
       <div className={cx(primaryButton, button)}>Register</div>
-    </span>
-  );
-
-  const userManagement = (
-    <span className={cx(part, signSection, account)}>
-      <Avatar width={40} height={40} src={user.avatarUrl} alt={user.username} />
-      <CaretDown size={18} weight="light" color={token("colors.text.50")} />
-      <div />
     </span>
   );
 
@@ -117,7 +148,11 @@ export function Header({
           <SimpleLogo />
         </a>
         {Object.keys(headerData).map((key, i) => (
-          <a key={i} className={cx(additionalLink, button)} href={headerData[key]}>
+          <a
+            key={i}
+            className={cx(additionalLink, button)}
+            href={headerData[key]}
+          >
             {key}
           </a>
         ))}
