@@ -82,13 +82,13 @@ const caret = css({
   color: "text.50",
   transition: "transform .15s ease-in-out",
 
-  "&[data-active=\"true\"]": {
+  '&[data-active="true"]': {
     // Rotate -180 degrees instead of 180 degrees
     // In order to have transition rotating
     // counter-clockwise
     transform: "rotate(-180deg)",
     transition: "transform .15s ease-in-out",
-  }
+  },
 });
 
 const secondaryButton = css({
@@ -121,8 +121,11 @@ export function Header({
   }
 
   const userManagement = (
-    <span className={cx(part, signSection, account)} onClick={showAccountDropdown}>
-      <Avatar width={40} height={40} src={user.avatarUrl} alt={user.username} />
+    <span
+      className={cx(part, signSection, account)}
+      onClick={showAccountDropdown}
+    >
+      <Avatar size={40} src={user.avatarUrl} alt={user.username} />
       <CaretDown
         size={18}
         weight="light"
