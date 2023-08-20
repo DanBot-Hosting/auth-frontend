@@ -1,10 +1,3 @@
-export type FooterData = Record<string, FooterLink[]>;
-
-interface FooterLink {
-  label: string;
-  link: string;
-}
-
 export const footerData: FooterData = {
   updates: [
     {
@@ -38,3 +31,8 @@ export const footerData: FooterData = {
     },
   ],
 };
+
+export const headerData: HeaderData = {
+  Panel: "https://panel.danbot.host",
+  Discord: "https://discord.com/invite/dbh",
+}

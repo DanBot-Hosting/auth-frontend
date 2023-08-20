@@ -1,8 +1,12 @@
+"use client";
 import { css, cx } from "@styles/css";
 import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
+import { Dropdown } from "@/components/Dropdown";
 import { CaretDown } from "@/utils/icons";
-import { token } from "@styles/tokens";
+import { headerData } from "@/utils/constants";
+import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 interface UserHeaderData {
   username: string;
@@ -20,6 +24,12 @@ const header = css({
   borderRadius: "1.25rem",
   bg: "pillbackground.10",
   backdropFilter: "blur(5px)",
+
+  "@media screen and (max-width: 500px)": {
+    width: "calc(100vw - 1.25rem)",
+    justifyContent: "space-between",
+    gap: "0",
+  },
 });
 
 const part = css({
@@ -33,6 +43,13 @@ const logo = css({
   flexDir: "column",
   justifyContent: "center",
   alignItems: "center",
+  cursor: "pointer",
+  transition: "filter .2s ease-in-out",
+
+  _hover: {
+    filter: "drop-shadow(0 0 8px token(colors.text.20))",
+    transition: "filter .2s ease-in-out",
+  },
 });
 
 const button = css({
@@ -42,13 +59,24 @@ const button = css({
   flexDir: "column",
   justifyContent: "center",
   alignItems: "center",
+  userSelect: "none",
 
   borderRadius: "0.625rem",
-  fontWeight: "500",
+  fontWeight: "400",
 });
 
 const additionalLink = css({
   color: "text.60",
+  transition: "color .3s ease-in-out",
+
+  _hover: {
+    color: "text.90",
+    transition: "color .3s ease-in-out",
+  },
+
+  "@media screen and (max-width: 500px)": {
+    display: "none",
+  },
 });
 
 const signSection = css({
@@ -56,6 +84,23 @@ const signSection = css({
   justifyContent: "center",
   alignItems: "center",
   gap: "0.625rem",
+});
+
+const account = css({
+  cursor: "pointer",
+});
+
+const caret = css({
+  color: "text.50",
+  transition: "transform .15s ease-in-out",
+
+  "&[data-active]": {
+    // Rotate -180 degrees instead of 180 degrees
+    // In order to have transition rotating
+    // counter-clockwise
+    transform: "rotate(-180deg)",
+    transition: "transform .15s ease-in-out",
+  },
 });
 
 const secondaryButton = css({
@@ -69,6 +114,24 @@ const primaryButton = css({
   color: "background.100",
 });
 
+const dropdown = css({
+  position: "absolute",
+  top: "calc(100% + 0.625rem)",
+  right: "-1.25rem",
+
+  opacity: "0",
+  scale: ".8",
+  pointerEvents: "none",
+  transition: "opacity .15s ease-in-out, scale .15s ease-in-out",
+
+  '&[data-active="true"]': {
+    opacity: "1",
+    scale: "1",
+    pointerEvents: "unset",
+    transition: "opacity .15s ease-in-out, scale .15s ease-in-out",
+  },
+});
+
 export function Header({
   user = {
     username: "domin",
@@ -77,6 +140,55 @@ export function Header({
 }: {
   user?: UserHeaderData;
 }) {
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const caretRef = useRef<SVGSVGElement | null>(null);
+
+  useEffect(() => {
+    document.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") hideAccountDropdown();
+    });
+  }, []);
+
+  function toggleAccountDropdown() {
+    const currentVisibility = caretRef.current?.getAttribute("data-active");
+    if (!currentVisibility) {
+      caretRef.current?.setAttribute("data-active", "true");
+      dropdownRef.current?.setAttribute("data-active", "true");
+      return;
+    }
+    caretRef.current?.removeAttribute("data-active");
+    dropdownRef.current?.removeAttribute("data-active");
+  }
+
+  function hideAccountDropdown() {
+    caretRef.current?.removeAttribute("data-active");
+    dropdownRef.current?.removeAttribute("data-active");
+  }
+
+  const userManagement = (
+    <span
+      className={cx(part, signSection, account)}
+      onClick={toggleAccountDropdown}
+    >
+      <Avatar size={40} src={user.avatarUrl} alt={user.username} />
+      <CaretDown
+        size={18}
+        weight="light"
+        className={caret}
+        ref={caretRef}
+      />
+      <div />
+      <div className={dropdown} ref={dropdownRef}>
+        <Dropdown
+          links={[
+            { label: "Settings", link: "/settings" },
+          ]}
+          onTabClick={hideAccountDropdown}
+        />
+      </div>
+    </span>
+  );
+
   const signManagement = (
     <span className={cx(part, signSection)}>
       <div className={cx(secondaryButton, button)}>Sign in</div>
@@ -84,22 +196,21 @@ export function Header({
     </span>
   );
 
-  const userManagement = (
-    <span className={cx(part, signSection)}>
-      <Avatar size={40} src={user.avatarUrl} alt={user.username} />
-      <CaretDown size={18} weight="light" color={token("colors.text.50")} />
-      <div />
-    </span>
-  );
-
   return (
     <div className={header}>
       <span className={part}>
-        <a className={logo}>
+        <Link className={logo} href="/">
           <SimpleLogo />
-        </a>
-        <a className={cx(additionalLink, button)}>Panel</a>
-        <a className={cx(additionalLink, button)}>Discord</a>
+        </Link>
+        {Object.keys(headerData).map((key, i) => (
+          <Link
+            key={i}
+            className={cx(additionalLink, button)}
+            href={headerData[key]}
+          >
+            {key}
+          </Link>
+        ))}
       </span>
       {user ? userManagement : signManagement}
     </div>

@@ -1,4 +1,4 @@
-import { defineConfig } from "@pandacss/dev";
+import { defineConfig, defineRecipe } from "@pandacss/dev";
 
 function hslToHsla(opacity: number, hsl: string) {
   return hsl.replace("hsl", "hsla").slice(0, -1) + `, ${opacity / 100})`;
@@ -52,7 +52,22 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      // Mesh recipe to declare a non-atomic class
+      // see: https://discord.com/channels/1118988919804010566/1120305029056831548/1142387960227057667
+      // from: https://discord.gg/VQrkpsgSx7
+      recipes: {
+        mesh: {
+          className: "mesh",
+          base: {
+            "--gradient-color-1": "token(colors.mesh.1)",
+            "--gradient-color-2": "token(colors.mesh.1)",
+            "--gradient-color-3": "token(colors.mesh.1)",
+            "--gradient-color-4": "token(colors.mesh.2)",
+          },
+        },
+      },
+    },
     semanticTokens: {
       colors: {
         pillbackground: generateOpacities("hsl(0, 0%, 2%)", "hsl(0, 0%, 98%)"),
@@ -67,6 +82,21 @@ export default defineConfig({
           "hsl(224.3, 45.1%, 90%)",
           "hsl(224.3, 45.1%, 10%)"
         ),
+        // Custom semantic token for mesh because module only accepts hex
+        mesh: {
+          1: {
+            value: {
+              _dark: { value: "#050505" },
+              _light: { value: "#FAFAFA" },
+            },
+          },
+          2: {
+            value: {
+              _dark: { value: "#10121A" },
+              _light: { value: "#ECEFF7" },
+            },
+          },
+        },
       },
     },
   },
