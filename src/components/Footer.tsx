@@ -1,5 +1,4 @@
 import { css } from "@styles/css";
-import { FooterData } from "@/utils/constants";
 import Link from "next/link";
 
 const footer = css({

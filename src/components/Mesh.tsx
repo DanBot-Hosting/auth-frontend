@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import { Gradient } from "@/utils/mesh";
-import { css, cx } from "@styles/css";
 import { mesh } from "@styles/recipes";
 
 export function Mesh() {
