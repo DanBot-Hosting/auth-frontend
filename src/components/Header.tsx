@@ -24,6 +24,12 @@ const header = css({
   borderRadius: "1.25rem",
   bg: "pillbackground.10",
   backdropFilter: "blur(5px)",
+
+  "@media screen and (max-width: 500px)": {
+    width: "calc(100vw - 1.25rem)",
+    justifyContent: "space-between",
+    gap: "0",
+  },
 });
 
 const part = css({
@@ -66,6 +72,10 @@ const additionalLink = css({
   _hover: {
     color: "text.90",
     transition: "color .3s ease-in-out",
+  },
+
+  "@media screen and (max-width: 500px)": {
+    display: "none",
   },
 });
 

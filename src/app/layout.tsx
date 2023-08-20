@@ -26,6 +26,10 @@ const header = css({
   left: "50%",
   transform: "translateX(-50%)",
   zIndex: "3",
+
+  "@media screen and (max-width: 500px)": {
+    top: "0.625rem",
+  },
 });
 
 const wrapper = css({
@@ -42,6 +46,7 @@ const wrapper = css({
 });
 
 const main = css({
+  padding: "0.9375rem",
   paddingTop: "6.25rem",
   maxWidth: "62.5rem",
   margin: "0 auto",

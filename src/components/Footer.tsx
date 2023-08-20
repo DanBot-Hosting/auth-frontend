@@ -20,6 +20,10 @@ const column = css({
   justifyContent: "center",
   alignItems: "flex-start",
   gap: "0.9375rem",
+
+  "@media screen and (max-width: 500px)": {
+    alignItems: "center",
+  },
 });
 
 const links = css({
@@ -27,21 +31,35 @@ const links = css({
   flexDir: "column",
   alignItems: "flex-start",
   gap: "0.3125rem",
+
+  "@media screen and (max-width: 500px)": {
+    alignItems: "center",
+  },
 })
 
 const footerLogo = css({
-  fontSize: "4rem",
+  fontSize: "12vw",
   fontWeight: 700,
   color: "text.80",
   lineHeight: "1.5625rem",
   userSelect: "none",
+  whiteSpace: "nowrap",
+
+  "@media screen and (min-width: 501px)": {
+    fontSize: "4rem",
+  },
 });
 
 const columns = css({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  gap: "60px",
+  gap: "3.75rem",
+
+  "@media screen and (max-width: 500px)": {
+    flexDir: "column",
+    gap: "1.5rem",
+  },
 });
 
 const columnTitle = css({
@@ -49,6 +67,10 @@ const columnTitle = css({
   fontWeight: 300,
   fontSize: "0.875rem",
   textTransform: "uppercase",
+
+  "@media screen and (max-width: 500px)": {
+    textAlign: "center",
+  },
 });
 
 const listItem = css({
@@ -65,6 +87,10 @@ const anchor = css({
   _hover: {
     color: "text.100",
     transition: "color .5s ease-in-out",
+  },
+
+  "@media screen and (max-width: 500px)": {
+    textAlign: "center",
   },
 });
 
