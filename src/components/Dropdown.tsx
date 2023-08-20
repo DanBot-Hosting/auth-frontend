@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 interface DropdownProps {
   links: Link[];
+  onTabClick?: () => void;
 }
 
 const dropdown = css({
@@ -76,7 +77,7 @@ function getElementInnerLeftOffset(element: HTMLDivElement): number {
   return parseFloat(computed.paddingLeft);
 }
 
-export function Dropdown({ links }: DropdownProps) {
+export function Dropdown({ links, onTabClick }: DropdownProps) {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const pathname = usePathname();
@@ -149,6 +150,7 @@ export function Dropdown({ links }: DropdownProps) {
         <Link
           key={i}
           href={link.link}
+          onClick={onTabClick}
           ref={(ref) => linksRef.current.push(ref)}
           onMouseEnter={(event) => changePosition(event.currentTarget)}
           onMouseOut={returnPosition}

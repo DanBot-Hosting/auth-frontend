@@ -2,9 +2,10 @@
 import { css, cx } from "@styles/css";
 import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
+import { Dropdown } from "@/components/Dropdown";
 import { CaretDown } from "@/utils/icons";
 import { headerData } from "@/utils/constants";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 interface UserHeaderData {
@@ -82,7 +83,7 @@ const caret = css({
   color: "text.50",
   transition: "transform .15s ease-in-out",
 
-  '&[data-active="true"]': {
+  "&[data-active]": {
     // Rotate -180 degrees instead of 180 degrees
     // In order to have transition rotating
     // counter-clockwise
@@ -102,6 +103,24 @@ const primaryButton = css({
   color: "background.100",
 });
 
+const dropdown = css({
+  position: "absolute",
+  top: "calc(100% + 0.625rem)",
+  right: "-1.25rem",
+
+  opacity: "0",
+  scale: ".8",
+  pointerEvents: "none",
+  transition: "opacity .15s ease-in-out, scale .15s ease-in-out",
+
+  '&[data-active="true"]': {
+    opacity: "1",
+    scale: "1",
+    pointerEvents: "unset",
+    transition: "opacity .15s ease-in-out, scale .15s ease-in-out",
+  },
+});
+
 export function Header({
   user = {
     username: "domin",
@@ -110,20 +129,35 @@ export function Header({
 }: {
   user?: UserHeaderData;
 }) {
-  const caretRef = useRef<SVGSVGElement>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const caretRef = useRef<SVGSVGElement | null>(null);
 
-  function showAccountDropdown() {
+  useEffect(() => {
+    document.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") hideAccountDropdown();
+    });
+  }, []);
+
+  function toggleAccountDropdown() {
     const currentVisibility = caretRef.current?.getAttribute("data-active");
-    caretRef.current?.setAttribute(
-      "data-active",
-      (!(currentVisibility === "true"))?.toString()
-    );
+    if (!currentVisibility) {
+      caretRef.current?.setAttribute("data-active", "true");
+      dropdownRef.current?.setAttribute("data-active", "true");
+      return;
+    }
+    caretRef.current?.removeAttribute("data-active");
+    dropdownRef.current?.removeAttribute("data-active");
+  }
+
+  function hideAccountDropdown() {
+    caretRef.current?.removeAttribute("data-active");
+    dropdownRef.current?.removeAttribute("data-active");
   }
 
   const userManagement = (
     <span
       className={cx(part, signSection, account)}
-      onClick={showAccountDropdown}
+      onClick={toggleAccountDropdown}
     >
       <Avatar size={40} src={user.avatarUrl} alt={user.username} />
       <CaretDown
@@ -131,9 +165,16 @@ export function Header({
         weight="light"
         className={caret}
         ref={caretRef}
-        data-active="false"
       />
       <div />
+      <div className={dropdown} ref={dropdownRef}>
+        <Dropdown
+          links={[
+            { label: "Settings", link: "/settings" },
+          ]}
+          onTabClick={hideAccountDropdown}
+        />
+      </div>
     </span>
   );
 
