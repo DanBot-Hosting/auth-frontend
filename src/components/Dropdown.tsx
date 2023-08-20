@@ -32,6 +32,7 @@ const option = css({
   alignItems: "center",
   alignSelf: "stretch",
   zIndex: "4",
+  userSelect: "none",
 
   borderRadius: "0.625rem",
   color: "text.60",

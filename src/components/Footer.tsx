@@ -34,6 +34,7 @@ const footerLogo = css({
   fontWeight: 700,
   color: "text.80",
   lineHeight: "1.5625rem",
+  userSelect: "none",
 });
 
 const columns = css({
@@ -59,6 +60,7 @@ const anchor = css({
   fontWeight: 300,
   fontSize: "0.875rem",
   transition: "color .5s ease-in-out",
+  userSelect: "none",
 
   _hover: {
     color: "text.100",

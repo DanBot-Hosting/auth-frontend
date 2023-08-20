@@ -53,6 +53,7 @@ const button = css({
   flexDir: "column",
   justifyContent: "center",
   alignItems: "center",
+  userSelect: "none",
 
   borderRadius: "0.625rem",
   fontWeight: "400",
