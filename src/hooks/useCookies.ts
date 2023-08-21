@@ -7,6 +7,7 @@ interface SetOptions {
 
 export function useCookies() {
   function get(key: string) {
+    if (typeof document === "undefined") return "dark";
     let cookies = document.cookie.split(/;\s*/);
 
     for (let cookie of cookies) {

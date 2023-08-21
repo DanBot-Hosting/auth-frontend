@@ -8,9 +8,14 @@ import { Footer } from "@/components/Footer";
 import { footerData } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
-import { WebsiteLoadingOverlay, loadingScrollbar, onWebsiteLoad } from "@/components/WebsiteLoadingOverlay";
+import {
+  WebsiteLoadingOverlay,
+  loadingScrollbar,
+  onWebsiteLoad,
+} from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,7 +70,7 @@ const mesh = css({
     width: "100%",
     height: "100%",
     zIndex: "1",
-  }
+  },
 });
 
 const footer = css({
@@ -121,7 +126,11 @@ export default function RootLayout({
   const theme = cookieStore.get("theme") ?? "light";
 
   return (
-    <html lang="en" data-color-mode={theme} className={cx(scrollbar, loadingScrollbar)}>
+    <html
+      lang="en"
+      data-color-mode={theme}
+      className={cx(scrollbar, loadingScrollbar)}
+    >
       <body className={cx(inter.className, body)}>
         <header className={header}>
           <Header />
@@ -130,9 +139,7 @@ export default function RootLayout({
           <div className={mesh}>
             <Mesh onLoad={onWebsiteLoad} />
           </div>
-          <main className={main}>
-            {children}
-          </main>
+          <main className={main}>{children}</main>
           <div className={affix}>
             <ToggleTheme />
           </div>
@@ -143,6 +150,21 @@ export default function RootLayout({
           <Footer footerData={footerData} />
         </footer>
         <WebsiteLoadingOverlay />
+        {/** Tricky way to have themes & static site generation at the same time (no serverside) */}
+        {/** @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 beforeInteractive strategy} */}
+        {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
+        <Script
+          id="theme-setup"
+          strategy="beforeInteractive"
+          async
+          dangerouslySetInnerHTML={{
+            __html: `const theme = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("theme="));
+        const value = theme ? theme.split("=")[1] : "light";
+        document.documentElement.setAttribute("data-color-mode", value)`,
+          }}
+        />
       </body>
     </html>
   );
