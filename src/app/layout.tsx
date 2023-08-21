@@ -1,13 +1,15 @@
+"use client";
 import "./global.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { cookies } from "next/headers";
 import { css, cx } from "@styles/css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { footerData } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
+import { WebsiteLoadingOverlay, loadingScrollbar, onWebsiteLoad } from "@/components/WebsiteLoadingOverlay";
+import { useCookies } from "@/hooks/useCookies";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -86,6 +88,24 @@ const affix = css({
   zIndex: "3",
 });
 
+const scrollbar = css({
+  "&::-webkit-scrollbar": {
+    width: "0.5rem",
+    height: "0.5rem",
+  },
+
+  "&::-webkit-scrollbar-thumb": {
+    bg: "text.10",
+  },
+
+  "&::-webkit-scrollbar-track": {
+    bg: "background.100",
+  },
+
+  scrollbarWidth: "thin",
+  scrollbarColor: "token(colors.text.10) token(colors.background.100)",
+});
+
 const body = css({
   bg: "background.100",
   color: "text.100",
@@ -96,18 +116,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-  const theme = cookieStore.get("theme")?.value ?? "light";
+  const cookieStore = useCookies();
+  const theme = cookieStore.get("theme") ?? "light";
 
   return (
-    <html lang="en" data-color-mode={theme}>
+    <html lang="en" data-color-mode={theme} className={cx(scrollbar, loadingScrollbar)}>
       <body className={cx(inter.className, body)}>
         <header className={header}>
           <Header />
         </header>
         <div className={wrapper}>
           <div className={mesh}>
-            <Mesh />
+            <Mesh onLoad={onWebsiteLoad} />
           </div>
           <main className={main}>
             {children}
@@ -120,6 +140,7 @@ export default function RootLayout({
           <Footer footerData={footerData} />
           <Footer footerData={footerData} />
         </footer>
+        <WebsiteLoadingOverlay />
       </body>
     </html>
   );

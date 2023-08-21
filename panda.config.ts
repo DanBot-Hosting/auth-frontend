@@ -97,6 +97,13 @@ export default defineConfig({
             },
           },
         },
+        // Overlay used for loading overlay & modals
+        solidoverlay: {
+          value: {
+            _dark: { value: "hsl(0, 0%, 11%)" },
+            _light: { value: "hsl(0, 0%, 88.6%)" },
+          }
+        }
       },
     },
   },

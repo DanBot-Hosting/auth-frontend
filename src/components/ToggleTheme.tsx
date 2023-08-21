@@ -1,7 +1,7 @@
 "use client";
 import { css } from "@styles/css";
 import { Moon, Sun } from "@/utils/icons";
-import { toggleTheme } from "@/utils/toggleTheme";
+import { useToggleTheme } from "@/hooks/useToggleTheme";
 
 const themeButton = css({
   position: "relative",
@@ -105,8 +105,10 @@ const shadow = css({
 });
 
 export function ToggleTheme() {
+  const { toggle } = useToggleTheme();
+
   return (
-    <div className={themeButton} onClick={() => toggleTheme()}>
+    <div className={themeButton} onClick={toggle}>
       <Moon size={24} weight="fill" className={moon} id="moon" />
       <Sun size={24} weight="fill" className={sun} id="sun" />
       <div className={shadow} />
