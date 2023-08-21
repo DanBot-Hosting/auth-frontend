@@ -37,7 +37,7 @@ export function onWebsiteLoad() {
   const overlay = document.getElementById("website-loading-overlay");
   if (!overlay) return;
 
-  overlay.setAttribute("data-hidden", "true");
+  overlay.dataset.hidden = "true";
 
   document.documentElement.classList.remove(loadingScrollbar);
 

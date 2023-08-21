@@ -124,7 +124,7 @@ export function Dropdown({ links, onTabClick }: DropdownProps) {
       linksRef.current[link]?.removeAttribute("data-active");
     }
 
-    element.setAttribute("data-active", "true");
+    element.dataset.active = "true";
     changePosition(element);
   }
 

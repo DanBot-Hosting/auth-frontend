@@ -48,8 +48,8 @@ export default defineConfig({
   exclude: [],
 
   conditions: {
-    dark: "[data-color-mode=dark] &",
-    light: "[data-color-mode=light] &",
+    dark: "[data-theme=dark] &",
+    light: "[data-theme=light] &",
   },
 
   // Useful for theme customization

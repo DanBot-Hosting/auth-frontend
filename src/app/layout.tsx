@@ -15,7 +15,6 @@ import {
 } from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
-import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -128,7 +127,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-color-mode={theme}
+      data-theme={theme}
       className={cx(scrollbar, loadingScrollbar)}
     >
       <body className={cx(inter.className, body)}>
@@ -151,18 +150,16 @@ export default function RootLayout({
         </footer>
         <WebsiteLoadingOverlay />
         {/** Tricky way to have themes & static site generation at the same time (no serverside) */}
-        {/** @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 beforeInteractive strategy} */}
-        {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
-        <Script
+        {/** @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 3rd party script} */}
+        <script
           id="theme-setup"
-          strategy="beforeInteractive"
           async
           dangerouslySetInnerHTML={{
             __html: `const theme = document.cookie
           .split("; ")
           .find((row) => row.startsWith("theme="));
         const value = theme ? theme.split("=")[1] : "light";
-        document.documentElement.setAttribute("data-color-mode", value)`,
+        document.documentElement.dataset.theme = value;`,
           }}
         />
       </body>

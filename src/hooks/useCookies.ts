@@ -7,7 +7,9 @@ interface SetOptions {
 
 export function useCookies() {
   function get(key: string) {
-    if (typeof document === "undefined") return "dark";
+    // Server does not have document defined in build time
+    // get() method is called on page load in root layout
+    if (typeof document === "undefined") return;
     let cookies = document.cookie.split(/;\s*/);
 
     for (let cookie of cookies) {

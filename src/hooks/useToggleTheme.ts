@@ -6,7 +6,7 @@ export function useToggleTheme() {
   const mesh = useMesh();
 
   function toggleMode(mode: string) {
-    document.documentElement.setAttribute("data-color-mode", mode);
+    document.documentElement.dataset.theme = mode;
   }
 
   function toggle() {
