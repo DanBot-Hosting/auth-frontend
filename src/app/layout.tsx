@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { footerData } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
+import { NotificationProvider } from "@/components/NotificationProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -116,6 +117,7 @@ export default function RootLayout({
             <ToggleTheme />
           </div>
         </div>
+        <NotificationProvider />
         <footer className={footer}>
           <Footer footerData={footerData} />
           <Footer footerData={footerData} />

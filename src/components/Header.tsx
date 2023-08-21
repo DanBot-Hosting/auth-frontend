@@ -161,8 +161,11 @@ export function Header({
   }
 
   function hideAccountDropdown() {
-    caretRef.current?.removeAttribute("data-active");
-    dropdownRef.current?.removeAttribute("data-active");
+    /** @see {@link https://stackoverflow.com/a/7165473/14301934 Browser bug?} */
+    setTimeout(() => {
+      caretRef.current?.removeAttribute("data-active");
+      dropdownRef.current?.removeAttribute("data-active");
+    }, 500);
   }
 
   const userManagement = (

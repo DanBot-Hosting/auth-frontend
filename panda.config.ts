@@ -35,6 +35,8 @@ export default defineConfig({
   preflight: true,
   // Whether to update the .gitignore file.
   gitignore: true,
+  // Whether to minify the generated CSS.
+  minify: true,
 
   // Where to look for your css declarations
   include: [
