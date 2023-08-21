@@ -1,4 +1,4 @@
-# Global Authentication Frontend
+# Authentication Frontend
 
 This repository is a frontend part of the authentication service provided by DanBot Hosting. Considered a part of the [DanBot Hosting](https://danbot.host/) platform.
 
@@ -10,7 +10,7 @@ This repository is a frontend part of the authentication service provided by Dan
 ## Installation
 
 ```bash
-pnpm install # Dependency installation & Preparation command to generate code for panda css
+pnpm install # Dependency installation & preparation command to generate code for panda-css
 pnpm build # Build the project
 pnpm start # Start the project in production mode
 ```
