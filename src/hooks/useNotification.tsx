@@ -1,41 +1,46 @@
+"use client";
 import { NotificationProps, Notification } from "@/components/Notification";
-import { css } from "@styles/css";
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { Root, createRoot } from "react-dom/client";
 
-const animated = css({
-  position: "fixed",
-  bottom: "1.25rem",
-  right: "1.25rem",
-  zIndex: 3,
-
-  "&[data-hidden]": {
-    opacity: 0,
-    scale: 0.8,
-  },
-});
+interface UseNotificationProps {
+  closeAfter?: number;
+}
 
 export function useNotification() {
   const root = useRef<Root | null>(null);
+  const provider = useRef<HTMLElement | null>(null);
 
-  function show(props: NotificationProps) {
-    if (!root.current) {
-      const provider = document.createElement("div");
-      root.current = createRoot(provider);
+  function show({ closeAfter = 5000, ...props }: NotificationProps & UseNotificationProps) {
+    if (!provider.current) {
+      const providerElement = document.getElementById("notification-provider");
+      if (!providerElement) throw "No notification provider found!";
+      provider.current = providerElement;
     }
 
-    root.current.render(
-      createPortal((
-        <div className={animated}>
-          <Notification {...props} />
-        </div>
-      ), document.body)
-    );
+    if (!root.current) {
+      const rootElement = document.createElement("div");
+      root.current = createRoot(rootElement);
+    }
+
+    root.current.render(createPortal(<Notification onConfirm={hide} {...props} />, provider.current));
+
+    provider.current.removeAttribute("data-hidden");
+
+    if (closeAfter === 0) return;
+    setTimeout(() => {
+      hide();
+    }, closeAfter);
   }
 
   function hide() {
-    root.current?.render(null);
+    provider.current?.setAttribute("data-hidden", "");
+
+    setTimeout(() => {
+      root.current?.render(null);
+      // The hide animation is set to 0.15s
+    }, 300);
   }
 
   return { show, hide };
