@@ -11,14 +11,13 @@ interface DropdownProps {
 }
 
 const dropdown = css({
-  display: "flex",
-  minWidth: "12.5rem",
+  display: "inline-flex",
+  height: "3.75rem",
   width: "max-content",
   p: "0.625rem",
-  flexDir: "column",
   justifyContent: "center",
-  alignItems: "flex-start",
-  // gap: "0.625rem",
+  alignItems: "center",
+  flexShrink: "0",
 
   borderRadius: "1.25rem",
   bg: "pillbackground.10",
@@ -47,7 +46,7 @@ const option = css({
   "&[data-active]": {
     color: "text.90",
     transition: "color 0.2s ease-in-out",
-  },
+  }
 });
 
 const focusDiv = css({
@@ -61,9 +60,9 @@ const focusDiv = css({
 
 function getElementInnerSpace(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
-  let elementSpace = element.clientWidth;
+  let elementSpace = element.clientHeight;
   elementSpace -=
-    parseFloat(computed.paddingLeft) + parseFloat(computed.paddingRight);
+    parseFloat(computed.paddingTop) + parseFloat(computed.paddingBottom);
 
   return elementSpace;
 }
@@ -78,7 +77,7 @@ function getElementInnerLeftOffset(element: HTMLDivElement): number {
   return parseFloat(computed.paddingLeft);
 }
 
-export function Dropdown({ links, onTabClick }: DropdownProps) {
+export function SegmentedControl({ links, onTabClick }: DropdownProps) {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const pathname = usePathname();
@@ -94,8 +93,8 @@ export function Dropdown({ links, onTabClick }: DropdownProps) {
 
   function resetPosition() {
     setPosition({
-      width: getElementInnerSpace(parentRef.current as HTMLDivElement),
-      height: 0,
+      width: 0,
+      height: getElementInnerSpace(parentRef.current as HTMLDivElement),
       translation: [
         getElementInnerLeftOffset(parentRef.current as HTMLDivElement),
         getElementInnerTopOffset(parentRef.current as HTMLDivElement),

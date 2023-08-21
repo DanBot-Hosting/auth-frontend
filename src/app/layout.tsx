@@ -10,6 +10,7 @@ import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
 import { WebsiteLoadingOverlay, loadingScrollbar, onWebsiteLoad } from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
+import { NotificationProvider } from "@/components/NotificationProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -136,6 +137,7 @@ export default function RootLayout({
             <ToggleTheme />
           </div>
         </div>
+        <NotificationProvider />
         <footer className={footer}>
           <Footer footerData={footerData} />
           <Footer footerData={footerData} />
