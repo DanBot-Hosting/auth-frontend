@@ -7,8 +7,18 @@
 export function useScrollbar() {
   // Keys that should be ignored
   const keys = ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+  // Events that should be disabled
+  const events = ["DOMMouseScroll", "wheel", "mousewheel", "touchmove"];
+
+  function preventDefault(event: Event) {
+    event.preventDefault();
+  }
 
   function show() {
+    for (let event of events) {
+      document.body.removeEventListener(event, preventDefault);
+    }
+
     document.body.removeEventListener(
       "keydown",
       (event) => {
@@ -19,6 +29,13 @@ export function useScrollbar() {
   }
 
   function hide() {
+    // Disable events, scrollbar on the other hand is still interactable
+    // Hopefully you hide it with Overlay ;)
+    // Disable passive to not ignore preventDefault()
+    for (let event of events) {
+      document.body.addEventListener(event, preventDefault, { passive: false });
+    }
+
     document.body.addEventListener(
       "keydown",
       (event) => {
