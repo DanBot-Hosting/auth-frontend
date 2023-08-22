@@ -74,7 +74,8 @@ export function LoadingOverlay({
     <Overlay>
       <div className={loading}>
         <div className={content}>
-          <CircleNotch size="2rem" weight="thin" className={spinner} />
+          {/* Unexpected value 2rem parsing width attribute */}
+          <CircleNotch size="32px" weight="thin" className={spinner} />
           <div className={label}>{children}</div>
         </div>
         {withCancel ? (          
