@@ -7,6 +7,7 @@ import { Overlay } from "@/components/Overlay";
 import { PropsWithChildren, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Root, createRoot } from "react-dom/client";
+import { useScrollbar } from "@/hooks/useScrollbar";
 
 interface UseOverlayProps {
   asLoading?: false;
@@ -20,6 +21,7 @@ export function useOverlay({
   asLoading,
   ...props
 }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) {
+  const { show: showScrollbar, hide: hideScrollbar } = useScrollbar();
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 
@@ -45,11 +47,13 @@ export function useOverlay({
       );
     }
 
+    hideScrollbar();
     provider.current.removeAttribute("data-hidden");
   }
 
   function hide() {
     provider.current?.setAttribute("data-hidden", "");
+    showScrollbar();
 
     setTimeout(() => {
       root.current?.render(null);
