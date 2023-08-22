@@ -58,6 +58,7 @@ const main = css({
 const mesh = css({
   "& > canvas": {
     position: "fixed",
+    pointerEvents: "none",
     top: "0",
     left: "0",
     width: "100%",
@@ -72,7 +73,7 @@ const footer = css({
     position: "fixed",
     height: "auto",
     bottom: "0",
-    zIndex: "0",
+    zIndex: "-1",
   },
   "& > div:nth-child(2)": {
     visibility: "hidden",
@@ -90,6 +91,15 @@ const affix = css({
 const body = css({
   bg: "background.100",
   color: "text.100",
+
+  // Add scrollbar to body instead of html
+  overflowY: "scroll",
+  maxHeight: "100vh",
+});
+
+const html = css({
+  overflow: "hidden",
+  maxHeight: "100vh",
 });
 
 export default function RootLayout({
@@ -101,7 +111,7 @@ export default function RootLayout({
   const theme = cookieStore.get("theme")?.value ?? "light";
 
   return (
-    <html lang="en" data-color-mode={theme}>
+    <html lang="en" data-color-mode={theme} className={html}>
       <body className={cx(inter.className, body)}>
         <header className={header}>
           <Header />
