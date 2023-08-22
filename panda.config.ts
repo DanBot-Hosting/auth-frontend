@@ -48,8 +48,8 @@ export default defineConfig({
   exclude: [],
 
   conditions: {
-    dark: "[data-color-mode=dark] &",
-    light: "[data-color-mode=light] &",
+    dark: "[data-theme=dark] &",
+    light: "[data-theme=light] &",
   },
 
   // Useful for theme customization
@@ -99,6 +99,13 @@ export default defineConfig({
             },
           },
         },
+        // Overlay used for loading overlay & modals
+        solidoverlay: {
+          value: {
+            _dark: { value: "hsl(0, 0%, 11%)" },
+            _light: { value: "hsl(0, 0%, 88.6%)" },
+          }
+        }
       },
     },
   },
