@@ -492,7 +492,7 @@ function e(object, propertyName, val) {
 
 //Gradient object
 export class Gradient {
-  constructor(...t) {
+  constructor(onLoad, ...t) {
     e(this, "el", void 0),
       e(this, "cssVarRetries", 0),
       e(this, "maxCssVarRetries", 200),
@@ -602,6 +602,7 @@ export class Gradient {
         this.connect();
         return this;
       });
+    this.onLoad = onLoad;
   }
   async connect() {
     (this.shaderFiles = {
@@ -630,6 +631,7 @@ export class Gradient {
               ((this.computedCanvasStyle = getComputedStyle(this.el)),
               this.waitForCssVars());
           }));
+    this.onLoad();
     /*
         this.scrollObserver = await s.create(.1, !1),
         this.scrollObserver.observe(this.el),
