@@ -4,7 +4,7 @@ import { css } from "@styles/css";
 import { PropsWithChildren, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-interface OverlayProps extends PropsWithChildren {
+export interface OverlayProps extends PropsWithChildren {
   visible: boolean;
 }
 
