@@ -14,6 +14,7 @@ import {
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { PropsWithChildren } from "react";
+import { OverlayProvider } from "./OverlayProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -146,6 +147,7 @@ export function Layout({
           </div>
         </div>
         <NotificationProvider />
+        <OverlayProvider />
         <footer className={footer}>
           <Footer footerData={footerData} />
           <Footer footerData={footerData} />

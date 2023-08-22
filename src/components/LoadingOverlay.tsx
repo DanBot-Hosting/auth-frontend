@@ -1,8 +1,9 @@
-import { Overlay, OverlayProps } from "@/components/Overlay";
+import { Overlay } from "@/components/Overlay";
 import { CircleNotch } from "@phosphor-icons/react";
 import { css } from "@styles/css";
+import { PropsWithChildren } from "react";
 
-interface LoadingOverlayProps extends OverlayProps {
+export interface LoadingOverlayProps extends PropsWithChildren {
   withCancel?: boolean;
   cancelLabel?: string;
   onCancel?: () => void;
@@ -65,13 +66,12 @@ const cancel = css({
 
 export function LoadingOverlay({
   children = "Loading...",
-  visible,
   withCancel = false,
   cancelLabel = "Cancel",
   onCancel
 }: LoadingOverlayProps) {
   return (
-    <Overlay visible={visible}>
+    <Overlay>
       <div className={loading}>
         <div className={content}>
           <CircleNotch size="2rem" weight="thin" className={spinner} />
