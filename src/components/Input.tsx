@@ -2,8 +2,8 @@ import { css } from "@styles/css";
 
 const input = css({
   display: "flex",
-  minWidth: "18.75rem",
-  width: "max-content",
+  maxWidth: "18.75rem",
+  width: "100%",
   minHeight: "3.125rem",
   p: "0.625rem 1.875rem",
   alignItems: "center",

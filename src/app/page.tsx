@@ -1,4 +1,5 @@
 "use client";
+import { useModal } from "@/hooks/useModal";
 import { useNotification } from "@/hooks/useNotification";
 import { useOverlay } from "@/hooks/useOverlay";
 import { css } from "@styles/css";
@@ -15,29 +16,40 @@ const button = css({
 });
 
 export default function Home() {
-  const { show: showLoadingOverlay, hide: hideLoadingOverlay } = useOverlay({
-    asLoading: true,
-    withCancel: true,
-    cancelLabel: "Cancel",
-    onCancel: () => hideLoadingOverlay(),
-  });
-
-  const { show: showOverlay, hide: hideOverlay } = useOverlay({
-    asLoading: false,
-    children: <span onClick={() => hideOverlay()}>Some overlay tests</span>,
-  });
-
-  const { show: showNotification, hide: hideNotification } = useNotification();
+  const { show: showLoadingOverlay, hide: hideLoadingOverlay } = useOverlay();
+  const { show: showOverlay, hide: hideOverlay } = useOverlay();
+  const { show: showNotification, hide: _hideNotification } = useNotification();
+  const { show: showModal, hide: hideModal } = useModal();
 
   return (
     <>
       <p>
-        <button className={button} onClick={showLoadingOverlay}>
+        <button
+          className={button}
+          onClick={() =>
+            showLoadingOverlay({
+              asLoading: true,
+              withCancel: true,
+              cancelLabel: "Cancel",
+              onCancel: () => hideLoadingOverlay(),
+            })
+          }
+        >
           Use Loading Overlay
         </button>
       </p>
       <p>
-        <button className={button} onClick={showOverlay}>
+        <button
+          className={button}
+          onClick={() =>
+            showOverlay({
+              asLoading: false,
+              children: (
+                <span onClick={() => hideOverlay()}>Some overlay tests</span>
+              ),
+            })
+          }
+        >
           Use Overlay
         </button>
       </p>
@@ -49,6 +61,20 @@ export default function Home() {
           }
         >
           Use Notification
+        </button>
+      </p>
+      <p>
+        <button
+          className={button}
+          onClick={() =>
+            showModal({
+              buttons: [(<div onClick={hideModal} key="cancel">Cancel</div>), (<div onClick={hideModal} key="accept">Accept</div>)],
+              label: "Confirm account deletion",
+              description: "Enter deletion code sent via Email",
+            })
+          }
+        >
+          Use Modal
         </button>
       </p>
     </>
