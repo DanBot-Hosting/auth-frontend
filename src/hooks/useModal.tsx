@@ -1,14 +1,12 @@
 import { Modal, ModalProps } from "@/components/Modal";
 import { useOverlay } from "@/hooks/useOverlay";
 
-type OverlayReturn = ReturnType<typeof useOverlay>;
-
-export function useModal(overlayProps: Parameters<OverlayReturn["show"]>[0]) {
+export function useModal() {
   const { show: showOverlay, hide: hideOverlay } = useOverlay();
 
   function show(modalProps: ModalProps) {
     showOverlay({
-      ...overlayProps,
+      asLoading: false,
       children: (
         <Modal
           buttons={[<div onClick={hide} key="cancel">Cancel</div>]}

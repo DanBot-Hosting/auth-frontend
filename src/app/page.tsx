@@ -19,7 +19,7 @@ export default function Home() {
   const { show: showLoadingOverlay, hide: hideLoadingOverlay } = useOverlay();
   const { show: showOverlay, hide: hideOverlay } = useOverlay();
   const { show: showNotification, hide: _hideNotification } = useNotification();
-  const { show: showModal, hide: hideModal } = useModal({});
+  const { show: showModal, hide: hideModal } = useModal();
 
   return (
     <>

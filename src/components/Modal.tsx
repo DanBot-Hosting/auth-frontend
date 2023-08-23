@@ -45,6 +45,10 @@ const subLabel = css({
   fontWeight: "400",
 });
 
+const content = css({
+  alignSelf: "stretch",
+});
+
 const buttonList = css({
   display: "flex",
   p: "0.625rem 0.9375rem",
@@ -52,6 +56,7 @@ const buttonList = css({
   alignItems: "center",
   gap: "1.25rem",
   alignSelf: "stretch",
+  flexWrap: "wrap",
 
   "& > *": {
     display: "flex",
@@ -60,6 +65,7 @@ const buttonList = css({
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
+    whiteSpace: "nowrap",
 
     color: "text.60",
     fontWeight: "400",
@@ -84,9 +90,9 @@ export function Modal({ label, description, children, buttons }: ModalProps) {
     <div className={modal}>
       <header className={header}>
         <h4 className={heading}>{label}</h4>
-        <span className={subLabel}>{description}</span>
+        {description ? <span className={subLabel}>{description}</span> : null}
       </header>
-      {children ? <div>{children}</div> : null}
+      {children ? <div className={content}>{children}</div> : null}
       {buttons ? <div className={buttonList}>{buttons}</div> : null}
     </div>
   );
