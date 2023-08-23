@@ -1,7 +1,3 @@
 export default function Settings() {
-  return (
-    <>
-      Account
-    </>
-  );
+  return <>Account</>;
 }

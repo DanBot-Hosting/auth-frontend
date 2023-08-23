@@ -1,6 +1,6 @@
 "use client";
 
-// Do not place functions inside or for some reason show & hide 
+// Do not place functions inside or for some reason show & hide
 // will be using different functions
 function preventDefault(event: Event) {
   event.preventDefault();

@@ -13,7 +13,7 @@ export function Mesh({ onLoad }: MeshProps) {
   useEffect(() => {
     mesh.initializeMesh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return <canvas className={mesh.className} />;
 }

@@ -68,7 +68,7 @@ export function LoadingOverlay({
   children = "Loading...",
   withCancel = false,
   cancelLabel = "Cancel",
-  onCancel
+  onCancel,
 }: LoadingOverlayProps) {
   return (
     <Overlay>
@@ -78,8 +78,10 @@ export function LoadingOverlay({
           <CircleNotch size="32px" weight="thin" className={spinner} />
           <div className={label}>{children}</div>
         </div>
-        {withCancel ? (          
-          <div className={cancel} onClick={onCancel}>{cancelLabel}</div>
+        {withCancel ? (
+          <div className={cancel} onClick={onCancel}>
+            {cancelLabel}
+          </div>
         ) : null}
       </div>
     </Overlay>

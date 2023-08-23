@@ -9,8 +9,8 @@ export default function Home() {
     onCancel: () => {
       hide();
     },
-  })
-  
+  });
+
   return (
     <>
       Test

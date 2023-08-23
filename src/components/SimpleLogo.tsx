@@ -1,7 +1,9 @@
 import { css } from "@styles/css";
 import { LogoProps } from "@/components/Logo";
 
-export function SimpleLogo({ className = css({ color: "text.100" }) }: LogoProps) {
+export function SimpleLogo({
+  className = css({ color: "text.100" }),
+}: LogoProps) {
   return (
     <svg
       width="50"

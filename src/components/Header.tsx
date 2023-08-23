@@ -174,18 +174,11 @@ export function Header({
       onClick={toggleAccountDropdown}
     >
       <Avatar size={40} src={user.avatarUrl} alt={user.username} />
-      <CaretDown
-        size={18}
-        weight="light"
-        className={caret}
-        ref={caretRef}
-      />
+      <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       <div />
       <div className={dropdown} ref={dropdownRef}>
         <Dropdown
-          links={[
-            { label: "Settings", link: "/settings" },
-          ]}
+          links={[{ label: "Settings", link: "/settings" }]}
           onTabClick={hideAccountDropdown}
         />
       </div>

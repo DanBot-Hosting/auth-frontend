@@ -121,18 +121,12 @@ const html = css({
   maxHeight: "100vh",
 });
 
-export function Layout({
-  children,
-}: PropsWithChildren) {
+export function Layout({ children }: PropsWithChildren) {
   const cookieStore = useCookies();
   const theme = cookieStore.get("theme") ?? "light";
 
   return (
-    <html
-      lang="en"
-      data-theme={theme}
-      className={html}
-    >
+    <html lang="en" data-theme={theme} className={html}>
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
           <Header />

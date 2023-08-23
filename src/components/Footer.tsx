@@ -35,7 +35,7 @@ const links = css({
   "@media screen and (max-width: 500px)": {
     alignItems: "center",
   },
-})
+});
 
 const footerLogo = css({
   fontSize: "12vw",
@@ -104,7 +104,9 @@ export function Footer({ footerData }: { footerData: FooterData }) {
             <ul className={links}>
               {footerData[key as keyof FooterData].map((update, i) => (
                 <li key={i} className={listItem}>
-                  <Link href={update.link} className={anchor}>{update.label}</Link>
+                  <Link href={update.link} className={anchor}>
+                    {update.label}
+                  </Link>
                 </li>
               ))}
             </ul>

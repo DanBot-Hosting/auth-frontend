@@ -39,7 +39,10 @@ export function useOverlay({
 
     if (asLoading) {
       root.current.render(
-        createPortal(<LoadingOverlay onCancel={hide} {...props} />, provider.current)
+        createPortal(
+          <LoadingOverlay onCancel={hide} {...props} />,
+          provider.current
+        )
       );
     } else {
       root.current.render(

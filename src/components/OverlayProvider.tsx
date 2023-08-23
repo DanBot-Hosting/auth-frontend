@@ -11,7 +11,7 @@ const animated = css({
     opacity: "0",
     pointerEvents: "none",
     transition: "opacity .15s ease-in-out",
-  }
+  },
 });
 
 export function OverlayProvider() {
