@@ -17,15 +17,15 @@ interface UseLoadingOverlayProps extends LoadingOverlayProps {
   asLoading?: true;
 }
 
-export function useOverlay({
-  asLoading,
-  ...props
-}: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) {
+export function useOverlay() {
   const { show: showScrollbar, hide: hideScrollbar } = useScrollbar();
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 
-  function show() {
+  function show({
+    asLoading = false,
+    ...props
+  }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) {
     if (!provider.current) {
       const providerElement = document.getElementById("overlay-provider");
       if (!providerElement) throw "No overlay provider found!";
