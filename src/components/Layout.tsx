@@ -69,17 +69,11 @@ const mesh = css({
 });
 
 const footer = css({
-  "& > div:nth-child(1)": {
-    width: "100vw",
-    position: "fixed",
-    height: "auto",
-    bottom: "0",
-    zIndex: "-1",
-  },
-  "& > div:nth-child(2)": {
-    visibility: "hidden",
-    pointerEvents: "none",
-  },
+  width: "100%",
+  position: "sticky",
+  height: "auto",
+  bottom: "0",
+  left: "0",
 });
 
 const affix = css({
@@ -143,7 +137,6 @@ export function Layout({ children }: PropsWithChildren) {
         <NotificationProvider />
         <OverlayProvider />
         <footer className={footer}>
-          <Footer footerData={footerData} />
           <Footer footerData={footerData} />
         </footer>
         <WebsiteLoadingOverlay />
