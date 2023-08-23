@@ -104,8 +104,8 @@ export default defineConfig({
           value: {
             _dark: { value: "hsl(0, 0%, 11%)" },
             _light: { value: "hsl(0, 0%, 88.6%)" },
-          }
-        }
+          },
+        },
       },
     },
   },

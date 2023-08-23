@@ -12,7 +12,10 @@ export function useNotification() {
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 
-  function show({ closeAfter = 5000, ...props }: NotificationProps & UseNotificationProps) {
+  function show({
+    closeAfter = 5000,
+    ...props
+  }: NotificationProps & UseNotificationProps) {
     if (!provider.current) {
       const providerElement = document.getElementById("notification-provider");
       if (!providerElement) throw "No notification provider found!";
@@ -24,7 +27,12 @@ export function useNotification() {
       root.current = createRoot(rootElement);
     }
 
-    root.current.render(createPortal(<Notification onConfirm={hide} {...props} />, provider.current));
+    root.current.render(
+      createPortal(
+        <Notification onConfirm={hide} {...props} />,
+        provider.current
+      )
+    );
 
     provider.current.removeAttribute("data-hidden");
 

@@ -21,15 +21,10 @@ const background = css({
     opacity: "0",
     pointerEvents: "none",
     transition: "opacity 0.25s ease-in-out",
-
-    "& *": {
-      // Do not shift elements when scrollbar appears
-      paddingLeft: "0.5rem",
-    }
   },
 });
 
-export const loadingScrollbar = css({
+export const hiddenScrollbar = css({
   overflow: "hidden",
 });
 
@@ -39,7 +34,7 @@ export function onWebsiteLoad() {
 
   overlay.dataset.hidden = "true";
 
-  document.documentElement.classList.remove(loadingScrollbar);
+  document.body.classList.remove(hiddenScrollbar);
 
   setTimeout(() => {
     overlay.remove();

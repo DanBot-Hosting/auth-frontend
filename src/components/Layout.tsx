@@ -8,12 +8,13 @@ import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
 import {
   WebsiteLoadingOverlay,
-  loadingScrollbar,
+  hiddenScrollbar,
   onWebsiteLoad,
 } from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { PropsWithChildren } from "react";
+import { OverlayProvider } from "./OverlayProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,6 +59,7 @@ const main = css({
 const mesh = css({
   "& > canvas": {
     position: "fixed",
+    pointerEvents: "none",
     top: "0",
     left: "0",
     width: "100%",
@@ -67,17 +69,11 @@ const mesh = css({
 });
 
 const footer = css({
-  "& > div:nth-child(1)": {
-    width: "100vw",
-    position: "fixed",
-    height: "auto",
-    bottom: "0",
-    zIndex: "0",
-  },
-  "& > div:nth-child(2)": {
-    visibility: "hidden",
-    pointerEvents: "none",
-  },
+  width: "100%",
+  position: "sticky",
+  height: "auto",
+  bottom: "0",
+  left: "0",
 });
 
 const affix = css({
@@ -108,21 +104,24 @@ const scrollbar = css({
 const body = css({
   bg: "background.100",
   color: "text.100",
+
+  // Add scrollbar to body instead of html
+  overflowY: "scroll",
+  maxHeight: "100vh",
 });
 
-export function Layout({
-  children,
-}: PropsWithChildren) {
+const html = css({
+  overflow: "hidden",
+  maxHeight: "100vh",
+});
+
+export function Layout({ children }: PropsWithChildren) {
   const cookieStore = useCookies();
   const theme = cookieStore.get("theme") ?? "light";
 
   return (
-    <html
-      lang="en"
-      data-theme={theme}
-      className={cx(scrollbar, loadingScrollbar)}
-    >
-      <body className={cx(inter.className, body)}>
+    <html lang="en" data-theme={theme} className={html}>
+      <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
           <Header />
         </header>
@@ -136,8 +135,8 @@ export function Layout({
           </div>
         </div>
         <NotificationProvider />
+        <OverlayProvider />
         <footer className={footer}>
-          <Footer footerData={footerData} />
           <Footer footerData={footerData} />
         </footer>
         <WebsiteLoadingOverlay />

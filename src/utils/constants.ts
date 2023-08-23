@@ -35,4 +35,4 @@ export const footerData: FooterData = {
 export const headerData: HeaderData = {
   Panel: "https://panel.danbot.host",
   Discord: "https://discord.com/invite/dbh",
-}
+};

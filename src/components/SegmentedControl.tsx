@@ -46,7 +46,7 @@ const option = css({
   "&[data-active]": {
     color: "text.90",
     transition: "color 0.2s ease-in-out",
-  }
+  },
 });
 
 const focusDiv = css({

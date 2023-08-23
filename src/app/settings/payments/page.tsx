@@ -1,7 +1,3 @@
 export default function Payments() {
-  return (
-    <>
-      Payments
-    </>
-  );
+  return <>Payments</>;
 }
