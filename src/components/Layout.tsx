@@ -48,8 +48,7 @@ const wrapper = css({
 });
 
 const main = css({
-  padding: "0.9375rem",
-  paddingTop: "6.25rem",
+  padding: "6.25rem 0.9375rem 10rem",
   maxWidth: "62.5rem",
   margin: "0 auto",
   position: "relative",

@@ -1,6 +1,7 @@
 "use client";
 import { Avatar } from "@/components/Avatar";
-import { css } from "@styles/css";
+import { css, cx } from "@styles/css";
+import { useAccountDeletionModal } from "./AccountDeletionModal";
 import { usePasswordChangeModal } from "./PasswordChangeModal";
 import { Input } from "@/components/Input";
 
@@ -8,13 +9,12 @@ const main = css({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "1.875rem",
+  gap: "1rem",
   alignSelf: "stretch",
 });
 
 const button = css({
   cursor: "pointer",
-  alignSelf: "stretch",
 
   fontWeight: "400",
   fontSize: "1rem",
@@ -32,39 +32,65 @@ const button = css({
   },
 });
 
+const red = css({
+  color: "hsl(0, 57.4%, 51.2%)!",
+  textDecorationColor: "hsla(0, 57.4%, 51.2%, 0.6)!",
+
+  _hover: {
+    color: "hsl(0, 57.4%, 51.2%)!",
+    textDecorationColor: "hsl(0, 57.4%, 51.2%)!",
+  },
+});
+
 const fields = css({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "2.8125rem",
+  gap: "3.75rem",
 });
 
 const section = css({
   display: "flex",
   flexDir: "column",
-  gap: "0.9375rem",
+  gap: "1.875rem",
+  w: "100%",
 });
 
 const field = css({
   display: "flex",
+  flexDir: "column",
   justifyContent: "flex-end",
-  alignItems: "center",
-  gap: "1.875rem",
+  alignItems: "flex-start",
+  gap: "0.625rem",
   width: "100%",
+});
+
+const dangerousField = css({
+  justifyContent: "space-between",
+  flexDir: "row",
 });
 
 const label = css({
   color: "text.90",
   textAlign: "right",
-  fontSize: "1.125rem",
-  fontWeight: "300",
+  fontSize: "1rem",
+  fontWeight: "600",
+  userSelect: "none",
+  lineHeight: "1.75",
 });
 
 const input = css({
   display: "flex",
-  width: "31.25rem",
+  w: "100%",
+  maxW: "37.5rem",
   minH: "3.125rem",
   gap: "0.9375rem",
+
+  "@media screen and (max-width: 500px)": {
+    "& > input": {
+      padding: "0.625rem 1.25rem",
+    },
+  },
 
   "& input": {
     flex: "1 0 0",
@@ -72,8 +98,15 @@ const input = css({
   },
 });
 
+const description = css({
+  color: "text.60",
+  fontSize: "0.9375rem",
+  fontWeight: "400",
+});
+
 export default function Settings() {
-  const { show: showModal } = usePasswordChangeModal();
+  const { show: showPasswordChangeModal } = usePasswordChangeModal();
+  const { show: showAccountDeletionModal } = useAccountDeletionModal();
 
   return (
     <div className={main}>
@@ -90,6 +123,7 @@ export default function Settings() {
             <div className={input}>
               <Input placeholder="" />
             </div>
+            <span className={description}>Your publicly visible username</span>
           </div>
           <div className={field}>
             <label className={label}>Name</label>
@@ -97,20 +131,31 @@ export default function Settings() {
               <Input placeholder="First Name" />
               <Input placeholder="Last Name" />
             </div>
+            <span className={description}>
+              You will be addressed by the name you set
+            </span>
           </div>
         </div>
         <div className={section} id="private">
           <div className={field}>
             <label className={label}>Email</label>
             <div className={input}>
-              <Input placeholder="" />
+              <Input placeholder="jane@example.com" />
             </div>
           </div>
-          <div className={field}>
-            <label className={label}>Password</label>
-            <div className={input}>
-              <button className={button} onClick={() => showModal()}>Change your password</button>
-            </div>
+          <div className={cx(field, dangerousField)}>
+            <button
+              className={button}
+              onClick={() => showPasswordChangeModal()}
+            >
+              Change your password
+            </button>
+            <button
+              className={cx(button, red)}
+              onClick={() => showAccountDeletionModal()}
+            >
+              Delete the account
+            </button>
           </div>
         </div>
       </div>
