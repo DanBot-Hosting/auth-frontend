@@ -4,7 +4,7 @@ import {
   LoadingOverlayProps,
 } from "@/components/LoadingOverlay";
 import { Overlay } from "@/components/Overlay";
-import { PropsWithChildren, useRef } from "react";
+import { PropsWithChildren, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Root, createRoot } from "react-dom/client";
 import { useScrollbar } from "@/hooks/useScrollbar";
@@ -22,10 +22,20 @@ export function useOverlay() {
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 
-  function show({
+  const hide = useCallback(() => {
+    provider.current?.setAttribute("data-hidden", "");
+    showScrollbar();
+
+    setTimeout(() => {
+      root.current?.render(null);
+      // The hide animation is set to 0.15s
+    }, 300);
+  }, [provider, root, showScrollbar]);
+
+  const show = useCallback(({
     asLoading = false,
     ...props
-  }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) {
+  }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) => {
     if (!provider.current) {
       const providerElement = document.getElementById("overlay-provider");
       if (!providerElement) throw "No overlay provider found!";
@@ -52,17 +62,7 @@ export function useOverlay() {
 
     hideScrollbar();
     provider.current.removeAttribute("data-hidden");
-  }
-
-  function hide() {
-    provider.current?.setAttribute("data-hidden", "");
-    showScrollbar();
-
-    setTimeout(() => {
-      root.current?.render(null);
-      // The hide animation is set to 0.15s
-    }, 300);
-  }
+  }, [root, provider, hideScrollbar, hide]);
 
   return { show, hide };
 }

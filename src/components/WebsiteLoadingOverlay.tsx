@@ -2,6 +2,7 @@
 import { css } from "@styles/css";
 import { Logo } from "@/components/Logo";
 import { useFakeProgress } from "@/hooks/useFakeProgress";
+import { memo, useEffect } from "react";
 
 const background = css({
   position: "fixed",
@@ -58,8 +59,17 @@ const percent = css({
   fontWeight: "300",
 });
 
-export function WebsiteLoadingOverlay() {
-  const progress = useFakeProgress();
+// Memoizing component to prevent unwanted mesh rerenders by parent
+// @see {@link https://react.dev/reference/react/memo memo}
+export const WebsiteLoadingOverlay = memo(function WebsiteLoadingOverlay() {
+  const { progress, start, stop } = useFakeProgress();
+
+  useEffect(() => {
+    start();
+
+    return stop;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={background} id="website-loading-overlay">
@@ -67,4 +77,4 @@ export function WebsiteLoadingOverlay() {
       <span className={percent}>{Math.floor(progress)}%</span>
     </div>
   );
-}
+});

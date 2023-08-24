@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+"use client";
+import { useCallback, useRef, useState } from "react";
 
 export function useFakeProgress() {
   let currentProgress = useRef(0);
   let step = useRef(0.5);
   let [progress, setProgress] = useState(0);
+  let interval = useRef<number | null>(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const start = useCallback(() => {
+    // window.setInverval instead of setInterval to use web API types instead of nodejs
+    interval.current = window.setInterval(() => {
       currentProgress.current += step.current;
       setProgress(
         () =>
@@ -16,16 +19,16 @@ export function useFakeProgress() {
       );
 
       if (progress >= 100) {
-        clearInterval(timer);
+        clearInterval(interval.current ?? undefined);
       } else if (progress >= 70) {
         step.current = 0.1;
       }
     }, 100);
-    return () => {
-      clearInterval(timer);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentProgress, step, setProgress, progress, interval]);
 
-  return progress;
+  const stop = useCallback(() => {
+    clearInterval(interval.current ?? undefined);
+  }, [interval])
+
+  return { progress, start, stop };
 }

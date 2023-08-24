@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback, useMemo } from "react";
+
 // Do not place functions inside or for some reason show & hide
 // will be using different functions
 function preventDefault(event: Event) {
@@ -19,17 +21,20 @@ function preventDefaultKeys(event: KeyboardEvent) {
  */
 export function useScrollbar() {
   // Events that should be disabled
-  const events = ["DOMMouseScroll", "wheel", "mousewheel", "touchmove"];
+  const events = useMemo(
+    () => ["DOMMouseScroll", "wheel", "mousewheel", "touchmove"],
+    []
+  );
 
-  function show() {
+  const show = useCallback(() => {
     for (let event of events) {
       document.body.removeEventListener(event, preventDefault);
     }
 
     document.body.removeEventListener("keydown", preventDefaultKeys, false);
-  }
+  }, [events]);
 
-  function hide() {
+  const hide = useCallback(() => {
     // Disable events, scrollbar on the other hand is still interactable
     // Hopefully you hide it with Overlay ;)
     // Disable passive to not ignore preventDefault()
@@ -38,7 +43,7 @@ export function useScrollbar() {
     }
 
     document.body.addEventListener("keydown", preventDefaultKeys, false);
-  }
+  }, [events]);
 
   return { show, hide };
 }
