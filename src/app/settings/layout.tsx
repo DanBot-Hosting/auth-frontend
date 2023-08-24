@@ -5,7 +5,7 @@ const centered = css({
   display: "flex",
   flexDir: "column",
   alignItems: "center",
-  gap: "3.125rem",
+  gap: "3.4375rem",
 });
 
 export default function SettingsLayout({
@@ -19,7 +19,7 @@ export default function SettingsLayout({
         links={[
           { label: "Account", link: "/settings" },
           { label: "Payments", link: "/settings/payments" },
-          { label: "Other", link: "/settings/other" },
+          { label: "Interface", link: "/settings/interface" },
         ]}
       />
       {children}

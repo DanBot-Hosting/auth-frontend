@@ -1,3 +1,6 @@
+"use client";
+import { useCallback } from "react";
+
 interface SetOptions {
   expires?: string;
   path?: string;
@@ -6,7 +9,7 @@ interface SetOptions {
 }
 
 export function useCookies() {
-  function get(key: string) {
+  const get = useCallback((key: string) => {
     // Server does not have document defined in build time
     // get() method is called on page load in root layout
     if (typeof document === "undefined") return;
@@ -17,19 +20,23 @@ export function useCookies() {
       let name = decodeURIComponent(map[0]);
       if (name === key) return decodeURIComponent(map[1]);
     }
-  }
+  }, []);
 
-  function set(key: string, value: string, opts: SetOptions = {}) {
-    let result = encodeURIComponent(key) + "=" + encodeURIComponent(value);
+  const set = useCallback(
+    (key: string, value: string, opts: SetOptions = {}) => {
+      let result = encodeURIComponent(key) + "=" + encodeURIComponent(value);
 
-    if (opts.expires) result += "; expires=" + opts.expires;
-    if (opts.path) result += "; path=" + encodeURIComponent(opts.path);
-    if (opts.domain) result += "; domain=" + encodeURIComponent(opts.domain);
-    if (opts.secure) result += "; secure";
+      if (opts.expires) result += "; expires=" + opts.expires;
+      if (opts.path) result += "; path=" + encodeURIComponent(opts.path);
+      if (opts.domain) result += "; domain=" + encodeURIComponent(opts.domain);
+      if (opts.secure) result += "; secure";
 
-    document.cookie = result;
+      document.cookie = result;
 
-    return result;
-  }
+      return result;
+    },
+    []
+  );
+
   return { get, set };
 }

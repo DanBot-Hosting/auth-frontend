@@ -5,7 +5,7 @@ const input = css({
   maxWidth: "18.75rem",
   width: "100%",
   minHeight: "3.125rem",
-  p: "0.625rem 1.875rem",
+  p: "0.625rem 1.5625rem",
   alignItems: "center",
   flexShrink: "0",
   appearance: "none",

@@ -1,6 +1,6 @@
 "use client";
 import { NotificationProps, Notification } from "@/components/Notification";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Root, createRoot } from "react-dom/client";
 
@@ -12,10 +12,19 @@ export function useNotification() {
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 
-  function show({
+  const hide = useCallback(() => {
+    provider.current?.setAttribute("data-hidden", "");
+
+    setTimeout(() => {
+      root.current?.render(null);
+      // The hide animation is set to 0.15s
+    }, 300);
+  }, [root, provider]);
+
+  const show = useCallback(({
     closeAfter = 5000,
     ...props
-  }: NotificationProps & UseNotificationProps) {
+  }: NotificationProps & UseNotificationProps) => {
     if (!provider.current) {
       const providerElement = document.getElementById("notification-provider");
       if (!providerElement) throw "No notification provider found!";
@@ -40,16 +49,7 @@ export function useNotification() {
     setTimeout(() => {
       hide();
     }, closeAfter);
-  }
-
-  function hide() {
-    provider.current?.setAttribute("data-hidden", "");
-
-    setTimeout(() => {
-      root.current?.render(null);
-      // The hide animation is set to 0.15s
-    }, 300);
-  }
+  }, [root, provider, hide]);
 
   return { show, hide };
 }

@@ -1,94 +1,164 @@
 "use client";
+import { Avatar } from "@/components/Avatar";
+import { css, cx } from "@styles/css";
+import { useAccountDeletionModal } from "./AccountDeletionModal";
+import { usePasswordChangeModal } from "./PasswordChangeModal";
 import { Input } from "@/components/Input";
-import { ModalProps } from "@/components/Modal";
-import { useModal } from "@/hooks/useModal";
-import { css } from "@styles/css";
+
+const main = css({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "1rem",
+  alignSelf: "stretch",
+});
 
 const button = css({
   cursor: "pointer",
-  color: "text.60",
-  transition: "color .3s ease-in-out",
+
+  fontWeight: "400",
+  fontSize: "1rem",
+  color: "text.90",
+  textDecoration: "underline",
+  textDecorationColor: "text.30",
+  textUnderlineOffset: "0.1875rem",
+  textDecorationThickness: "0.078125rem",
+  transition: "all 0.2s ease-in-out",
 
   _hover: {
-    color: "text.90",
-    transition: "color .3s ease-in-out",
+    textDecorationColor: "text.100",
+    textDecorationThickness: "0.09375rem",
+    transition: "all 0.2s ease-in-out",
   },
 });
 
-const confirm = css({
-  color: "text.100!",
+const red = css({
+  color: "hsl(0, 57.4%, 51.2%)!",
+  textDecorationColor: "hsla(0, 57.4%, 51.2%, 0.6)!",
 
   _hover: {
-    color: "text.100!",
-    textDecorationColor: "text.100!",
+    color: "hsl(0, 57.4%, 51.2%)!",
+    textDecorationColor: "hsl(0, 57.4%, 51.2%)!",
   },
 });
 
 const fields = css({
   display: "flex",
-  p: "0.625rem 0.75rem",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "3.75rem",
+});
+
+const section = css({
+  display: "flex",
   flexDir: "column",
-  justifyContent: "center",
-  alignItems: "flex-start",
-  gap: "1.25rem",
-  alignSelf: "stretch",
+  gap: "1.875rem",
+  w: "100%",
 });
 
 const field = css({
   display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
+  flexDir: "column",
+  justifyContent: "flex-end",
   alignItems: "flex-start",
   gap: "0.625rem",
-  alignSelf: "stretch",
+  width: "100%",
+});
 
-  "& > input": {
-    maxW: "100%",
-    borderRadius: "0.625rem",
-  }
+const dangerousField = css({
+  justifyContent: "space-between",
+  flexDir: "row",
 });
 
 const label = css({
   color: "text.90",
+  textAlign: "right",
   fontSize: "1rem",
+  fontWeight: "600",
+  userSelect: "none",
+  lineHeight: "1.75",
+});
+
+const input = css({
+  display: "flex",
+  w: "100%",
+  maxW: "37.5rem",
+  minH: "3.125rem",
+  gap: "0.9375rem",
+
+  "@media screen and (max-width: 500px)": {
+    "& > input": {
+      padding: "0.625rem 1.25rem",
+    },
+  },
+
+  "& input": {
+    flex: "1 0 0",
+    maxW: "100%",
+  },
+});
+
+const description = css({
+  color: "text.60",
+  fontSize: "0.9375rem",
   fontWeight: "400",
 });
 
 export default function Settings() {
-  const { show: showModal, hide: hideModal } = useModal();
-
-  const modalConfig: ModalProps = {
-    label: "Update your password",
-    description: "Enter your current password and a new password",
-    buttons: [
-      <button key="cancel" onClick={hideModal}>
-        Cancel
-      </button>,
-      <button key="update" className={confirm} onClick={hideModal}>
-        Change my password!
-      </button>,
-    ],
-    children: (
-      <div className={fields}>
-        <div className={field}>
-          <span className={label}>Current password</span>
-          <Input placeholder="" />
-        </div>
-        <div className={field}>
-          <span className={label}>New password</span>
-          <Input placeholder="" />
-        </div>
-        <div className={field}>
-          <span className={label}>Confirm new password</span>
-          <Input placeholder="" />
-        </div>
-      </div>
-    )
-  }
+  const { show: showPasswordChangeModal } = usePasswordChangeModal();
+  const { show: showAccountDeletionModal } = useAccountDeletionModal();
 
   return (
-    <>
-      <button className={button} onClick={() => showModal(modalConfig)}>Use Password Change Modal</button>
-    </>
+    <div className={main}>
+      <Avatar
+        size={120}
+        src="https://avatars.githubusercontent.com/u/69919939"
+        alt="domin"
+        configurable
+      />
+      <div className={fields}>
+        <div className={section} id="public">
+          <div className={field}>
+            <label className={label}>Username</label>
+            <div className={input}>
+              <Input placeholder="" />
+            </div>
+            <span className={description}>Your publicly visible username</span>
+          </div>
+          <div className={field}>
+            <label className={label}>Name</label>
+            <div className={input}>
+              <Input placeholder="First Name" />
+              <Input placeholder="Last Name" />
+            </div>
+            <span className={description}>
+              You will be addressed by the name you set
+            </span>
+          </div>
+        </div>
+        <div className={section} id="private">
+          <div className={field}>
+            <label className={label}>Email</label>
+            <div className={input}>
+              <Input placeholder="jane@example.com" />
+            </div>
+          </div>
+          <div className={cx(field, dangerousField)}>
+            <button
+              className={button}
+              onClick={() => showPasswordChangeModal()}
+            >
+              Change your password
+            </button>
+            <button
+              className={cx(button, red)}
+              onClick={() => showAccountDeletionModal()}
+            >
+              Delete the account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
