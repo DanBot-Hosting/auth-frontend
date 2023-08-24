@@ -104,6 +104,13 @@ const shadow = css({
   },
 });
 
+/**
+ * ToggleTheme affix component.
+ * Used in Layout wrapper.
+ * Use `useToggleTheme` for corresponding functionality.
+ *
+ * @return {JSX.Element} The rendered animated ToggleTheme button component.
+ */
 export function ToggleTheme() {
   const { toggle } = useToggleTheme();
 

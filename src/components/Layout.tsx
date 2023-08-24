@@ -114,6 +114,13 @@ const html = css({
   maxHeight: "100vh",
 });
 
+/**
+ * Layout component to interact with the DOM as client component.
+ * `layout.tsx` doesn't allow the usage of client components, so we use wrapper.
+ *
+ * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
+ * @return {JSX.Element} The DOM representing the layout.
+ */
 export function Layout({ children }: PropsWithChildren) {
   const cookieStore = useCookies();
   const theme = cookieStore.get("theme") ?? "light";
@@ -139,8 +146,10 @@ export function Layout({ children }: PropsWithChildren) {
           <Footer footerData={footerData} />
         </footer>
         <WebsiteLoadingOverlay />
-        {/** Tricky way to have themes & static site generation at the same time (no serverside) */}
-        {/** @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 3rd party script} */}
+        {/**
+         * Tricky way to have themes & static site generation at the same time (no serverside)
+         * @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 3rd party script}
+         */}
         <script
           id="theme-setup"
           async

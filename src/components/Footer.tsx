@@ -94,6 +94,12 @@ const anchor = css({
   },
 });
 
+/**
+ * Footer component with useful links about the service, works as a slider in Layout.
+ *
+ * @param {FooterData} props.footerData - Columns and their links used to render the Footer.
+ * @return {JSX.Element} The rendered Footer component.
+ */
 export function Footer({ footerData }: { footerData: FooterData }) {
   return (
     <div className={footer}>

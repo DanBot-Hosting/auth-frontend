@@ -38,6 +38,13 @@ const input = css({
   },
 });
 
+/**
+ * Custom styled Input element.
+ *
+ * @param {React.InputHTMLAttributes<HTMLInputElement>} props - The props to be passed to the input element.
+ * Can potentially override className
+ * @return {React.ReactNode} The rendered not responsive Input element.
+ */
 export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input type="text" className={input} {...props} />;
 }

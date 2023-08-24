@@ -1,6 +1,12 @@
 import { css } from "@styles/css";
 import { LogoProps } from "@/components/Logo";
 
+/**
+ * Simplified Logo component with the ability to change the color.
+ *
+ * @param {string} props.className - Class which determines the color of the logo.
+ * @return {JSX.Element} The rendered SimpleLogo component.
+ */
 export function SimpleLogo({
   className = css({ color: "text.100" }),
 }: LogoProps) {

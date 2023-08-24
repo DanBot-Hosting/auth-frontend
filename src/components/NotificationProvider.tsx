@@ -17,6 +17,14 @@ const animated = css({
   },
 });
 
+/**
+ * NotificationProvider component to get Notification attachments via `useNotification` hook.
+ * Used in Layout wrapper.
+ * Adds animations for toggling visibility via dataset.
+ *
+ * @return {JSX.Element} The rendered NotificationProvider component with corresponding id attribute.
+ * Hidden by default.
+ */
 export function NotificationProvider() {
   return <div className={animated} id="notification-provider" data-hidden />;
 }

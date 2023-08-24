@@ -18,6 +18,14 @@ const overlay = css({
   backdropFilter: "blur(3px)",
 });
 
+/**
+ * Overlay component as a layer on top of everything except Notifications.
+ * To hide the interface with it, consider using `useOverlay`.
+ * This component should not be used directly.
+ *
+ * @param {React.ReactNode} [props.children] - The children to be rendered on top of the layer.
+ * @return {JSX.Element} Partially transparent dark consistent div element - layer.
+ */
 export function Overlay({ children }: PropsWithChildren) {
   return <div className={overlay}>{children}</div>;
 }

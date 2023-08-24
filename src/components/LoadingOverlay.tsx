@@ -64,6 +64,20 @@ const cancel = css({
   },
 });
 
+/**
+ * The LoadingOverlay component for loading screens for API calls.
+ * Made on top of the Overlay component.
+ * To hide the interface with it, consider using `useOverlay` with `asLoading` set to true for show method.
+ * This component should not be used directly.
+ *
+ * @param {LoadingOverlayProps} props - The properties for the LoadingOverlay.
+ * @param {React.ReactNode} [props.children="Loading..."] - The content to display inside the overlay. Defaults to "Loading...".
+ * Won't add dot animation at the end.
+ * @param {boolean} [props.withCancel=false] - Indicates whether to display a cancel button. Defaults to false.
+ * @param {string} [props.cancelLabel="Cancel"] - The label for the cancel button. Defaults to "Cancel".
+ * @param {() => void} [props.onCancel] - The callback function to be called when the cancel button is clicked.
+ * @return {JSX.Element} The rendered LoadingOverlay component. Will only render the component.
+ */
 export function LoadingOverlay({
   children = "Loading...",
   withCancel = false,

@@ -59,9 +59,17 @@ const percent = css({
   fontWeight: "300",
 });
 
-// Memoizing component to prevent unwanted mesh rerenders by parent
-// @see {@link https://react.dev/reference/react/memo memo}
-export const WebsiteLoadingOverlay = memo(function WebsiteLoadingOverlay() {
+/**
+ * WebsiteLoadingOverlay component for initial website load.
+ * Only shown once and then deleted from the DOM.
+ * Unlike other overlays, it is independent from provider.
+ * Which means it can be used directly.
+ * Used in Layout wrapper.
+ * uses `useFakeProgress` hook for loading indicator.
+ *
+ * @return {JSX.Element} The JSX element representing the loading overlay.
+ */
+export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
 
   useEffect(() => {
@@ -77,4 +85,4 @@ export const WebsiteLoadingOverlay = memo(function WebsiteLoadingOverlay() {
       <span className={percent}>{Math.floor(progress)}%</span>
     </div>
   );
-});
+};
