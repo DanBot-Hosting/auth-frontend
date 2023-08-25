@@ -1,5 +1,5 @@
 "use client";
-import { Modal, ModalProps } from "@/components/Modal";
+import { Modal } from "@/components/Modal";
 import { useOverlay } from "@/hooks/useOverlay";
 import { useCallback } from "react";
 
@@ -7,9 +7,9 @@ import { useCallback } from "react";
  * Hook that lets interact with overlay-provider by adding modals on top of overlay.
  * Utilizes useOverlay hook.
  *
- * @returns {{show: (modalProps: ModalProps) => void, hide: () => void}} An object containg show and hide functions.
+ * @returns {UseModal} An object containg show and hide functions.
  */
-export function useModal() {
+export function useModal(): UseModal {
   const { show: showOverlay, hide } = useOverlay();
 
   /**

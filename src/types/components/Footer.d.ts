@@ -1,0 +1,3 @@
+interface FooterProps {
+  footerData: FooterData;
+}

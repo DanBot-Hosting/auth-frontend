@@ -1,5 +1,4 @@
 "use client";
-
 import { useCallback, useMemo } from "react";
 
 // Do not place functions inside or for some reason show & hide
@@ -22,9 +21,9 @@ function preventDefaultKeys(event: KeyboardEvent) {
  * `scrollbar-gutter` doesn't work in Safari so we're not able to make it css-only without hardcode shifting
  * 
  * @see {@link https://bugs.webkit.org/show_bug.cgi?id=167335 bug 167335}
- * @returns {{ lock: () => void, unlock: () => void }} An object containing the show and hide functions.
+ * @returns {UseScrollbar} An object containing the show and hide functions.
  */
-export function useScrollbar() {
+export function useScrollbar(): UseScrollbar {
   // Events that should be disabled
   const events = useMemo(
     () => ["DOMMouseScroll", "wheel", "mousewheel", "touchmove"],

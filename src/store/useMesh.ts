@@ -2,12 +2,6 @@ import { Gradient } from "@/utils/mesh";
 import { mesh } from "@styles/recipes";
 import { create } from "zustand";
 
-interface MeshStore {
-  mesh: Gradient;
-  className: string;
-  initializeMesh: () => void;
-}
-
 /**
  * Mesh store to interact with background from any part of the app.
  *

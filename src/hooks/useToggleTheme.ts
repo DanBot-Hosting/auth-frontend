@@ -6,9 +6,9 @@ import { useCallback } from "react";
  * Hook for toggling the theme in client side between "dark" and "light".
  * Updates the document element's theme accordingly along with reinitializing the mesh.
  *
- * @return {{ toggle: () => void }} An object containing the toggle function.
+ * @return {UseToggleTheme} An object containing the toggle function.
  */
-export function useToggleTheme() {
+export function useToggleTheme(): UseToggleTheme {
   const cookieStore = useCookies();
   const mesh = useMesh();
 

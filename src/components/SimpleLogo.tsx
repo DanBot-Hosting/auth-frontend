@@ -1,5 +1,4 @@
 import { css } from "@styles/css";
-import { LogoProps } from "@/components/Logo";
 
 /**
  * Simplified Logo component with the ability to change the color.
@@ -9,6 +8,7 @@ import { LogoProps } from "@/components/Logo";
  */
 export function SimpleLogo({
   className = css({ color: "text.100" }),
+  ...props
 }: LogoProps) {
   return (
     <svg
@@ -18,6 +18,7 @@ export function SimpleLogo({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      {...props}
     >
       <path
         fillRule="evenodd"

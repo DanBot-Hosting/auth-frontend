@@ -4,10 +4,10 @@ import { useCallback, useRef, useState } from "react";
 /**
  * Generates a fake progress percentage using a timer interval and Math.atan.
  *
- * @returns {{ progress: number, start: () => void, stop: () => void }} An object containing the progress value,
+ * @returns {UseFakeProgress} An object containing the progress value,
  * a start function to initiate the progress, and a stop function to stop the progress.
  */
-export function useFakeProgress() {
+export function useFakeProgress(): UseFakeProgress {
   let currentProgress = useRef(0);
   let step = useRef(0.5);
   let [progress, setProgress] = useState(0);

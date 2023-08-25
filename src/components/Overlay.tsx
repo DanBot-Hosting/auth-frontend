@@ -1,5 +1,4 @@
 import { css } from "@styles/css";
-import { PropsWithChildren } from "react";
 
 const overlay = css({
   display: "inline-flex",
@@ -26,6 +25,6 @@ const overlay = css({
  * @param {React.ReactNode} [props.children] - The children to be rendered on top of the layer.
  * @returns {JSX.Element} Partially transparent dark consistent div element - layer.
  */
-export function Overlay({ children }: PropsWithChildren) {
+export function Overlay({ children }: OverlayProps) {
   return <div className={overlay}>{children}</div>;
 }

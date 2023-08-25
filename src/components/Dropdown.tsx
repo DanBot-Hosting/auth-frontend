@@ -5,11 +5,6 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-interface DropdownProps {
-  links: Link[];
-  onTabClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-}
-
 const dropdown = css({
   display: "flex",
   minWidth: "12.5rem",

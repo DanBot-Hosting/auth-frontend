@@ -1,21 +1,15 @@
 "use client";
-import { NotificationProps, Notification } from "@/components/Notification";
+import { Notification } from "@/components/Notification";
 import { useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Root, createRoot } from "react-dom/client";
 
-interface UseNotificationProps {
-  closeAfter?: number;
-}
-
-type Return = ReturnType<typeof useNotification>;
-
 /**
  * Hook that lets interact with notification-provider by attaching Notification component to it.
  *
- * @returns {Return} An object containing show and hide functions.
+ * @returns {UseNotification} An object containing show and hide functions.
  */
-export function useNotification() {
+export function useNotification(): UseNotification {
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 

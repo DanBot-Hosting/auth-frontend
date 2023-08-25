@@ -13,7 +13,6 @@ import {
 } from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
-import { PropsWithChildren } from "react";
 import { OverlayProvider } from "./OverlayProvider";
 
 const inter = Inter({
@@ -121,7 +120,7 @@ const html = css({
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
  * @returns {JSX.Element} The DOM representing the layout.
  */
-export function Layout({ children }: PropsWithChildren) {
+export function Layout({ children }: LayoutProps) {
   const cookieStore = useCookies();
   const theme = cookieStore.get("theme") ?? "light";
 

@@ -8,11 +8,6 @@ import { headerData } from "@/utils/constants";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
-interface UserHeaderData {
-  username: string;
-  avatarUrl: string;
-}
-
 const header = css({
   display: "inline-flex",
   h: "3.75rem",
@@ -143,9 +138,7 @@ export function Header({
     username: "domin",
     avatarUrl: "https://avatars.githubusercontent.com/u/69919939",
   },
-}: {
-  user?: UserHeaderData;
-}) {
+}: HeaderProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const caretRef = useRef<SVGSVGElement | null>(null);
 

@@ -1,22 +1,13 @@
 "use client";
 import { useCallback } from "react";
 
-interface SetOptions {
-  expires?: string;
-  path?: string;
-  domain?: string;
-  secure?: boolean;
-}
-
-type Return = ReturnType<typeof useCookies>;
-
 /**
  * A hook that provides access to cookies in client components of React.
  * For server components use next/headers `useCookies`.
  *
- * @returns {Return} An object with `get` and `set` functions for cookies.
+ * @returns {UseCookies} An object with `get` and `set` functions for cookies.
  */
-export function useCookies() {
+export function useCookies(): UseCookies {
   /**
    * Getter function to find a cookie. Returns first matching cookie.
    * 

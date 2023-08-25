@@ -1,5 +1,4 @@
 import { Input } from "@/components/Input";
-import { ModalProps } from "@/components/Modal";
 import { useModal } from "@/hooks/useModal";
 import { css } from "@styles/css";
 

@@ -1,11 +1,6 @@
 import { css, cx } from "@styles/css";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
 import { GearFine } from "@/utils/icons";
-
-interface AvatarProps extends Omit<ImageProps, "width" | "height"> {
-  configurable?: boolean;
-  size: number;
-}
 
 const avatar = css({
   display: "flex",

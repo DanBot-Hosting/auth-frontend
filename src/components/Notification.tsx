@@ -1,11 +1,4 @@
 import { css } from "@styles/css";
-import { PropsWithChildren } from "react";
-
-export interface NotificationProps extends PropsWithChildren {
-  withConfirm?: boolean;
-  confirmLabel?: string;
-  onConfirm?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
 
 const notification = css({
   display: "inline-flex",

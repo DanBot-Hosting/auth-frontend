@@ -1,30 +1,17 @@
 "use client";
-import {
-  LoadingOverlay,
-  LoadingOverlayProps,
-} from "@/components/LoadingOverlay";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { Overlay } from "@/components/Overlay";
-import { PropsWithChildren, useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Root, createRoot } from "react-dom/client";
 import { useScrollbar } from "@/hooks/useScrollbar";
 
-interface UseOverlayProps {
-  asLoading?: false;
-}
-
-interface UseLoadingOverlayProps extends LoadingOverlayProps {
-  asLoading?: true;
-}
-
-type Return = ReturnType<typeof useOverlay>;
-
 /**
  * Hook that lets interact with overlay-provider by attaching custom Overlays & LoadingOverlays.
  *
- * @returns {Return} An object containing show and hide functions for displaying and hiding overlays.
+ * @returns {UseOverlay} An object containing show and hide functions for displaying and hiding overlays.
  */
-export function useOverlay() {
+export function useOverlay(): UseOverlay {
   const { unlock: showScrollbar, lock: hideScrollbar } = useScrollbar();
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
@@ -49,7 +36,7 @@ export function useOverlay() {
   /**
    * Shows Overlay with the given props.
    *
-   * @param {PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)} props - The properties passed to the overlay.
+   * @param {ShowOverlayProps} props - The properties passed to the overlay.
    * @param {React.ReactNode} [props.children] - The children to be rendered on top of the layer.
    * @param {boolean} [props.asLoading=false] - Indicates whether to render a LoadingOverlay or Overlay.
    * @param {React.ReactNode} [props.children="Loading..."] - The content to display inside the overlay. Defaults to "Loading...".
@@ -63,10 +50,7 @@ export function useOverlay() {
    * @returns {void}
    */
   const show = useCallback(
-    ({
-      asLoading = false,
-      ...props
-    }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) => {
+    ({ asLoading = false, ...props }: ShowOverlayProps) => {
       if (!provider.current) {
         const providerElement = document.getElementById("overlay-provider");
         if (!providerElement) throw "No overlay provider found!";

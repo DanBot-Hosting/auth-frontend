@@ -1,13 +1,6 @@
 import { Overlay } from "@/components/Overlay";
 import { CircleNotch } from "@phosphor-icons/react";
 import { css } from "@styles/css";
-import { PropsWithChildren } from "react";
-
-export interface LoadingOverlayProps extends PropsWithChildren {
-  withCancel?: boolean;
-  cancelLabel?: string;
-  onCancel?: () => void;
-}
 
 const loading = css({
   display: "inline-flex",

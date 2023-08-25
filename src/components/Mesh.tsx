@@ -2,10 +2,6 @@
 import { useMesh } from "@/store/useMesh";
 import { memo, useEffect } from "react";
 
-interface MeshProps {
-  onLoad?: () => void;
-}
-
 /**
  * Renders a Mesh ambient background component as a canvas element.
  * Giving the ability to interact with it via useMesh store.

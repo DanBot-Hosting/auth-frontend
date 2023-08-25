@@ -100,7 +100,7 @@ const anchor = css({
  * @param {FooterData} props.footerData - Columns and their links used to render the Footer.
  * @returns {JSX.Element} The rendered Footer component.
  */
-export function Footer({ footerData }: { footerData: FooterData }) {
+export function Footer({ footerData }: FooterProps) {
   return (
     <div className={footer}>
       <div className={columns}>

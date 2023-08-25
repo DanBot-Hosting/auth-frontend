@@ -1,11 +1,4 @@
 import { css } from "@styles/css";
-import { PropsWithChildren, ReactElement } from "react";
-
-export interface ModalProps extends PropsWithChildren {
-  label: string;
-  description?: string;
-  buttons?: ReactElement[];
-}
 
 const modal = css({
   display: "flex",
