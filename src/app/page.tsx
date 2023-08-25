@@ -16,7 +16,6 @@ const button = css({
 });
 
 export default function Home() {
-  const { show: showLoadingOverlay, hide: hideLoadingOverlay } = useOverlay();
   const { show: showOverlay, hide: hideOverlay } = useOverlay();
   const { show: showNotification, hide: _hideNotification } = useNotification();
   const { show: showModal, hide: hideModal } = useModal();
@@ -27,11 +26,11 @@ export default function Home() {
         <button
           className={button}
           onClick={() =>
-            showLoadingOverlay({
+            showOverlay({
               asLoading: true,
               withCancel: true,
               cancelLabel: "Cancel",
-              onCancel: () => hideLoadingOverlay(),
+              onCancel: () => hideOverlay(),
             })
           }
         >
@@ -44,8 +43,9 @@ export default function Home() {
           onClick={() =>
             showOverlay({
               asLoading: false,
+              closeOnEscape: true,
               children: (
-                <span onClick={() => hideOverlay()}>Some overlay tests</span>
+                <span>Some overlay tests</span>
               ),
             })
           }
@@ -69,6 +69,7 @@ export default function Home() {
           onClick={() =>
             showModal({
               buttons: [(<div onClick={hideModal} key="cancel">Cancel</div>), (<div onClick={hideModal} key="accept">Accept</div>)],
+              closeOnEscape: true,
               label: "Confirm account deletion",
               description: "Enter deletion code sent via Email",
             })
