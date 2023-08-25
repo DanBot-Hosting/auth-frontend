@@ -1,3 +1,7 @@
+interface UseGeneralOverlayProps {
+  closeOnEscape?: boolean;
+}
+
 interface UseOverlayProps {
   asLoading?: false;
 }
@@ -11,5 +15,4 @@ interface UseOverlay {
   hide: () => void;
 }
 
-type ShowOverlayProps = OverlayProps &
-  (UseOverlayProps | UseLoadingOverlayProps);
+type ShowOverlayProps = OverlayProps & UseGeneralOverlayProps & (UseOverlayProps | UseLoadingOverlayProps);

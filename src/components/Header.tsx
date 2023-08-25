@@ -142,20 +142,31 @@ export function Header({
 }: HeaderProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const caretRef = useRef<SVGSVGElement | null>(null);
+  const userSectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     document.addEventListener("keyup", (event) => {
       if (event.key === "Escape") hideAccountDropdown();
     });
+
+    document.body.addEventListener("click", (event) => {
+      // Without the use of stopPropagation as it's not recommended
+      if (userSectionRef.current?.contains(event.target as Node)) return;
+      if (userSectionRef.current?.isEqualNode(event.target as Node)) return;
+
+      hideAccountDropdown();
+    });
   }, []);
 
-  function toggleAccountDropdown() {
+  function toggleAccountDropdown(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+
     const currentVisibility = caretRef.current?.getAttribute("data-active");
     if (!currentVisibility) {
       caretRef.current?.setAttribute("data-active", "true");
       dropdownRef.current?.setAttribute("data-active", "true");
       return;
     }
+
     caretRef.current?.removeAttribute("data-active");
     dropdownRef.current?.removeAttribute("data-active");
   }
@@ -165,13 +176,14 @@ export function Header({
     setTimeout(() => {
       caretRef.current?.removeAttribute("data-active");
       dropdownRef.current?.removeAttribute("data-active");
-    }, 500);
+    });
   }
 
   const userManagement = (
     <span
       className={cx(part, signSection, account)}
       onClick={toggleAccountDropdown}
+      ref={userSectionRef}
     >
       <Avatar size={40} src={user.avatarUrl} alt={user.username} />
       <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
