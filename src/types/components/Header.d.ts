@@ -1,3 +1,5 @@
+type HeaderLinks = Record<string, string>;
+
 interface UserHeaderData {
   username: string;
   avatarUrl: string;
@@ -5,4 +7,5 @@ interface UserHeaderData {
 
 interface HeaderProps {
   user?: UserHeaderData;
+  links: HeaderLinks;
 }

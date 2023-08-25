@@ -1,3 +1,5 @@
+type FooterLinks = Record<string, Link[]>;
+
 interface FooterProps {
-  footerData: FooterData;
+  links: FooterLinks;
 }

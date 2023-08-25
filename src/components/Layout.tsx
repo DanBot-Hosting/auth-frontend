@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { css, cx } from "@styles/css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { footerData } from "@/utils/constants";
+import { footerLinks, headerLinks } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
 import {
@@ -128,7 +128,7 @@ export function Layout({ children }: LayoutProps) {
     <html lang="en" data-theme={theme} className={html}>
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
-          <Header />
+          <Header links={headerLinks} />
         </header>
         <div className={wrapper}>
           <div className={mesh}>
@@ -142,7 +142,7 @@ export function Layout({ children }: LayoutProps) {
         <NotificationProvider />
         <OverlayProvider />
         <footer className={footer}>
-          <Footer footerData={footerData} />
+          <Footer links={footerLinks} />
         </footer>
         <WebsiteLoadingOverlay />
         {/**

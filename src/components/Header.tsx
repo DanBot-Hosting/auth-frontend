@@ -4,7 +4,6 @@ import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
 import { Dropdown } from "@/components/Dropdown";
 import { CaretDown } from "@/utils/icons";
-import { headerData } from "@/utils/constants";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
@@ -131,9 +130,11 @@ const dropdown = css({
  * Pill-styled Header component with additional links and access to user data.
  *
  * @param {UserHeaderData} [props.user] - The user data to be shown if signed in.
+ * @param {HeaderLinks} props.links - List of additional links in the header.
  * @returns {JSX.Element} The rendered Header component.
  */
 export function Header({
+  links,
   user = {
     username: "domin",
     avatarUrl: "https://avatars.githubusercontent.com/u/69919939",
@@ -197,11 +198,11 @@ export function Header({
         <Link className={logo} href="/">
           <SimpleLogo />
         </Link>
-        {Object.keys(headerData).map((key, i) => (
+        {Object.keys(links).map((key, i) => (
           <Link
             key={i}
             className={cx(additionalLink, button)}
-            href={headerData[key]}
+            href={links[key]}
           >
             {key}
           </Link>

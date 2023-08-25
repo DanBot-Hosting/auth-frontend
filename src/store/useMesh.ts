@@ -10,11 +10,11 @@ import { create } from "zustand";
  */
 export const useMesh = (onLoad?: () => void) =>
   create<MeshStore>((_, get) => ({
-    /** Mesh Gradient class, is type of any because module needs ts rewrite */
+    /** Mesh Gradient class, is type of any because module needs ts rewrite. */
     mesh: new Gradient(onLoad ?? (() => {})),
-    /** Mesh className in case it is needed to manipulate with canvas element, " mesh" */
+    /** Mesh className in case it is needed to manipulate with canvas element, " mesh". */
     className: mesh(),
-    /** Initializes the mesh without updating the position */
+    /** Initializes the mesh without updating the position. */
     initializeMesh: () => {
       const selector = get().className;
 
