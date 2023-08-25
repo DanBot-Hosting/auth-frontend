@@ -14,6 +14,14 @@ const animated = css({
   },
 });
 
+/**
+ * OverlayProvider component to get Overlay attachments via `useOverlay` hook.
+ * Used in Layout wrapper.
+ * Adds animations for toggling visibility via dataset.
+ *
+ * @returns {JSX.Element} The rendered OverlayProvider component with corresponding id attribute.
+ * Hidden by default.
+ */
 export function OverlayProvider() {
   return <div className={animated} id="overlay-provider" data-hidden />;
 }

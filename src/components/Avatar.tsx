@@ -1,11 +1,6 @@
 import { css, cx } from "@styles/css";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
 import { GearFine } from "@/utils/icons";
-
-interface AvatarProps extends Omit<ImageProps, "width" | "height"> {
-  configurable?: boolean;
-  size: number;
-}
 
 const avatar = css({
   display: "flex",
@@ -62,6 +57,17 @@ const gear = css({
   },
 });
 
+
+/**
+ * A configurable Avatar component with additional optimization by next/image.
+ *
+ * @param {AvatarProps} props - The props for the avatar component.
+ * @param {string} props.alt - The alt text for the image.
+ * @param {boolean} [props.configurable] - Whether the avatar is configurable (hoverable).
+ * @param {number} props.size - The size of the avatar.
+ * @param {AvatarProps} props... - Additional props for the avatar component.
+ * @returns {JSX.Element} The rendered avatar component.
+ */
 export function Avatar({ alt, configurable, size, ...props }: AvatarProps) {
   return (
     <div className={cx(avatar, configurable ? overlay : null, "group")}>

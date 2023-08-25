@@ -1,11 +1,4 @@
 import { css } from "@styles/css";
-import { PropsWithChildren } from "react";
-
-export interface NotificationProps extends PropsWithChildren {
-  withConfirm?: boolean;
-  confirmLabel?: string;
-  onConfirm?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
 
 const notification = css({
   display: "inline-flex",
@@ -59,6 +52,18 @@ const confirm = css({
   },
 });
 
+/**
+ * Notification component for displaying notifications.
+ * To animate presence, consider using `useNotification`.
+ * This component should not be used directly.
+ *
+ * @param {NotificationProps} props - The properties of the notification component.
+ * @param {React.ReactNode} [props.children] - The content of the notification.
+ * @param {boolean} [props.withConfirm=true] - Whether to show a confirm button. Defaults to true.
+ * @param {string} [props.confirmLabel="Accept"] - The label text for the confirm button. Defaults to "Accept".
+ * @param {((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)} [props.onConfirm] - The function to call when the confirm button is clicked.
+ * @returns {JSX.Element} The rendered Notification component. Will only render a div in DOM, not attached to provider.
+ */
 export function Notification({
   children,
   withConfirm = true,

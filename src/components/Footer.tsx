@@ -26,7 +26,7 @@ const column = css({
   },
 });
 
-const links = css({
+const list = css({
   display: "flex",
   flexDir: "column",
   alignItems: "flex-start",
@@ -94,15 +94,21 @@ const anchor = css({
   },
 });
 
-export function Footer({ footerData }: { footerData: FooterData }) {
+/**
+ * Footer component with useful links about the service, works as a slider in Layout.
+ *
+ * @param {FooterLinks} props.links - Columns and their links used to render the Footer.
+ * @returns {JSX.Element} The rendered Footer component.
+ */
+export function Footer({ links }: FooterProps) {
   return (
     <div className={footer}>
       <div className={columns}>
-        {Object.keys(footerData).map((key, i) => (
+        {Object.keys(links).map((key, i) => (
           <div key={i} className={column}>
             <span className={columnTitle}>{key}</span>
-            <ul className={links}>
-              {footerData[key as keyof FooterData].map((update, i) => (
+            <ul className={list}>
+              {links[key as keyof FooterLinks].map((update, i) => (
                 <li key={i} className={listItem}>
                   <Link href={update.link} className={anchor}>
                     {update.label}

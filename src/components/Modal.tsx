@@ -1,11 +1,4 @@
 import { css } from "@styles/css";
-import { PropsWithChildren, ReactElement } from "react";
-
-export interface ModalProps extends PropsWithChildren {
-  label: string;
-  description?: string;
-  buttons?: ReactElement[];
-}
 
 const modal = css({
   display: "flex",
@@ -85,6 +78,19 @@ const buttonList = css({
   },
 });
 
+/**
+ * Modal component made to be rendered on top of Overlay component.
+ * To hide the interface with it, consider using `useModal`.
+ * This component should not be used directly.
+ *
+ * @param {ModalProps} props - The properties passed to the component.
+ * @param {string} props.label - The label aka title for the modal.
+ * @param {string} [props.description] - The description for the modal. Element won't rendered if not set.
+ * @param {React.ReactNode} [props.children] - The content of the modal. Element won't rendered if not set.
+ * @param {React.ReactElement[]} [props.buttons] - The button list to be rendered in the modal.
+ * Gets applied custom styles but they can be overriden by !important sign (or simply ! in panda-css).
+ * @returns {JSX.Element} The rendered Modal component. Will only render dialog (without semantics).
+ */
 export function Modal({ label, description, children, buttons }: ModalProps) {
   return (
     <div className={modal}>

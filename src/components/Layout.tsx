@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { css, cx } from "@styles/css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { footerData } from "@/utils/constants";
+import { footerLinks, headerLinks } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
 import {
@@ -13,7 +13,6 @@ import {
 } from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
-import { PropsWithChildren } from "react";
 import { OverlayProvider } from "./OverlayProvider";
 
 const inter = Inter({
@@ -114,7 +113,14 @@ const html = css({
   maxHeight: "100vh",
 });
 
-export function Layout({ children }: PropsWithChildren) {
+/**
+ * Layout component to interact with the DOM as client component.
+ * `layout.tsx` doesn't allow the usage of client components, so we use wrapper.
+ *
+ * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
+ * @returns {JSX.Element} The DOM representing the layout.
+ */
+export function Layout({ children }: LayoutProps) {
   const cookieStore = useCookies();
   const theme = cookieStore.get("theme") ?? "light";
 
@@ -122,7 +128,7 @@ export function Layout({ children }: PropsWithChildren) {
     <html lang="en" data-theme={theme} className={html}>
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
-          <Header />
+          <Header links={headerLinks} />
         </header>
         <div className={wrapper}>
           <div className={mesh}>
@@ -136,11 +142,13 @@ export function Layout({ children }: PropsWithChildren) {
         <NotificationProvider />
         <OverlayProvider />
         <footer className={footer}>
-          <Footer footerData={footerData} />
+          <Footer links={footerLinks} />
         </footer>
         <WebsiteLoadingOverlay />
-        {/** Tricky way to have themes & static site generation at the same time (no serverside) */}
-        {/** @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 3rd party script} */}
+        {/**
+         * Tricky way to have themes & static site generation at the same time (no serverside)
+         * @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 3rd party script}
+         */}
         <script
           id="theme-setup"
           async

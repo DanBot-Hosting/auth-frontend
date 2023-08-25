@@ -1,5 +1,4 @@
 "use client";
-
 import { useCallback, useMemo } from "react";
 
 // Do not place functions inside or for some reason show & hide
@@ -16,17 +15,27 @@ function preventDefaultKeys(event: KeyboardEvent) {
 }
 
 /**
- * scrollbar-gutter doesn't work in Safari so we're not able to make it css-only without hardcode shifting
+ * Hook that provides limited ways to interact with scrollbar via javascript.
+ * Won't disable scrolling for interacting with scrollbar.
+ * Hopefully you hide it with Overlay ;)
+ * `scrollbar-gutter` doesn't work in Safari so we're not able to make it css-only without hardcode shifting
+ * 
  * @see {@link https://bugs.webkit.org/show_bug.cgi?id=167335 bug 167335}
+ * @returns {UseScrollbar} An object containing the show and hide functions.
  */
-export function useScrollbar() {
+export function useScrollbar(): UseScrollbar {
   // Events that should be disabled
   const events = useMemo(
     () => ["DOMMouseScroll", "wheel", "mousewheel", "touchmove"],
     []
   );
 
-  const show = useCallback(() => {
+  /**
+   * Unlocks the usage of scrollbar if it was locked by the hook method.
+   * 
+   * @returns {void}
+   */
+  const unlock = useCallback(() => {
     for (let event of events) {
       document.body.removeEventListener(event, preventDefault);
     }
@@ -34,9 +43,13 @@ export function useScrollbar() {
     document.body.removeEventListener("keydown", preventDefaultKeys, false);
   }, [events]);
 
-  const hide = useCallback(() => {
-    // Disable events, scrollbar on the other hand is still interactable
-    // Hopefully you hide it with Overlay ;)
+  /**
+   * Locks the usage of scrollbar by removing wheel, touchmove events & block some keys.
+   * Won't disable scrolling for interacting with scrollbar.
+   * 
+   * @returns {void}
+   */
+  const lock = useCallback(() => {
     // Disable passive to not ignore preventDefault()
     for (let event of events) {
       document.body.addEventListener(event, preventDefault, { passive: false });
@@ -45,5 +58,5 @@ export function useScrollbar() {
     document.body.addEventListener("keydown", preventDefaultKeys, false);
   }, [events]);
 
-  return { show, hide };
+  return { unlock, lock };
 }

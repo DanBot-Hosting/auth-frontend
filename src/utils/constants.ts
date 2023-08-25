@@ -119,7 +119,7 @@ export const ErrorMessages = {
   },
 } as const;
 
-export const footerData: FooterData = {
+export const footerLinks: FooterLinks = {
   updates: [
     {
       label: "Discord",
@@ -153,7 +153,7 @@ export const footerData: FooterData = {
   ],
 };
 
-export const headerData: HeaderData = {
+export const headerLinks: HeaderLinks = {
   Panel: "https://panel.danbot.host",
   Discord: "https://discord.com/invite/dbh",
 };

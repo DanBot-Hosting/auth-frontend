@@ -3,12 +3,7 @@ import { css } from "@styles/css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-
-interface DropdownProps {
-  links: Link[];
-  onTabClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-}
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const dropdown = css({
   display: "inline-flex",
@@ -58,6 +53,12 @@ const focusDiv = css({
   zIndex: "3",
 });
 
+/**
+ * Returns the inner space of an HTMLDivElement element.
+ *
+ * @param {HTMLDivElement} element - The HTMLDivElement element to calculate the inner space of.
+ * @returns {number} The inner space of the HTMLDivElement element in pixels.
+ */
 function getElementInnerSpace(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
   let elementSpace = element.clientHeight;
@@ -67,16 +68,36 @@ function getElementInnerSpace(element: HTMLDivElement): number {
   return elementSpace;
 }
 
+/**
+ * Returns the top offset of the inner content of the specified HTMLDivElement element.
+ *
+ * @param {HTMLDivElement} element - The HTMLDivElement element to get the top offset from.
+ * @returns {number} The top offset of the inner content of the element in pixels.
+ */
 function getElementInnerTopOffset(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
   return parseFloat(computed.paddingTop);
 }
 
+/**
+ * Returns the left offset of the inner content of the specified HTMLDivElement element.
+ *
+ * @param {HTMLDivElement} element - The HTMLDivElement element to get the left offset from.
+ * @returns {number} The left offset of the inner content of the element in pixels.
+ */
 function getElementInnerLeftOffset(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
   return parseFloat(computed.paddingLeft);
 }
 
+/**
+ * A SegmentedControl pill with a list of links and buttons to interact with.
+ * Uses hoverable to slide to the selected/hovered element.
+ *
+ * @param {Link[]} props.links - The array of links to be displayed in the SegmentedControl.
+ * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
+ * @returns {JSX.Element} The rendered SegmentedControl component.
+ */
 export function SegmentedControl({ links, onTabClick }: DropdownProps) {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -89,9 +110,8 @@ export function SegmentedControl({ links, onTabClick }: DropdownProps) {
     visible: false,
   });
 
-  useEffect(returnPosition, [pathname]);
-
-  function resetPosition() {
+  /** Resets the position of the hoverable. */
+  const resetPosition = useCallback(() => {
     setPosition({
       width: 0,
       height: getElementInnerSpace(parentRef.current as HTMLDivElement),
@@ -101,18 +121,24 @@ export function SegmentedControl({ links, onTabClick }: DropdownProps) {
       ],
       visible: false,
     });
-  }
+  }, []);
 
-  function changePosition(element: HTMLAnchorElement) {
+  /**
+   * Updates the position of the hoverable depending on the element.
+   *
+   * @param {HTMLAnchorElement} element - The element to update the position to.
+   */
+  const changePosition = useCallback((element: HTMLAnchorElement) => {
     setPosition({
       width: element?.offsetWidth ?? 0,
       height: element?.offsetHeight ?? 0,
       translation: [element?.offsetLeft ?? 0, element?.offsetTop ?? 0],
       visible: true,
     });
-  }
+  }, []);
 
-  function returnPosition() {
+  /** Returns the position of the hoverable. */
+  const returnPosition = useCallback(() => {
     const element = linksRef.current.find(
       (link) => link?.pathname === pathname
     );
@@ -125,7 +151,10 @@ export function SegmentedControl({ links, onTabClick }: DropdownProps) {
 
     element.dataset.active = "true";
     changePosition(element);
-  }
+  }, [changePosition, pathname, resetPosition]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(returnPosition, [pathname]);
 
   return (
     <div className={dropdown} ref={parentRef}>
