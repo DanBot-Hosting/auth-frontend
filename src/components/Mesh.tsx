@@ -13,7 +13,7 @@ interface MeshProps {
  * 
  * @see {@link https://react.dev/reference/react/memo memo}
  * @param {() => void} props.onLoad - A callback function to be executed when the mesh is loaded.
- * @return {JSX.Element} The rendered Mesh component.
+ * @returns {JSX.Element} The rendered Mesh component.
  */
 export const Mesh = memo(function Mesh({ onLoad }: MeshProps) {
   const mesh = useMesh(onLoad ?? (() => {}));

@@ -71,7 +71,7 @@ const gear = css({
  * @param {boolean} [props.configurable] - Whether the avatar is configurable (hoverable).
  * @param {number} props.size - The size of the avatar.
  * @param {AvatarProps} props... - Additional props for the avatar component.
- * @return {JSX.Element} The rendered avatar component.
+ * @returns {JSX.Element} The rendered avatar component.
  */
 export function Avatar({ alt, configurable, size, ...props }: AvatarProps) {
   return (

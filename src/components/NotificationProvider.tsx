@@ -22,7 +22,7 @@ const animated = css({
  * Used in Layout wrapper.
  * Adds animations for toggling visibility via dataset.
  *
- * @return {JSX.Element} The rendered NotificationProvider component with corresponding id attribute.
+ * @returns {JSX.Element} The rendered NotificationProvider component with corresponding id attribute.
  * Hidden by default.
  */
 export function NotificationProvider() {

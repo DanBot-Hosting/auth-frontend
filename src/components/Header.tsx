@@ -136,7 +136,7 @@ const dropdown = css({
  * Pill-styled Header component with additional links and access to user data.
  *
  * @param {UserHeaderData} [props.user] - The user data to be shown if signed in.
- * @return {JSX.Element} The rendered Header component.
+ * @returns {JSX.Element} The rendered Header component.
  */
 export function Header({
   user = {

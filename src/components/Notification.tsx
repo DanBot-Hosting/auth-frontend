@@ -69,7 +69,7 @@ const confirm = css({
  * @param {boolean} [props.withConfirm=true] - Whether to show a confirm button. Defaults to true.
  * @param {string} [props.confirmLabel="Accept"] - The label text for the confirm button. Defaults to "Accept".
  * @param {((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)} [props.onConfirm] - The function to call when the confirm button is clicked.
- * @return {JSX.Element} The rendered Notification component. Will only render a div in DOM, not attached to provider.
+ * @returns {JSX.Element} The rendered Notification component. Will only render a div in DOM, not attached to provider.
  */
 export function Notification({
   children,

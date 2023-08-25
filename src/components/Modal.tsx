@@ -96,7 +96,7 @@ const buttonList = css({
  * @param {React.ReactNode} [props.children] - The content of the modal. Element won't rendered if not set.
  * @param {React.ReactElement[]} [props.buttons] - The button list to be rendered in the modal.
  * Gets applied custom styles but they can be overriden by !important sign (or simply ! in panda-css).
- * @return {JSX.Element} The rendered Modal component. Will only render dialog (without semantics).
+ * @returns {JSX.Element} The rendered Modal component. Will only render dialog (without semantics).
  */
 export function Modal({ label, description, children, buttons }: ModalProps) {
   return (

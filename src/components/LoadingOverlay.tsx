@@ -76,7 +76,7 @@ const cancel = css({
  * @param {boolean} [props.withCancel=false] - Indicates whether to display a cancel button. Defaults to false.
  * @param {string} [props.cancelLabel="Cancel"] - The label for the cancel button. Defaults to "Cancel".
  * @param {() => void} [props.onCancel] - The callback function to be called when the cancel button is clicked.
- * @return {JSX.Element} The rendered LoadingOverlay component. Will only render the component.
+ * @returns {JSX.Element} The rendered LoadingOverlay component. Will only render the component.
  */
 export function LoadingOverlay({
   children = "Loading...",

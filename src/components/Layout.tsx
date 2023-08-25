@@ -119,7 +119,7 @@ const html = css({
  * `layout.tsx` doesn't allow the usage of client components, so we use wrapper.
  *
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
- * @return {JSX.Element} The DOM representing the layout.
+ * @returns {JSX.Element} The DOM representing the layout.
  */
 export function Layout({ children }: PropsWithChildren) {
   const cookieStore = useCookies();

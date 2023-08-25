@@ -8,7 +8,21 @@ interface SetOptions {
   secure?: boolean;
 }
 
+type Return = ReturnType<typeof useCookies>;
+
+/**
+ * A hook that provides access to cookies in client components of React.
+ * For server components use next/headers `useCookies`.
+ *
+ * @returns {Return} An object with `get` and `set` functions for cookies.
+ */
 export function useCookies() {
+  /**
+   * Getter function to find a cookie. Returns first matching cookie.
+   * 
+   * @param {string} key - The name of the cookie to find.
+   * @returns {string} The value of the cookie.
+   */
   const get = useCallback((key: string) => {
     // Server does not have document defined in build time
     // get() method is called on page load in root layout
@@ -22,6 +36,14 @@ export function useCookies() {
     }
   }, []);
 
+  /**
+   * Setter function to set a cookie.
+   * 
+   * @param {string} key - The name of the cookie.
+   * @param {string} value - The value of that cookie.
+   * @param {SetOptions} opts - Options for the cookie.
+   * @returns {string} The value of the cookie.
+   */
   const set = useCallback(
     (key: string, value: string, opts: SetOptions = {}) => {
       let result = encodeURIComponent(key) + "=" + encodeURIComponent(value);

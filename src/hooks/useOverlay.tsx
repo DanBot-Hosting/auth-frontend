@@ -17,11 +17,25 @@ interface UseLoadingOverlayProps extends LoadingOverlayProps {
   asLoading?: true;
 }
 
+type Return = ReturnType<typeof useOverlay>;
+
+/**
+ * Hook that lets interact with overlay-provider by attaching custom Overlays & LoadingOverlays.
+ *
+ * @returns {Return} An object containing show and hide functions for displaying and hiding overlays.
+ */
 export function useOverlay() {
-  const { show: showScrollbar, hide: hideScrollbar } = useScrollbar();
+  const { unlock: showScrollbar, lock: hideScrollbar } = useScrollbar();
   const root = useRef<Root | null>(null);
   const provider = useRef<HTMLElement | null>(null);
 
+  /**
+   * Hides Overlay from the DOM.
+   * Will take 150ms to hide it for the user.
+   * Will take 300ms to delete it from the DOM.
+   *
+   * @returns {void}
+   */
   const hide = useCallback(() => {
     provider.current?.setAttribute("data-hidden", "");
     showScrollbar();
@@ -32,37 +46,56 @@ export function useOverlay() {
     }, 300);
   }, [provider, root, showScrollbar]);
 
-  const show = useCallback(({
-    asLoading = false,
-    ...props
-  }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) => {
-    if (!provider.current) {
-      const providerElement = document.getElementById("overlay-provider");
-      if (!providerElement) throw "No overlay provider found!";
-      provider.current = providerElement;
-    }
+  /**
+   * Shows Overlay with the given props.
+   *
+   * @param {PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)} props - The properties passed to the overlay.
+   * @param {React.ReactNode} [props.children] - The children to be rendered on top of the layer.
+   * @param {boolean} [props.asLoading=false] - Indicates whether to render a LoadingOverlay or Overlay.
+   * @param {React.ReactNode} [props.children="Loading..."] - The content to display inside the overlay. Defaults to "Loading...".
+   * Won't add dot animation at the end. Only available if asLoading set to true.
+   * @param {boolean} [props.withCancel=false] - Indicates whether to display a cancel button. Defaults to false.
+   * Only available if asLoading set to true.
+   * @param {string} [props.cancelLabel="Cancel"] - The label for the cancel button. Defaults to "Cancel".
+   * Only available if asLoading set to true.
+   * @param {() => void} [props.onCancel] - The callback function to be called when the cancel button is clicked.
+   * Only available if asLoading set to true.
+   * @returns {void}
+   */
+  const show = useCallback(
+    ({
+      asLoading = false,
+      ...props
+    }: PropsWithChildren & (UseOverlayProps | UseLoadingOverlayProps)) => {
+      if (!provider.current) {
+        const providerElement = document.getElementById("overlay-provider");
+        if (!providerElement) throw "No overlay provider found!";
+        provider.current = providerElement;
+      }
 
-    if (!root.current) {
-      const rootElement = document.createElement("div");
-      root.current = createRoot(rootElement);
-    }
+      if (!root.current) {
+        const rootElement = document.createElement("div");
+        root.current = createRoot(rootElement);
+      }
 
-    if (asLoading) {
-      root.current.render(
-        createPortal(
-          <LoadingOverlay onCancel={hide} {...props} />,
-          provider.current
-        )
-      );
-    } else {
-      root.current.render(
-        createPortal(<Overlay {...props} />, provider.current)
-      );
-    }
+      if (asLoading) {
+        root.current.render(
+          createPortal(
+            <LoadingOverlay onCancel={hide} {...props} />,
+            provider.current
+          )
+        );
+      } else {
+        root.current.render(
+          createPortal(<Overlay {...props} />, provider.current)
+        );
+      }
 
-    hideScrollbar();
-    provider.current.removeAttribute("data-hidden");
-  }, [root, provider, hideScrollbar, hide]);
+      hideScrollbar();
+      provider.current.removeAttribute("data-hidden");
+    },
+    [root, provider, hideScrollbar, hide]
+  );
 
   return { show, hide };
 }

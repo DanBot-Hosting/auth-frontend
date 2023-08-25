@@ -67,7 +67,7 @@ const percent = css({
  * Used in Layout wrapper.
  * uses `useFakeProgress` hook for loading indicator.
  *
- * @return {JSX.Element} The JSX element representing the loading overlay.
+ * @returns {JSX.Element} The JSX element representing the loading overlay.
  */
 export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();

@@ -8,7 +8,7 @@ export interface LogoProps {
  * Detailed Logo component with the ability to change the color.
  *
  * @param {string} props.className - Class which determines the color of the logo.
- * @return {JSX.Element} The rendered Logo component.
+ * @returns {JSX.Element} The rendered Logo component.
  */
 export function Logo({ className = css({ color: "text.100" }) }: LogoProps) {
   return (

@@ -24,7 +24,7 @@ const overlay = css({
  * This component should not be used directly.
  *
  * @param {React.ReactNode} [props.children] - The children to be rendered on top of the layer.
- * @return {JSX.Element} Partially transparent dark consistent div element - layer.
+ * @returns {JSX.Element} Partially transparent dark consistent div element - layer.
  */
 export function Overlay({ children }: PropsWithChildren) {
   return <div className={overlay}>{children}</div>;

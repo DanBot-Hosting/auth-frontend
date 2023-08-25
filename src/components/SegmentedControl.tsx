@@ -62,7 +62,7 @@ const focusDiv = css({
  * Returns the inner space of an HTMLDivElement element.
  *
  * @param {HTMLDivElement} element - The HTMLDivElement element to calculate the inner space of.
- * @return {number} The inner space of the HTMLDivElement element in pixels.
+ * @returns {number} The inner space of the HTMLDivElement element in pixels.
  */
 function getElementInnerSpace(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
@@ -77,7 +77,7 @@ function getElementInnerSpace(element: HTMLDivElement): number {
  * Returns the top offset of the inner content of the specified HTMLDivElement element.
  *
  * @param {HTMLDivElement} element - The HTMLDivElement element to get the top offset from.
- * @return {number} The top offset of the inner content of the element in pixels.
+ * @returns {number} The top offset of the inner content of the element in pixels.
  */
 function getElementInnerTopOffset(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
@@ -88,7 +88,7 @@ function getElementInnerTopOffset(element: HTMLDivElement): number {
  * Returns the left offset of the inner content of the specified HTMLDivElement element.
  *
  * @param {HTMLDivElement} element - The HTMLDivElement element to get the left offset from.
- * @return {number} The left offset of the inner content of the element in pixels.
+ * @returns {number} The left offset of the inner content of the element in pixels.
  */
 function getElementInnerLeftOffset(element: HTMLDivElement): number {
   const computed = getComputedStyle(element);
@@ -101,7 +101,7 @@ function getElementInnerLeftOffset(element: HTMLDivElement): number {
  *
  * @param {Link[]} props.links - The array of links to be displayed in the SegmentedControl.
  * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
- * @return {JSX.Element} The rendered SegmentedControl component.
+ * @returns {JSX.Element} The rendered SegmentedControl component.
  */
 export function SegmentedControl({ links, onTabClick }: DropdownProps) {
   const parentRef = useRef<HTMLDivElement | null>(null);
