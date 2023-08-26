@@ -98,9 +98,10 @@ const anchor = css({
  * Footer component with useful links about the service, works as a slider in Layout.
  *
  * @param {FooterLinks} props.links - Columns and their links used to render the Footer.
+ * @param {React.ReactNode} [props.children] - The child components to be rendered within the Footer.
  * @returns {JSX.Element} The rendered Footer component.
  */
-export function Footer({ links }: FooterProps) {
+export function Footer({ links, children }: FooterProps) {
   return (
     <div className={footer}>
       <div className={columns}>
@@ -119,6 +120,7 @@ export function Footer({ links }: FooterProps) {
           </div>
         ))}
       </div>
+      {children}
 
       <h1 className={footerLogo}>DanBot Hosting</h1>
     </div>

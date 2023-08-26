@@ -2,6 +2,7 @@
 import { Inter } from "next/font/google";
 import { css, cx } from "@styles/css";
 import { Header } from "@/components/Header";
+import { ProgressBar } from "@/components/ProgressBar";
 import { Footer } from "@/components/Footer";
 import { footerLinks, headerLinks } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
@@ -13,7 +14,7 @@ import {
 } from "@/components/WebsiteLoadingOverlay";
 import { useCookies } from "@/hooks/useCookies";
 import { NotificationProvider } from "@/components/NotificationProvider";
-import { OverlayProvider } from "./OverlayProvider";
+import { OverlayProvider } from "@/components/OverlayProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +32,19 @@ const header = css({
   "@media screen and (max-width: 500px)": {
     top: "0.625rem",
   },
+});
+
+const progressBar = css({
+  position: "absolute",
+  display: "flex",
+  alignItems: "flex-end",
+  pointerEvents: "none",
+  width: "100%",
+  height: "100%",
+  bottom: "0",
+  left: "0",
+  borderRadius: "1.25rem",
+  overflow: "hidden",
 });
 
 const wrapper = css({
@@ -128,7 +142,9 @@ export function Layout({ children }: LayoutProps) {
     <html lang="en" data-theme={theme} className={html}>
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
-          <Header links={headerLinks} />
+          <Header links={headerLinks}>
+            <div className={progressBar}><ProgressBar /></div>
+          </Header>
         </header>
         <div className={wrapper}>
           <div className={mesh}>
