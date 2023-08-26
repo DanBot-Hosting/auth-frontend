@@ -5,7 +5,7 @@ interface UserHeaderData {
   avatarUrl: string;
 }
 
-interface HeaderProps {
+interface HeaderProps extends React.PropsWithChildren {
   user?: UserHeaderData;
   links: HeaderLinks;
 }

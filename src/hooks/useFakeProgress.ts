@@ -4,14 +4,16 @@ import { useCallback, useRef, useState } from "react";
 /**
  * Generates a fake progress percentage using a timer interval and Math.atan.
  *
+ * @param {number} [customStep=0.5] - The custom step value. Stays for speedup purposes. Defaults to 0.5.
+ * @param {number} [slowdownOnProgress=70] - The slowdown on progress value. Percentage when to slow down the progress. Defaults to 70.
  * @returns {UseFakeProgress} An object containing the progress value,
  * a start function to initiate the progress, and a stop function to stop the progress.
  */
-export function useFakeProgress(): UseFakeProgress {
-  let currentProgress = useRef(0);
-  let step = useRef(0.5);
-  let [progress, setProgress] = useState(0);
-  let interval = useRef<number | null>(null);
+export function useFakeProgress(customStep: number = 0.5, slowdownOnProgress: number = 70): UseFakeProgress {
+  const currentProgress = useRef(0);
+  const step = useRef(customStep);
+  const [progress, setProgress] = useState(0);
+  const interval = useRef<number | null>(null);
 
   /**
    * Starts the progress. Should be initiated in useEffect with stop on unmount.
@@ -38,11 +40,11 @@ export function useFakeProgress(): UseFakeProgress {
 
       if (progress >= 100) {
         clearInterval(interval.current ?? undefined);
-      } else if (progress >= 70) {
-        step.current = 0.1;
+      } else if (progress >= slowdownOnProgress) {
+        step.current /= 5;
       }
     }, 100);
-  }, [progress]);
+  }, [progress, slowdownOnProgress]);
 
   /**
    * Stops the progress but won't reset the value.
@@ -53,5 +55,16 @@ export function useFakeProgress(): UseFakeProgress {
     clearInterval(interval.current ?? undefined);
   }, []);
 
-  return { progress, start, stop };
+  /**
+   * Sets the progress value.
+   * 
+   * @param {number} value - The new progress value
+   * @returns {void}
+   */
+  const set = useCallback((value: number) => {
+    currentProgress.current = value;
+    setProgress(value);
+  }, []);
+
+  return { progress, start, stop, set };
 }

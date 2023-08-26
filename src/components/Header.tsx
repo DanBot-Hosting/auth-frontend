@@ -130,11 +130,13 @@ const dropdown = css({
  * Pill-styled Header component with additional links and access to user data.
  *
  * @param {UserHeaderData} [props.user] - The user data to be shown if signed in.
+ * @param {React.ReactNode} [props.children] - The child components to be rendered within the Header.
  * @param {HeaderLinks} props.links - List of additional links in the header.
  * @returns {JSX.Element} The rendered Header component.
  */
 export function Header({
   links,
+  children,
   user = {
     username: "domin",
     avatarUrl: "https://avatars.githubusercontent.com/u/69919939",
@@ -221,6 +223,7 @@ export function Header({
         ))}
       </span>
       {user ? userManagement : signManagement}
+      {children}
     </div>
   );
 }
