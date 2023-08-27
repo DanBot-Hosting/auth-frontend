@@ -61,6 +61,9 @@ const wrapper = css({
 });
 
 const main = css({
+  display: "flex",
+  flexDir: "column",
+  minHeight: "100vh",
   padding: "6.25rem 0.9375rem 10rem",
   maxWidth: "62.5rem",
   margin: "0 auto",

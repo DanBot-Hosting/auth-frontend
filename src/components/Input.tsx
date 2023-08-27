@@ -41,7 +41,7 @@ const input = css({
 /**
  * Custom styled Input element.
  *
- * @param {InputProps} props - The props to be passed to the input element.
+ * @param {InputProps} props... - The props to be passed to the input element.
  * Can potentially override className
  * @returns {JSX.Element} The rendered not responsive Input element.
  */

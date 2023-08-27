@@ -66,8 +66,8 @@ const field = css({
 });
 
 const dangerousField = css({
-  justifyContent: "space-between",
-  flexDir: "row",
+  justifyContent: "space-between!",
+  flexDir: "row!",
 });
 
 const label = css({
@@ -143,7 +143,7 @@ export default function Settings() {
               <Input placeholder="jane@example.com" />
             </div>
           </div>
-          <div className={cx(field, dangerousField)}>
+          <div className={cx(dangerousField, field)}>
             <button
               className={button}
               onClick={() => showPasswordChangeModal()}
