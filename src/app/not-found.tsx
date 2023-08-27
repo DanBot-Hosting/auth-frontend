@@ -15,9 +15,7 @@ const code = css({
   fontSize: "8rem",
   lineHeight: "100%",
   fontWeight: "500",
-  background: "text.100",
-  backgroundClip: "text",
-  WebkitTextFillColor: "transparent",
+  color: "text.100",
   userSelect: "none",
 });
 
