@@ -160,8 +160,7 @@ export function Header({
     });
   }, []);
 
-  function toggleAccountDropdown(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-
+  function toggleAccountDropdown() {
     const currentVisibility = caretRef.current?.getAttribute("data-active");
     if (!currentVisibility) {
       caretRef.current?.setAttribute("data-active", "true");

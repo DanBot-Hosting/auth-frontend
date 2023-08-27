@@ -1,18 +1,15 @@
 "use client";
+import { Button } from "@/components/Button";
 import { useModal } from "@/hooks/useModal";
 import { useNotification } from "@/hooks/useNotification";
 import { useOverlay } from "@/hooks/useOverlay";
 import { css } from "@styles/css";
 
-const button = css({
-  cursor: "pointer",
-  color: "text.60",
-  transition: "color .3s ease-in-out",
-
-  _hover: {
-    color: "text.90",
-    transition: "color .3s ease-in-out",
-  },
+const group = css({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "1rem",
+  justifyContent: "center",
 });
 
 export default function Home() {
@@ -21,63 +18,60 @@ export default function Home() {
   const { show: showModal, hide: hideModal } = useModal();
 
   return (
-    <>
-      <p>
-        <button
-          className={button}
-          onClick={() =>
-            showOverlay({
-              asLoading: true,
-              withCancel: true,
-              cancelLabel: "Cancel",
-              onCancel: () => hideOverlay(),
-            })
-          }
-        >
-          Use Loading Overlay
-        </button>
-      </p>
-      <p>
-        <button
-          className={button}
-          onClick={() =>
-            showOverlay({
-              asLoading: false,
-              closeOnEscape: true,
-              children: (
-                <span>Some overlay tests</span>
-              ),
-            })
-          }
-        >
-          Use Overlay
-        </button>
-      </p>
-      <p>
-        <button
-          className={button}
-          onClick={() =>
-            showNotification({ children: "This website uses cookies!" })
-          }
-        >
-          Use Notification
-        </button>
-      </p>
-      <p>
-        <button
-          className={button}
-          onClick={() =>
-            showModal({
-              buttons: [(<div onClick={hideModal} key="cancel">Cancel</div>), (<div onClick={hideModal} key="accept">Accept</div>)],
-              closeOnEscape: true,
-              label: "Confirm account deletion",
-              description: "Enter deletion code sent via Email",
-            })
-          }
-        >
-          Use Modal
-        </button>
-      </p>
-    </>
+    <div className={group}>
+      <Button
+        pill
+        onClick={() =>
+          showOverlay({
+            asLoading: true,
+            withCancel: true,
+            cancelLabel: "Cancel",
+            onCancel: () => hideOverlay(),
+          })
+        }
+      >
+        Use Loading Overlay
+      </Button>
+      <Button
+        pill
+        onClick={() =>
+          showOverlay({
+            asLoading: false,
+            closeOnEscape: true,
+            children: <span>Some overlay tests</span>,
+          })
+        }
+      >
+        Use Overlay
+      </Button>
+      <Button
+        pill
+        onClick={() =>
+          showNotification({ children: "This website uses cookies!" })
+        }
+      >
+        Use Notification
+      </Button>
+      <Button
+        pill
+        onClick={() =>
+          showModal({
+            buttons: [
+              <div onClick={hideModal} key="cancel">
+                Cancel
+              </div>,
+              <div onClick={hideModal} key="accept">
+                Accept
+              </div>,
+            ],
+            closeOnEscape: true,
+            label: "Confirm account deletion",
+            description: "Enter deletion code sent via Email",
+          })
+        }
+      >
+        Use Modal
+      </Button>
+    </div>
   );
 }
