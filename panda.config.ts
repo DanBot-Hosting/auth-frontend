@@ -37,6 +37,8 @@ export default defineConfig({
   gitignore: true,
   // Whether to minify the generated CSS.
   minify: true,
+  // Shorten classnames
+  hash: true,
 
   // Where to look for your css declarations
   include: [

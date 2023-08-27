@@ -20,7 +20,6 @@ export const useMesh = (onLoad?: () => void) =>
 
       // Basically @ts-ignore but in a better way
       // since the module has no defined initGradient method
-      // Slice first character because of panda-css bug returning " mesh"
-      (get().mesh as any).initGradient(`.${selector.slice(1)}`);
+      (get().mesh as any).initGradient(`.${selector}`);
     },
   }))();
