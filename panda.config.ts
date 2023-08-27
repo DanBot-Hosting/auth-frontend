@@ -54,6 +54,13 @@ export default defineConfig({
     light: "[data-theme=light] &",
   },
 
+  globalCss: {
+    "::selection": {
+      bg: "text.90",
+      color: "background.100",
+    }
+  },
+
   // Useful for theme customization
   theme: {
     extend: {
