@@ -1,9 +1,19 @@
 import { css, cx } from "@styles/css";
 
+/**
+ * Custom-styled Button element.
+ *
+ * @param {import("@styles/types").SystemStyleObject} [props.cssProp={}] - Custom CSS styles to be applied to the button.
+ * Is part of panda-css styling.
+ * @param {boolean} [props.secondaryProp=false] - Specifies whether the button should have secondary styles.
+ * @param {boolean} [props.pillProp=false] - Specifies whether the button should have pill-shaped styles.
+ * @param {ButtonProps} props... - Additional props to be passed to the button element.
+ * @return {JSX.Element} The rendered custom-styled Button.
+ */
 export function Button({
   css: cssProp = {},
-  secondary: secondaryProp,
-  pill: pillProp,
+  secondary: secondaryProp = false,
+  pill: pillProp = false,
   ...props
 }: ButtonProps) {
   const button = css(
