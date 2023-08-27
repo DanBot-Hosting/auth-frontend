@@ -128,6 +128,7 @@ const body = css({
 const html = css({
   overflow: "hidden",
   maxHeight: "100vh",
+  WebkitTapHighlightColor: "transparent",
 });
 
 /**
