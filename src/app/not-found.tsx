@@ -23,7 +23,7 @@ const status = css({
   fontSize: "8rem",
   lineHeight: "100%",
   marginBottom: "-3.125rem",
-  fontWeight: "500",
+  fontWeight: "100",
   background:
     "linear-gradient(0deg, token(colors.text.60) 0%, transparent 100%)",
   backgroundClip: "text",
