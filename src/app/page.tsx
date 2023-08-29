@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/Button";
+import { Switch } from "@/components/Switch";
 import { useModal } from "@/hooks/useModal";
 import { useNotification } from "@/hooks/useNotification";
 import { useOverlay } from "@/hooks/useOverlay";

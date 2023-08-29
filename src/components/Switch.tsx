@@ -1,30 +1,29 @@
 "use client";
-import { Check } from "@phosphor-icons/react";
 import { css } from "@styles/css";
 import { useCallback, useState } from "react";
 
 /**
- * Custom styled Input element with a checkbox.
+ * Custom styled Input element with a checkbox but styled as a switch.
  *
- * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the checkbox.
+ * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the switch.
  * Is part of panda-css styling.
- * @param {(state: boolean) => void} [props.onChange] - The function to be called when the checkbox value changes.
- * @param {React.ReactNode} [props.children] - The content to be displayed next to the checkbox.
+ * @param {(state: boolean) => void} [props.onChange] - The function to be called when the switch value changes.
+ * @param {React.ReactNode} [props.children] - The content to be displayed next to the switch.
  * Will be wrapped in label element.
- * @param {boolean} [props.checked=false] - The initial checked state of the checkbox.
- * @param {string} [props.name] - The name attribute of the checkbox.
+ * @param {boolean} [props.checked=false] - The initial checked state of the switch.
+ * @param {string} [props.name] - The name attribute of the switch.
  * Will be applied to label as well.
- * @param {CheckboxProps} props... - The input properties passed to the checkbox component.
+ * @param {SwitchProps} props... - The input properties passed to the switch component.
  * @return {JSX.Element} The rendered wrapper around input checkbox component.
  */
-export function Checkbox({
+export function Switch({
   css: cssProp = {},
   onChange,
   children,
   checked = false,
   name,
   ...props
-}: CheckboxProps) {
+}: SwitchProps) {
   const [isChecked, setIsChecked] = useState<boolean>(checked);
 
   const element = css(
@@ -43,26 +42,26 @@ export function Checkbox({
 
   const checkbox = css({
     display: "flex",
-    width: "1.375rem",
+    width: "2.1875rem",
     height: "1.375rem",
+    padding: "0.125rem",
     flexDir: "column",
     justifyContent: "center",
-    alignItems: "center",
     cursor: "pointer",
 
     appearance: "none",
-    borderRadius: "0.5rem",
-    border: "1px solid token(colors.text.100)",
+    borderRadius: "0.6875rem",
+    bg: "text.40",
     transition: "all .2s ease-in-out",
 
     "&:checked": {
       bg: "text.100",
       transition: "background .2s ease-in-out",
 
-      // Inverted tick
-      "& ~ div > svg": {
-        opacity: "1",
-        scale: "1",
+      // Toggler
+      "& ~ div > div": {
+        // container width - padding - toggler width
+        left: "calc(2.1875rem - 0.125rem - 1.125rem)",
         transition: "all .15s ease-in-out",
       },
     },
@@ -77,12 +76,11 @@ export function Checkbox({
     fontWeight: "400",
   });
 
-  const center = css({
+  const toggleContainer = css({
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "1.375rem",
+    width: "2.1875rem",
     height: "1.375rem",
+    padding: "0.125rem",
 
     position: "absolute",
     left: "0.3125rem",
@@ -90,11 +88,15 @@ export function Checkbox({
     pointerEvents: "none",
   });
 
-  const invertedTick = css({
-    color: "background.100",
+  const toggler = css({
+    position: "absolute",
+    bg: "background.100",
+    width: "1.125rem",
+    height: "1.125rem",
 
-    opacity: "0",
-    scale: "0.7",
+    borderRadius: "50%",
+    // Include padding
+    left: "0.125rem",
     transition: "all .15s ease-in-out",
   });
 
@@ -114,8 +116,8 @@ export function Checkbox({
         name={name}
         {...props}
       />
-      <div className={center}>
-        <Check size={16} weight="bold" className={invertedTick} />
+      <div className={toggleContainer}>
+        <div className={toggler} />
       </div>
       {children ? (
         <label htmlFor={name} className={label}>
