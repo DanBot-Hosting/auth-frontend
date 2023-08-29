@@ -3,15 +3,29 @@ import { Check } from "@phosphor-icons/react";
 import { css } from "@styles/css";
 import { useCallback, useState } from "react";
 
+/**
+ * Custom styled Input element with a checkbox.
+ *
+ * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the checkbox.
+ * Is part of panda-css styling.
+ * @param {(state: boolean) => void} [props.onChange] - The function to be called when the checkbox value changes.
+ * @param {React.ReactNode} [props.children] - The content to be displayed next to the checkbox.
+ * Will be wrapped in label element.
+ * @param {boolean} [props.checked=false] - The initial checked state of the checkbox.
+ * @param {string} [props.name] - The name attribute of the checkbox.
+ * Will be applied to label as well.
+ * @param {CheckboxProps} props... - The input properties passed to the checkbox component.
+ * @return {JSX.Element} The rendered wrapper around input checkbox component.
+ */
 export function Checkbox({
   css: cssProp = {},
   onChange,
   children,
-  checked,
+  checked = false,
   name,
   ...props
 }: CheckboxProps) {
-  const [isChecked, setIsChecked] = useState<boolean>(checked ?? false);
+  const [isChecked, setIsChecked] = useState<boolean>(checked);
 
   const element = css(
     {

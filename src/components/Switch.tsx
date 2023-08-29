@@ -2,15 +2,29 @@
 import { css } from "@styles/css";
 import { useCallback, useState } from "react";
 
+/**
+ * Custom styled Input element with a checkbox but styled as a switch.
+ *
+ * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the switch.
+ * Is part of panda-css styling.
+ * @param {(state: boolean) => void} [props.onChange] - The function to be called when the switch value changes.
+ * @param {React.ReactNode} [props.children] - The content to be displayed next to the switch.
+ * Will be wrapped in label element.
+ * @param {boolean} [props.checked=false] - The initial checked state of the switch.
+ * @param {string} [props.name] - The name attribute of the switch.
+ * Will be applied to label as well.
+ * @param {SwitchProps} props... - The input properties passed to the switch component.
+ * @return {JSX.Element} The rendered wrapper around input checkbox component.
+ */
 export function Switch({
   css: cssProp = {},
   onChange,
   children,
-  checked,
+  checked = false,
   name,
   ...props
 }: SwitchProps) {
-  const [isChecked, setIsChecked] = useState<boolean>(checked ?? false);
+  const [isChecked, setIsChecked] = useState<boolean>(checked);
 
   const element = css(
     {
