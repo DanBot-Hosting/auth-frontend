@@ -10,7 +10,7 @@ const footer = css({
   gap: "2.8125rem",
   overflow: "hidden",
 
-  background: "pillbackground.10",
+  background: "pillbackground.50",
 });
 
 const column = css({

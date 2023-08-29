@@ -10,7 +10,7 @@ const notification = css({
   transition: "all 0.35s ease-in-out",
 
   borderRadius: "1.25rem",
-  bg: "pillbackground.10",
+  bg: "pillbackground.50",
   backdropFilter: "blur(5px)",
 });
 
