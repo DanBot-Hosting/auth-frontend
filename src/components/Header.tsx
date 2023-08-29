@@ -16,7 +16,7 @@ const header = css({
   gap: "2.5rem",
 
   borderRadius: "1.25rem",
-  bg: "pillbackground.10",
+  bg: "pillbackground.50",
   backdropFilter: "blur(5px)",
 
   "@media screen and (max-width: 500px)": {

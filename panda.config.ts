@@ -81,7 +81,11 @@ export default defineConfig({
     },
     semanticTokens: {
       colors: {
-        pillbackground: generateOpacities("hsl(0, 0%, 2%)", "hsl(0, 0%, 98%)"),
+        pillbackground: generateOpacities(
+          "hsl(0, 0%, 80%)",
+          "hsl(0, 0%, 23.1%)",
+          [30, 50, 70]
+        ),
         background: generateOpacities("hsl(0, 0%, 98%)", "hsl(0, 0%, 2%)"),
         text: generateOpacities("hsl(0, 0%, 2%)", "hsl(0, 0%, 98%)"),
         accent: generateOpacities(

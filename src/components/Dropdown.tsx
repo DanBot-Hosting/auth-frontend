@@ -16,7 +16,7 @@ const dropdown = css({
   // gap: "0.625rem",
 
   borderRadius: "1.25rem",
-  bg: "pillbackground.10",
+  bg: "pillbackground.50",
   backdropFilter: "blur(5px)",
 });
 
@@ -50,7 +50,7 @@ const focusDiv = css({
   top: "0",
   left: "0",
   borderRadius: "0.625rem",
-  bg: "pillbackground.10",
+  bg: "pillbackground.70",
   zIndex: "3",
 });
 

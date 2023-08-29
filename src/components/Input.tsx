@@ -11,7 +11,7 @@ const input = css({
   appearance: "none",
 
   borderRadius: "1rem",
-  bg: "pillbackground.5",
+  bg: "pillbackground.30",
   backdropFilter: "blur(3px)",
   color: "text.80",
   fontSize: "1rem",
@@ -27,13 +27,13 @@ const input = css({
 
   _active: {
     outline: "1px solid token(colors.text.20)",
-    bg: "pillbackground.10",
+    bg: "pillbackground.50",
     transition: "all 0.15s ease-in-out",
   },
 
   _focus: {
     outline: "1px solid token(colors.text.20)",
-    bg: "pillbackground.10",
+    bg: "pillbackground.50",
     transition: "all 0.15s ease-in-out",
   },
 });
