@@ -5,56 +5,6 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHoverable } from "@/hooks/useHoverable";
 
-const dropdown = css({
-  display: "flex",
-  minWidth: "12.5rem",
-  width: "max-content",
-  p: "0.625rem",
-  flexDir: "column",
-  justifyContent: "center",
-  alignItems: "flex-start",
-  // gap: "0.625rem",
-
-  borderRadius: "1.25rem",
-  bg: "pillbackground.50",
-  backdropFilter: "blur(5px)",
-});
-
-const option = css({
-  display: "flex",
-  height: "2.5rem",
-  p: "0rem 0.9375rem",
-  alignItems: "center",
-  alignSelf: "stretch",
-  zIndex: "4",
-  userSelect: "none",
-
-  borderRadius: "0.625rem",
-  color: "text.60",
-  fontWeight: "400",
-  transition: "color 0.2s ease-in-out",
-
-  _hover: {
-    color: "text.90",
-    transition: "color 0.2s ease-in-out",
-  },
-
-  "&[data-active-hoverable]": {
-    color: "text.90",
-    transition: "color 0.2s ease-in-out",
-  },
-});
-
-const hoverable = css({
-  position: "absolute",
-  top: "0",
-  left: "0",
-  borderRadius: "0.625rem",
-  bg: "pillbackground.70",
-  zIndex: "3",
-  transition: "all 0.2s ease-in-out",
-});
-
 /**
  * A Dropdown menu with a list of links and buttons to interact with.
  * Uses hoverable to slide to the selected/hovered element.
@@ -63,7 +13,7 @@ const hoverable = css({
  * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
-export function Dropdown({ links, onTabClick }: DropdownProps) {
+export function Dropdown({ links, onTabClick, css: cssProp = {}, ...props }: DropdownProps) {
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const [hoverableElement, setHoverableElement] =
     useState<HTMLDivElement | null>(null);
@@ -91,8 +41,57 @@ export function Dropdown({ links, onTabClick }: DropdownProps) {
     [change, onTabClick]
   );
 
+  const dropdown = css({
+    display: "flex",
+    minWidth: "12.5rem",
+    width: "max-content",
+    p: "0.625rem",
+    flexDir: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  
+    borderRadius: "1.25rem",
+    bg: "pillbackground.50",
+    backdropFilter: "blur(5px)",
+  }, cssProp);
+  
+  const option = css({
+    display: "flex",
+    height: "2.5rem",
+    p: "0rem 0.9375rem",
+    alignItems: "center",
+    alignSelf: "stretch",
+    zIndex: "4",
+    userSelect: "none",
+  
+    borderRadius: "0.625rem",
+    color: "text.60",
+    fontWeight: "400",
+    transition: "color 0.2s ease-in-out",
+  
+    _hover: {
+      color: "text.90",
+      transition: "color 0.2s ease-in-out",
+    },
+  
+    "&[data-active-hoverable]": {
+      color: "text.90",
+      transition: "color 0.2s ease-in-out",
+    },
+  });
+  
+  const hoverable = css({
+    position: "absolute",
+    top: "0",
+    left: "0",
+    borderRadius: "0.625rem",
+    bg: "pillbackground.70",
+    zIndex: "3",
+    transition: "all 0.2s ease-in-out",
+  });
+
   return (
-    <div className={dropdown}>
+    <div className={dropdown} {...props}>
       <div ref={setHoverableElement} className={hoverable} />
       {links.map((link, i) => (
         <Link
