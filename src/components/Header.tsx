@@ -17,12 +17,26 @@ const header = css({
 
   borderRadius: "1.25rem",
   bg: "pillbackground.50",
-  backdropFilter: "blur(5px)",
 
   "@media screen and (max-width: 500px)": {
     width: "calc(100vw - 1.25rem)",
     justifyContent: "space-between",
     gap: "0",
+  },
+
+  /** @see {@link https://stackoverflow.com/q/60997948 Chrome bug} */
+  _before: {
+    content: "''",
+    position: "absolute",
+    display: "block",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    backdropFilter: "blur(5px)",
+    zIndex: "-1",
+    borderRadius: "1.25rem",
+    overflow: "hidden",
   },
 });
 
@@ -75,7 +89,7 @@ const additionalLink = css({
 
 const signSection = css({
   display: "flex",
-  justifyContent: "center",
+  // justifyContent: "center",
   alignItems: "center",
   gap: "0.625rem",
 });
@@ -111,7 +125,7 @@ const primaryButton = css({
 const dropdown = css({
   position: "absolute",
   top: "calc(100% + 0.625rem)",
-  right: "-1.25rem",
+  right: "0",
 
   opacity: "0",
   scale: ".8",
@@ -193,6 +207,21 @@ export function Header({
         <Dropdown
           links={[{ label: "Settings", link: "/settings" }]}
           onTabClick={hideAccountDropdown}
+          css={{
+            backdropFilter: "unset",
+            _before: {
+              content: "''",
+              position: "absolute",
+              top: "0",
+              left: "0",
+              minWidth: "inherit",
+              height: "100%",
+              backdropFilter: "blur(5px)",
+              zIndex: "-1",
+              borderRadius: "1.25rem",
+              overflow: "hidden",
+            },
+          }}
         />
       </div>
     </span>
