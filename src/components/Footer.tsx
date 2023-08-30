@@ -41,7 +41,6 @@ const footerLogo = css({
   fontSize: "12vw",
   fontWeight: 700,
   color: "text.80",
-  lineHeight: "1.5625rem",
   userSelect: "none",
   whiteSpace: "nowrap",
 

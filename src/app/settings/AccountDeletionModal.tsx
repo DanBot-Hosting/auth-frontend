@@ -15,7 +15,8 @@ export function useAccountDeletionModal() {
 
   const modalConfig: ModalProps = {
     label: "Are you sure?",
-    description: "Are you sure you want to delete your account? This action is irreversible!",
+    description:
+      "Are you sure you want to delete your account? This action is irreversible!",
     buttons: [
       <button key="cancel" onClick={hide}>
         Cancel

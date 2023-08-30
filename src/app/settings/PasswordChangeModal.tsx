@@ -78,6 +78,7 @@ export function usePasswordChangeModal() {
   }
 
   return {
-    show, hide
-  }
+    show,
+    hide,
+  };
 }

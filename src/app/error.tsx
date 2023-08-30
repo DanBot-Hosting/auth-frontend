@@ -29,7 +29,7 @@ export default function NotFound({
   useEffect(() => {
     console.error(error);
   }, [error]);
-  
+
   return (
     <div className={main}>
       <h1 className={status}>Something went wrong!</h1>

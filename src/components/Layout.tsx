@@ -147,7 +147,9 @@ export function Layout({ children }: LayoutProps) {
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
           <Header links={headerLinks}>
-            <div className={progressBar}><ProgressBar /></div>
+            <div className={progressBar}>
+              <ProgressBar />
+            </div>
           </Header>
         </header>
         <div className={wrapper}>

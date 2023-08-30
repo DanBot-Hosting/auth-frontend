@@ -58,7 +58,7 @@ export default defineConfig({
     "::selection": {
       bg: "text.90",
       color: "background.100",
-    }
+    },
   },
 
   // Useful for theme customization

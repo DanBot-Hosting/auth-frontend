@@ -9,7 +9,10 @@ import { useCallback, useRef, useState } from "react";
  * @returns {UseFakeProgress} An object containing the progress value,
  * a start function to initiate the progress, and a stop function to stop the progress.
  */
-export function useFakeProgress(customStep: number = 0.5, slowdownOnProgress: number = 70): UseFakeProgress {
+export function useFakeProgress(
+  customStep: number = 0.5,
+  slowdownOnProgress: number = 70
+): UseFakeProgress {
   const currentProgress = useRef(0);
   const step = useRef(customStep);
   const [progress, setProgress] = useState(0);
@@ -24,7 +27,7 @@ export function useFakeProgress(customStep: number = 0.5, slowdownOnProgress: nu
    *   return stop;
    *   // eslint-disable-next-line react-hooks/exhaustive-deps
    * }, []);
-   * 
+   *
    * @returns {void}
    */
   const start = useCallback(() => {
@@ -48,7 +51,7 @@ export function useFakeProgress(customStep: number = 0.5, slowdownOnProgress: nu
 
   /**
    * Stops the progress but won't reset the value.
-   * 
+   *
    * @returns {void}
    */
   const stop = useCallback(() => {
@@ -57,7 +60,7 @@ export function useFakeProgress(customStep: number = 0.5, slowdownOnProgress: nu
 
   /**
    * Sets the progress value.
-   * 
+   *
    * @param {number} value - The new progress value
    * @returns {void}
    */

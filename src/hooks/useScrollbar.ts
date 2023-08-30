@@ -19,7 +19,7 @@ function preventDefaultKeys(event: KeyboardEvent) {
  * Won't disable scrolling for interacting with scrollbar.
  * Hopefully you hide it with Overlay ;)
  * `scrollbar-gutter` doesn't work in Safari so we're not able to make it css-only without hardcode shifting
- * 
+ *
  * @see {@link https://bugs.webkit.org/show_bug.cgi?id=167335 bug 167335}
  * @returns {UseScrollbar} An object containing the show and hide functions.
  */
@@ -32,7 +32,7 @@ export function useScrollbar(): UseScrollbar {
 
   /**
    * Unlocks the usage of scrollbar if it was locked by the hook method.
-   * 
+   *
    * @returns {void}
    */
   const unlock = useCallback(() => {
@@ -46,7 +46,7 @@ export function useScrollbar(): UseScrollbar {
   /**
    * Locks the usage of scrollbar by removing wheel, touchmove events & block some keys.
    * Won't disable scrolling for interacting with scrollbar.
-   * 
+   *
    * @returns {void}
    */
   const lock = useCallback(() => {

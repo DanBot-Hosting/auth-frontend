@@ -85,4 +85,4 @@ export function WebsiteLoadingOverlay() {
       <span className={percent}>{Math.floor(progress)}%</span>
     </div>
   );
-};
+}
