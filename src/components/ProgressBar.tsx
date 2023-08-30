@@ -1,5 +1,6 @@
 "use client";
 import { useFakeProgress } from "@/hooks/useFakeProgress";
+import { flush } from "@/utils/css";
 import { css } from "@styles/css";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -26,13 +27,6 @@ export function ProgressBar() {
   const progressRef = useRef<HTMLDivElement | null>(null);
   const { start, stop, set, progress } = useFakeProgress(0.5, 50);
 
-  const flushCss = useCallback((element: HTMLElement) => {
-    // By reading the offsetHeight property, we are forcing
-    // the browser to flush the pending CSS changes (which it
-    // does to ensure the value obtained is accurate).
-    element.offsetHeight;
-  }, []);
-
   const finish = useCallback(() => {
     if (!progressRef.current) return;
     const element = progressRef.current;
@@ -56,7 +50,7 @@ export function ProgressBar() {
           element.style.transition = "none";
           element.removeAttribute("data-finished");
           // apply the "transition: none" rule immediately
-          flushCss(element);
+          flush(element);
           // restore animation
           element.style.transition = "";
         }
