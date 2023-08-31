@@ -6,12 +6,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useHoverable } from "@/hooks/useHoverable";
 
 /**
- * A Dropdown menu with a list of links and buttons to interact with.
+ * A AccountDropdown menu with a list of links and buttons to interact with.
  * Uses hoverable to slide to the selected/hovered element.
  *
  * @param {Link[]} props.links - The array of links to be displayed in the Dropdown.
- * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
- * @returns {JSX.Element} The rendered Dropdown component.
+ * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] -
+ * The callback function to be executed when a link is clicked.
+ * @returns {JSX.Element} The rendered AccountDropdown component.
  */
 export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props }: AccountDropdownProps) {
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);

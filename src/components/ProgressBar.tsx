@@ -61,9 +61,15 @@ export function ProgressBar() {
 
     const handleMutation: MutationCallback = () => {
       const anchorElements = document.querySelectorAll("a");
-      anchorElements.forEach((anchor) =>
-        anchor.addEventListener("click", handleAnchorClick)
-      );
+      anchorElements.forEach((anchor) => {
+        const href = anchor.getAttribute("href");
+        if (!href) return;
+        const url = new URL(href, location.href);
+        // Check if URL is remote
+        if (url.origin !== location.origin) return;
+
+        anchor.addEventListener("click", handleAnchorClick);
+      });
     };
 
     const mutationObserver = new MutationObserver(handleMutation);

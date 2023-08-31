@@ -94,7 +94,6 @@ export default function Home() {
             { label: "Next.js", value: "4" },
             { label: "Remix", value: "5" },
           ]}
-          onChange={console.log}
           initial={4}
           placeholder="Pick favorite framework..."
         />

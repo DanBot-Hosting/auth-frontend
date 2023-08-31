@@ -7,6 +7,12 @@ import { CaretDown } from "@phosphor-icons/react";
 /**
  * Custom styled Select element.
  *
+ * @param {string} [placeholder] - The placeholder text to be displayed when the select is empty.
+ * @param {DropdownOption[]} props.options - The array of options to be displayed in the Dropdown.
+ * @param {((option: DropdownOption) => void)} [props.onChange] -
+ * The callback function to be executed when an option is changed.
+ * @param {number} [props.initial] - The index of the initial option to be selected.
+ * @param {SelectProps} props... - The div properties passed to the Select picker component.
  * @returns {JSX.Element} The rendered not responsive Select element.
  */
 export function Select({

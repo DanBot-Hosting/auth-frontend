@@ -1,15 +1,19 @@
 "use client";
 import { css } from "@styles/css";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHoverable } from "@/hooks/useHoverable";
 
 /**
- * A Dropdown menu with a list of links and buttons to interact with.
+ * A Dropdown menu with a list of buttons to interact with.
  * Uses hoverable to slide to the selected/hovered element.
  *
- * @param {Link[]} props.links - The array of links to be displayed in the Dropdown.
- * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
+ * @param {DropdownOption[]} props.options - The array of options to be displayed in the Dropdown.
+ * @param {number} [props.initial] - The index of the initial option to be selected.
+ * @param {((option: DropdownOption) => void)} [props.onTabClick] -
+ * The callback function to be executed when an option is clicked.
+ * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the checkbox.
+ * Is part of panda-css styling.
+ * @param {DropdownProps} props... - The div properties passed to the wrapper Dropdown component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
 export function Dropdown({

@@ -9,7 +9,6 @@ import { Mesh } from "@/components/Mesh";
 import {
   WebsiteLoadingOverlay,
   hiddenScrollbar,
-  onWebsiteLoad,
 } from "@/components/WebsiteLoadingOverlay";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { OverlayProvider } from "@/components/OverlayProvider";
@@ -173,9 +172,15 @@ const html = css({
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
  * @returns {JSX.Element} The DOM representing the layout.
  */
-export default function RootLayout({ children }: {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode;
 }) {
+  /**
+   * Ignore "Warning: Extra attributes from the server: data-theme"
+   * It's a script-related issue
+   */
   return (
     <html lang="en" className={html}>
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
@@ -188,7 +193,7 @@ export default function RootLayout({ children }: {
         </header>
         <div className={wrapper}>
           <div className={mesh}>
-            <Mesh onLoad={onWebsiteLoad} />
+            <Mesh />
           </div>
           <main className={main}>{children}</main>
           <div className={affix}>
@@ -220,4 +225,3 @@ export default function RootLayout({ children }: {
     </html>
   );
 }
-

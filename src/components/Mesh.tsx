@@ -8,11 +8,10 @@ import { memo, useEffect } from "react";
  * Memoizing component to prevent unwanted rerenders by parent.
  * 
  * @see {@link https://react.dev/reference/react/memo memo}
- * @param {() => void} props.onLoad - A callback function to be executed when the mesh is loaded.
  * @returns {JSX.Element} The rendered Mesh component.
  */
-export const Mesh = memo(function Mesh({ onLoad }: MeshProps) {
-  const mesh = useMesh(onLoad ?? (() => {}));
+export const Mesh = memo(function Mesh() {
+  const mesh = useMesh();
   // On component mount
   // Because module requires querySelector call to get colors
   useEffect(() => {
