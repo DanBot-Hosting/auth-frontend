@@ -25,7 +25,7 @@ const themeButton = css({
     transition: "border .2s ease-in-out",
   },
 
-  'html[data-theme="dark"] &': {
+  '[data-theme="dark"] &': {
     "&:hover": {
       "& #moon": {
         opacity: "0",
@@ -39,7 +39,7 @@ const themeButton = css({
       },
     },
   },
-  'html[data-theme="light"] &': {
+  '[data-theme="light"] &': {
     "&:hover": {
       "& #moon": {
         opacity: "1",
@@ -62,7 +62,7 @@ const moon = css({
   transform: "translateX(-50%) translateY(-50%)",
   transition: "all .5s ease-in-out",
 
-  'html[data-theme="light"] &': {
+  '[data-theme="light"] &': {
     opacity: "0",
     pointerEvents: "none",
     top: "200%",
@@ -76,7 +76,7 @@ const sun = css({
   transform: "translateX(-50%) translateY(-50%)",
   transition: "all .5s ease-in-out",
 
-  'html[data-theme="dark"] &': {
+  '[data-theme="dark"] &': {
     opacity: "0",
     pointerEvents: "none",
     top: "200%",

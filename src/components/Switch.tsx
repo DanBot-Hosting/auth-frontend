@@ -36,13 +36,15 @@ export function Switch({
       gap: "0.3125rem",
       cursor: "pointer",
       userSelect: "none",
+      width: "max-content",
+      maxW: "100%",
     },
     cssProp
   );
 
   const checkbox = css({
     display: "flex",
-    width: "2.1875rem",
+    minWidth: "2.1875rem",
     height: "1.375rem",
     padding: "0.125rem",
     flexDir: "column",
@@ -84,7 +86,7 @@ export function Switch({
 
     position: "absolute",
     left: "0.3125rem",
-    zIndex: "1",
+    zIndex: "0",
     pointerEvents: "none",
   });
 

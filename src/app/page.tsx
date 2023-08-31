@@ -1,6 +1,9 @@
 "use client";
 import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
+import { Checkbox } from "@/components/Checkbox";
 import { useModal } from "@/hooks/useModal";
 import { useNotification } from "@/hooks/useNotification";
 import { useOverlay } from "@/hooks/useOverlay";
@@ -13,66 +16,93 @@ const group = css({
   justifyContent: "center",
 });
 
+const elements = css({
+  display: "flex",
+  p: "1rem",
+  flexDir: "column",
+  gap: "1rem",
+});
+
 export default function Home() {
   const { show: showOverlay, hide: hideOverlay } = useOverlay();
-  const { show: showNotification, hide: _hideNotification } = useNotification();
+  const { show: showNotification } = useNotification();
   const { show: showModal, hide: hideModal } = useModal();
 
   return (
-    <div className={group}>
-      <Button
-        pill
-        onClick={() =>
-          showOverlay({
-            asLoading: true,
-            withCancel: true,
-            cancelLabel: "Cancel",
-            onCancel: () => hideOverlay(),
-          })
-        }
-      >
-        Use Loading Overlay
-      </Button>
-      <Button
-        pill
-        onClick={() =>
-          showOverlay({
-            asLoading: false,
-            closeOnEscape: true,
-            children: <span>Some overlay tests</span>,
-          })
-        }
-      >
-        Use Overlay
-      </Button>
-      <Button
-        pill
-        onClick={() =>
-          showNotification({ children: "This website uses cookies!" })
-        }
-      >
-        Use Notification
-      </Button>
-      <Button
-        pill
-        onClick={() =>
-          showModal({
-            buttons: [
-              <div onClick={hideModal} key="cancel">
-                Cancel
-              </div>,
-              <div onClick={hideModal} key="accept">
-                Accept
-              </div>,
-            ],
-            closeOnEscape: true,
-            label: "Confirm account deletion",
-            description: "Enter deletion code sent via Email",
-          })
-        }
-      >
-        Use Modal
-      </Button>
-    </div>
+    <>
+      <div className={group}>
+        <Button
+          pill
+          onClick={() =>
+            showOverlay({
+              asLoading: true,
+              withCancel: true,
+              cancelLabel: "Cancel",
+              onCancel: () => hideOverlay(),
+            })
+          }
+        >
+          Use Loading Overlay
+        </Button>
+        <Button
+          pill
+          onClick={() =>
+            showOverlay({
+              asLoading: false,
+              closeOnEscape: true,
+              children: <span>Some overlay tests</span>,
+            })
+          }
+        >
+          Use Overlay
+        </Button>
+        <Button
+          pill
+          onClick={() =>
+            showNotification({ children: "This website uses cookies!" })
+          }
+        >
+          Use Notification
+        </Button>
+        <Button
+          pill
+          onClick={() =>
+            showModal({
+              buttons: [
+                <div onClick={hideModal} key="cancel">
+                  Cancel
+                </div>,
+                <div onClick={hideModal} key="accept">
+                  Accept
+                </div>,
+              ],
+              closeOnEscape: true,
+              label: "Confirm account deletion",
+              description: "Enter deletion code sent via Email",
+            })
+          }
+        >
+          Use Modal
+        </Button>
+      </div>
+      <div className={elements}>
+        <Select
+          options={[
+            { label: "Nuxt", value: "1" },
+            { label: "Qwik", value: "2" },
+            { label: "Astro", value: "3" },
+            { label: "Next.js", value: "4" },
+            { label: "Remix", value: "5" },
+          ]}
+          onChange={console.log}
+          initial={4}
+          placeholder="Pick favorite framework..."
+        />
+        <Input placeholder="Dummy input..." />
+        <Switch>Sell my privacy for $1</Switch>
+        <Checkbox>I agree to the terms and conditions</Checkbox>
+        <Button>Submit</Button>
+      </div>
+    </>
   );
 }

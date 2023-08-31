@@ -1,5 +1,15 @@
 interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-  links: Link[];
-  onTabClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  options: DropdownOption[];
+  onTabClick?: (option: DropdownOption) => void;
   css?: import("@styles/types").SystemStyleObject;
+  initial?: number;
+}
+
+interface DropdownOption {  
+  label: string;
+  value: string;
+}
+
+interface DropdownOptionRef extends DropdownOption {
+  ref: HTMLButtonElement | null;
 }

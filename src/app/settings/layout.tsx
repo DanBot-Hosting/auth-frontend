@@ -16,10 +16,10 @@ export default function SettingsLayout({
   return (
     <div className={centered}>
       <SegmentedControl
-        links={[
-          { label: "Account", link: "/settings" },
-          { label: "Payments", link: "/settings/payments" },
-          { label: "Interface", link: "/settings/interface" },
+        options={[
+          { label: "Account", value: "/settings" },
+          { label: "Payments", value: "/settings/payments" },
+          { label: "Interface", value: "/settings/interface" },
         ]}
       />
       {children}

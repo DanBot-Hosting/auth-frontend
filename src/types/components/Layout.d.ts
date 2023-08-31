@@ -1,1 +1,0 @@
-type LayoutProps = React.PropsWithChildren;
