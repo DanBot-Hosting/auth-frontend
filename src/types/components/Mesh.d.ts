@@ -1,3 +1,0 @@
-interface MeshProps {
-  onLoad?: () => void;
-}

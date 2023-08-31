@@ -63,7 +63,7 @@ const hoverable = css({
  * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
  * @returns {JSX.Element} The rendered SegmentedControl component.
  */
-export function SegmentedControl({ links, onTabClick }: DropdownProps) {
+export function SegmentedControl({ options, onTabClick }: DropdownProps) {
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const [hoverableElement, setHoverableElement] =
     useState<HTMLDivElement | null>(null);
@@ -90,8 +90,8 @@ export function SegmentedControl({ links, onTabClick }: DropdownProps) {
   }, [pathname, hoverableElement]);
 
   const manage = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-      if (onTabClick) onTabClick(event);
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, opt: DropdownOption) => {
+      if (onTabClick) onTabClick(opt);
       change(event.currentTarget);
     },
     [change, onTabClick]
@@ -100,17 +100,17 @@ export function SegmentedControl({ links, onTabClick }: DropdownProps) {
   return (
     <div className={dropdown}>
       <div ref={setHoverableElement} className={hoverable} />
-      {links.map((link, i) => (
+      {options.map((opt, i) => (
         <Link
           key={i}
-          href={link.link}
-          onClick={manage}
+          href={opt.value}
+          onClick={(event) => manage(event, opt)}
           ref={(ref) => linksRef.current.push(ref)}
           onMouseEnter={(event) => set(event.currentTarget)}
           onMouseOut={find}
           className={option}
         >
-          {link.label}
+          {opt.label}
         </Link>
       ))}
     </div>

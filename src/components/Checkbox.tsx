@@ -37,13 +37,14 @@ export function Checkbox({
       gap: "0.3125rem",
       cursor: "pointer",
       userSelect: "none",
+      maxWidth: "max-content",
     },
     cssProp
   );
 
   const checkbox = css({
     display: "flex",
-    width: "1.375rem",
+    minWidth: "1.375rem",
     height: "1.375rem",
     flexDir: "column",
     justifyContent: "center",
@@ -86,7 +87,7 @@ export function Checkbox({
 
     position: "absolute",
     left: "0.3125rem",
-    zIndex: "1",
+    zIndex: "0",
     pointerEvents: "none",
   });
 

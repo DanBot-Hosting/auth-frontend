@@ -2,7 +2,7 @@
 import { css, cx } from "@styles/css";
 import { SimpleLogo } from "@/components/SimpleLogo";
 import { Avatar } from "@/components/Avatar";
-import { Dropdown } from "@/components/Dropdown";
+import { AccountDropdown } from "@/components/AccountDropdown";
 import { CaretDown } from "@/utils/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
@@ -204,7 +204,7 @@ export function Header({
       <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       <div />
       <div className={dropdown} ref={dropdownRef}>
-        <Dropdown
+        <AccountDropdown
           links={[{ label: "Settings", link: "/settings" }]}
           onTabClick={hideAccountDropdown}
           css={{

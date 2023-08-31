@@ -1,60 +1,73 @@
 "use client";
 import { css } from "@styles/css";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHoverable } from "@/hooks/useHoverable";
 
 /**
- * A Dropdown menu with a list of links and buttons to interact with.
+ * A Dropdown menu with a list of buttons to interact with.
  * Uses hoverable to slide to the selected/hovered element.
  *
- * @param {Link[]} props.links - The array of links to be displayed in the Dropdown.
- * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
+ * @param {DropdownOption[]} props.options - The array of options to be displayed in the Dropdown.
+ * @param {number} [props.initial] - The index of the initial option to be selected.
+ * @param {((option: DropdownOption) => void)} [props.onTabClick] -
+ * The callback function to be executed when an option is clicked.
+ * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the checkbox.
+ * Is part of panda-css styling.
+ * @param {DropdownProps} props... - The div properties passed to the wrapper Dropdown component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
-export function Dropdown({ links, onTabClick, css: cssProp = {}, ...props }: DropdownProps) {
-  const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
+export function Dropdown({
+  options,
+  initial,
+  onTabClick,
+  css: cssProp = {},
+  ...props
+}: DropdownProps) {
+  const optionsRef = useRef<(DropdownOptionRef | null)[]>([]);
   const [hoverableElement, setHoverableElement] =
     useState<HTMLDivElement | null>(null);
-  const pathname = usePathname();
   const { find, change, hide, set } = useHoverable({
-    children: linksRef.current,
+    children: optionsRef.current.map((opt) => opt?.ref ?? null),
     hoverable: hoverableElement,
   });
 
   useEffect(() => {
-    const element = linksRef.current.find(
-      (link) => link?.pathname === pathname
-    );
+    if (!initial) return;
+    const element = optionsRef.current[initial];
 
-    if (!element) return hide();
-    change(element);
+    if (!element?.ref) return hide();
+    change(element.ref);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, []);
 
   const manage = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-      if (onTabClick) onTabClick(event);
+    (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      option: DropdownOption
+    ) => {
+      if (onTabClick) onTabClick(option);
       change(event.currentTarget);
     },
     [change, onTabClick]
   );
 
-  const dropdown = css({
-    display: "flex",
-    minWidth: "12.5rem",
-    width: "max-content",
-    p: "0.625rem",
-    flexDir: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  
-    borderRadius: "1.25rem",
-    bg: "pillbackground.50",
-    backdropFilter: "blur(5px)",
-  }, cssProp);
-  
+  const dropdown = css(
+    {
+      display: "flex",
+      minWidth: "12.5rem",
+      width: "max-content",
+      p: "0.625rem",
+      flexDir: "column",
+      justifyContent: "center",
+      alignItems: "flex-start",
+
+      borderRadius: "1.25rem",
+      bg: "pillbackground.50",
+      backdropFilter: "blur(5px)",
+    },
+    cssProp
+  );
+
   const option = css({
     display: "flex",
     height: "2.5rem",
@@ -63,23 +76,24 @@ export function Dropdown({ links, onTabClick, css: cssProp = {}, ...props }: Dro
     alignSelf: "stretch",
     zIndex: "4",
     userSelect: "none",
-  
+    cursor: "pointer",
+
     borderRadius: "0.625rem",
     color: "text.60",
     fontWeight: "400",
     transition: "color 0.2s ease-in-out",
-  
+
     _hover: {
       color: "text.90",
       transition: "color 0.2s ease-in-out",
     },
-  
+
     "&[data-active-hoverable]": {
       color: "text.90",
       transition: "color 0.2s ease-in-out",
     },
   });
-  
+
   const hoverable = css({
     position: "absolute",
     top: "0",
@@ -93,18 +107,17 @@ export function Dropdown({ links, onTabClick, css: cssProp = {}, ...props }: Dro
   return (
     <div className={dropdown} {...props}>
       <div ref={setHoverableElement} className={hoverable} />
-      {links.map((link, i) => (
-        <Link
+      {options.map((opt, i) => (
+        <button
           key={i}
-          href={link.link}
-          onClick={manage}
-          ref={(ref) => linksRef.current.push(ref)}
+          onClick={(event) => manage(event, opt)}
+          ref={(ref) => optionsRef.current.push({ ref, ...opt })}
           onMouseEnter={(event) => set(event.currentTarget)}
           onMouseOut={find}
           className={option}
         >
-          {link.label}
-        </Link>
+          {opt.label}
+        </button>
       ))}
     </div>
   );

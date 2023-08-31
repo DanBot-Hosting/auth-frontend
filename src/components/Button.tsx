@@ -24,6 +24,7 @@ export function Button({
       alignItems: "center",
       flexShrink: "0",
       cursor: "pointer",
+      width: "max-content",
 
       borderRadius: "0.625rem",
       bg: "text.90",
