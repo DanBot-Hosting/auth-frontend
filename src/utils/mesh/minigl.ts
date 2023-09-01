@@ -1,4 +1,4 @@
-import { Uniform } from "./uniform";
+import { Uniform } from "@/utils/mesh/uniform";
 
 export class MiniGL {
   /**

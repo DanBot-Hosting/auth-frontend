@@ -1,5 +1,5 @@
-import type { MiniGL } from "./minigl";
-import { Attribute } from "./attribute";
+import type { MiniGL } from "@/utils/mesh/minigl";
+import { Attribute } from "@/utils/mesh/attribute";
 
 export class PlaneGeometry {
   /**

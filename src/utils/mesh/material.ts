@@ -1,5 +1,5 @@
-import type { MiniGL } from "./minigl";
-import type { Uniform } from "./uniform";
+import type { MiniGL } from "@/utils/mesh/minigl";
+import type { Uniform } from "@/utils/mesh/uniform";
 
 export class Material {
   /**

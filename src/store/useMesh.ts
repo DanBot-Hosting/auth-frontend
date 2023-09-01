@@ -1,5 +1,5 @@
 import { getRawToken } from "@/utils/css";
-import { Gradient } from "@/utils/mesh/gradient";
+import { Gradient } from "@/utils/mesh";
 import { create } from "zustand";
 
 /**
