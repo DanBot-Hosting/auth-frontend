@@ -1,12 +1,12 @@
-import { MiniGL } from "./minigl";
-import { Blend } from "./dist/blend";
-import { Fragment } from "./dist/fragment";
-import { Noise } from "./dist/noise";
-import { Vertex } from "./dist/vertex";
-import { Uniform } from "./uniform";
-import { Material } from "./material";
-import { Mesh } from "./mesh";
-import { PlaneGeometry } from "./planeGeometry";
+import { MiniGL } from "@/utils/mesh/minigl";
+import { Blend } from "@/utils/mesh/dist/blend";
+import { Fragment } from "@/utils/mesh/dist/fragment";
+import { Noise } from "@/utils/mesh/dist/noise";
+import { Vertex } from "@/utils/mesh/dist/vertex";
+import { Uniform } from "@/utils/mesh/uniform";
+import { Material } from "@/utils/mesh/material";
+import { Mesh } from "@/utils/mesh/mesh";
+import { PlaneGeometry } from "@/utils/mesh/planeGeometry";
 
 export class Gradient {
   /**

@@ -1,4 +1,4 @@
-import { MiniGL } from "./minigl";
+import { MiniGL } from "@/utils/mesh/minigl";
 
 export class Attribute {
   /**

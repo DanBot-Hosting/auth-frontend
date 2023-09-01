@@ -1,6 +1,6 @@
-import type { MiniGL } from "./minigl";
-import type { Material } from "./material";
-import type { PlaneGeometry } from "./planeGeometry";
+import type { MiniGL } from "@/utils/mesh/minigl";
+import type { Material } from "@/utils/mesh/material";
+import type { PlaneGeometry } from "@/utils/mesh/planeGeometry";
 
 export class Mesh {
   /**
