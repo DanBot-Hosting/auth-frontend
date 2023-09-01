@@ -2,7 +2,7 @@
 import { css } from "@styles/css";
 import { Logo } from "@/components/Logo";
 import { useFakeProgress } from "@/hooks/useFakeProgress";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useMesh } from "@/store/useMesh";
 
 const background = css({
@@ -59,21 +59,31 @@ const percent = css({
  */
 export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
-  const setOnLoad = useMesh((state) => state.setOnLoad);
+  const isExecuted = useRef(false);
+  const setOptions = useMesh((state) => state.setOptions);
 
-  setOnLoad(() => {
-    const overlay = document.getElementById("website-loading-overlay");
-    if (!overlay) return;
-  
-    overlay.dataset.hidden = "true";
-  
-    document.body.classList.remove(hiddenScrollbar);
-  
-    setTimeout(() => {
-      stop();
-      overlay.remove();
-    }, 500);
-  });
+  /**
+   * Do not reinit whole class instance on unmount
+   * @see useMesh.setOnLoad
+   */
+  if (!isExecuted.current) {
+    isExecuted.current = true;
+    setOptions({
+      onLoad: () => {
+        const overlay = document.getElementById("website-loading-overlay");
+        if (!overlay) return;
+
+        overlay.dataset.hidden = "true";
+
+        document.body.classList.remove(hiddenScrollbar);
+
+        setTimeout(() => {
+          stop();
+          overlay.remove();
+        }, 500);
+      },
+    });
+  }
 
   useEffect(() => {
     start();
@@ -88,4 +98,4 @@ export function WebsiteLoadingOverlay() {
       <span className={percent}>{Math.floor(progress)}%</span>
     </div>
   );
-};
+}

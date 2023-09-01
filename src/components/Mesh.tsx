@@ -11,13 +11,13 @@ import { memo, useEffect } from "react";
  * @returns {JSX.Element} The rendered Mesh component.
  */
 export const Mesh = memo(function Mesh() {
-  const mesh = useMesh();
+  const init = useMesh((state) => state.initializeMesh);
   // On component mount
   // Because module requires querySelector call to get colors
   useEffect(() => {
-    mesh.initializeMesh();
+    init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <canvas className={mesh.className} />;
+  return <canvas id="mesh" />;
 });
