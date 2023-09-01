@@ -60,7 +60,7 @@ const percent = css({
 export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
-  const setOnLoad = useMesh((state) => state.setOnLoad);
+  const setOptions = useMesh((state) => state.setOptions);
 
   /**
    * Do not reinit whole class instance on unmount
@@ -68,18 +68,20 @@ export function WebsiteLoadingOverlay() {
    */
   if (!isExecuted.current) {
     isExecuted.current = true;
-    setOnLoad(() => {
-      const overlay = document.getElementById("website-loading-overlay");
-      if (!overlay) return;
-    
-      overlay.dataset.hidden = "true";
-    
-      document.body.classList.remove(hiddenScrollbar);
-    
-      setTimeout(() => {
-        stop();
-        overlay.remove();
-      }, 500);
+    setOptions({
+      onLoad: () => {
+        const overlay = document.getElementById("website-loading-overlay");
+        if (!overlay) return;
+
+        overlay.dataset.hidden = "true";
+
+        document.body.classList.remove(hiddenScrollbar);
+
+        setTimeout(() => {
+          stop();
+          overlay.remove();
+        }, 500);
+      },
     });
   }
 
@@ -96,4 +98,4 @@ export function WebsiteLoadingOverlay() {
       <span className={percent}>{Math.floor(progress)}%</span>
     </div>
   );
-};
+}
