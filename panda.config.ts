@@ -50,8 +50,10 @@ export default defineConfig({
   exclude: [],
 
   conditions: {
-    dark: "[data-theme=dark] &",
-    light: "[data-theme=light] &",
+    dark: "[data-theme-mode=dark] &",
+    light: "[data-theme-mode=light] &",
+    dbh: "[data-theme=dbh] &",
+    vampire: "[data-theme=vampire] &",
   },
 
   globalCss: {
@@ -92,8 +94,26 @@ export default defineConfig({
           },
           2: {
             value: {
-              _dark: { value: "#10121A" },
-              _light: { value: "#ECEFF7" },
+              _dbh: {
+                _dark: { value: "#1A1F2F" },
+                _light: { value: "#DEE3F3" },
+              },
+              _vampire: {
+                _dark: { value: "#190A0A" },
+                _light: { value: "#F3DDDD" },
+              },
+            },
+          },
+          3: {
+            value: {
+              _dbh: {
+                _dark: { value: "#050505" },
+                _light: { value: "#FAFAFA" },
+              },
+              _vampire: {
+                _dark: { value: "#050505" },
+                _light: { value: "#FAFAFA" },
+              },
             },
           },
         },

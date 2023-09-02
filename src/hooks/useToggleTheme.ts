@@ -13,7 +13,7 @@ export function useToggleTheme(): UseToggleTheme {
   const mesh = useMesh();
 
   const toggleMode = useCallback((mode: string) => {
-    document.documentElement.dataset.theme = mode;
+    document.documentElement.dataset.themeMode = mode;
   }, []);
 
   /**
@@ -23,10 +23,10 @@ export function useToggleTheme(): UseToggleTheme {
    * @returns {void}
    */
   const toggle = useCallback(() => {
-    const theme = cookieStore.get("theme");
+    const theme = cookieStore.get("theme-mode");
     const toggled = theme === "dark" ? "light" : "dark";
 
-    cookieStore.set("theme", toggled);
+    cookieStore.set("theme-mode", toggled);
     toggleMode(toggled);
     mesh.initializeMesh();
   }, [cookieStore, mesh, toggleMode]);

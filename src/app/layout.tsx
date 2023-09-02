@@ -178,7 +178,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   /**
-   * Ignore "Warning: Extra attributes from the server: data-theme"
+   * Ignore "Warning: Extra attributes from the server: data-theme-mode etc."
    * It's a script-related issue
    */
   return (
@@ -209,16 +209,13 @@ export default function RootLayout({
         {/**
          * Tricky way to have themes & static site generation at the same time (no serverside)
          * @see {@link https://github.com/vercel/next.js/discussions/36502#discussioncomment-2683052 3rd party script}
+         * @see  {@link @/utils/settings}
          */}
         <script
-          id="theme-setup"
+          id="settings-setup"
           async
           dangerouslySetInnerHTML={{
-            __html: `const theme = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("theme="));
-        const value = theme ? theme.split("=")[1] : "light";
-        document.documentElement.dataset.theme = value;`,
+            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full"));`
           }}
         />
       </body>
