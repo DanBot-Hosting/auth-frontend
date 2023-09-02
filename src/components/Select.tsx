@@ -27,7 +27,7 @@ export function Select({
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const caretRef = useRef<SVGSVGElement | null>(null);
   const [pickedOption, setPickedOption] = useState<DropdownOption>(
-    initial
+    typeof initial === "number"
       ? options[initial]
       : {
           label: placeholder ?? "",

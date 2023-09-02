@@ -32,7 +32,7 @@ export function Dropdown({
   });
 
   useEffect(() => {
-    if (!initial) return;
+    if (typeof initial !== "number") return;
     const element = optionsRef.current[initial];
 
     if (!element?.ref) return hide();
