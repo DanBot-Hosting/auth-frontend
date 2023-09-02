@@ -305,7 +305,8 @@ export class Gradient {
       this.scrollObserver.disconnect();
     }
 
-    window.removeEventListener("resize", this.resize);
+    // We did not add the resize listener
+    // window.removeEventListener("resize", this.resize);
   }
 
   initMaterial() {
@@ -462,7 +463,8 @@ export class Gradient {
     this.initMesh();
     this.resize();
     requestAnimationFrame(this.animate.bind(this));
-    window.addEventListener("resize", this.resize.bind(this));
+    // React will call this method when the page is changed.
+    // window.addEventListener("resize", this.resize.bind(this));
     this.getOption("onLoad")();
   }
 
