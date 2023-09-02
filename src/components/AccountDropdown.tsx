@@ -26,7 +26,7 @@ export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props
 
   useEffect(() => {
     const element = linksRef.current.find(
-      (link) => link?.pathname === pathname
+      (link) => link?.pathname === pathname.slice(0, link?.pathname.length)
     );
 
     if (!element) return hide();
