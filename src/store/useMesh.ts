@@ -32,8 +32,10 @@ export const useMesh = create<MeshStore>((set, get) => ({
   },
   toggle: (state: boolean) => {
     const mesh = get().mesh;
-    for (let i = 0; i < 4; i++) {
-      mesh.setColor(i, state ? 1 : 0);
+    if (state) {
+      mesh.getCanvas()!.style.display = "";
+    } else {
+      mesh.getCanvas()!.style.display = "none";
     }
   },
 }));

@@ -4,11 +4,8 @@ import { startTransition, useCallback } from "react";
 
 export function useSettings(): UseSettings {
   const { get: getCookie, set: setCookie } = useCookies();
-  const [initializeMesh, toggleColors, mesh] = useMesh((state) => [
-    state.initializeMesh,
-    state.toggle,
-    state.mesh,
-  ]);
+  // No shallowing
+  const mesh = useMesh();
 
   const get = useCallback(
     (setting: Setting) => {
@@ -43,27 +40,27 @@ export function useSettings(): UseSettings {
 
       switch (setting) {
         case "background-animate":
-          if (value === "false") return mesh.pause();
-          initializeMesh({ static: false });
-          mesh.play();
+          const newState = useMesh.getState();
+          if (value === "false") newState.mesh.pause();
+          else newState.mesh.play();
           break;
         case "background-enabled":
-          initializeMesh();
-          startTransition(() => toggleColors(value === "true"));
+          mesh.initializeMesh();
+          startTransition(() => mesh.toggle(value === "true"));
           break;
         case "blur-mode":
           document.documentElement.dataset.blurMode = value;
           break;
         case "theme":
           document.documentElement.dataset.theme = value;
-          initializeMesh();
+          mesh.initializeMesh();
           break;
         case "theme-mode":
           document.documentElement.dataset.themeMode = value;
           break;
       }
     },
-    [get, initializeMesh, mesh, toggleColors]
+    [get, mesh]
   );
 
   const set = useCallback(

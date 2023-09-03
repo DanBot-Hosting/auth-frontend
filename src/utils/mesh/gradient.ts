@@ -469,7 +469,9 @@ export class Gradient {
     requestAnimationFrame(this.animate.bind(this));
     // React will call this method when the page is changed.
     // window.addEventListener("resize", this.resize.bind(this));
-    this.getOption("onLoad")();
+    setTimeout(() => {
+      this.getOption("onLoad")();
+    }, 500);
   }
 
   /**
