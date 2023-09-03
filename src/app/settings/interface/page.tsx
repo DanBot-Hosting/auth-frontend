@@ -1,7 +1,11 @@
+"use client";
 import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
+import { useCookies } from "@/hooks/useCookies";
+import { useMesh } from "@/store/useMesh";
 import { css } from "@styles/css";
+import { useCallback } from "react";
 
 const field = css({
   display: "flex",
@@ -64,15 +68,33 @@ const description = css({
 });
 
 export default function Interface() {
+  const mesh = useMesh();
+  const cookieStore = useCookies();
+
   const themePreferences: SelectOption[] = [
     { label: "DanBot Hosting", value: "dbh" },
+    { label: "Vampire", value: "vampire" },
   ];
+
+  const pickedTheme = cookieStore.get("theme") ?? "dbh";
+  const themeIndex = themePreferences.findIndex(
+    (theme) => theme.value === pickedTheme
+  );
 
   const blurModes: SelectOption[] = [
     { label: "Full", value: "full" },
     { label: "Limited", value: "limited" },
     { label: "Disabled", value: "disabled" },
   ];
+
+  const onThemeChange = useCallback(
+    (option: SelectOption) => {
+      document.documentElement.dataset.theme = option.value;
+      cookieStore.set("theme", option.value);
+      mesh.initializeMesh();
+    },
+    [cookieStore, mesh]
+  );
 
   return (
     <div className={fields}>
@@ -81,8 +103,9 @@ export default function Interface() {
         <div className={select}>
           <Select
             options={themePreferences}
-            initial={0}
+            initial={themeIndex}
             placeholder="Pick a theme..."
+            onChange={onThemeChange}
           />
         </div>
         <span className={description}>Your theme preferences</span>
@@ -108,7 +131,9 @@ export default function Interface() {
         </div>
       </div>
       <div className={field}>
-        <Button secondary pill>Reset Settings</Button>
+        <Button secondary pill>
+          Reset Settings
+        </Button>
       </div>
     </div>
   );
