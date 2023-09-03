@@ -1,6 +1,6 @@
 import { useCookies } from "@/hooks/useCookies";
-import { useMesh } from "@/store/useMesh";
 import { useCallback } from "react";
+import { useSettings } from "@/hooks/useSettings";
 
 /**
  * Hook for toggling the theme in client side between "dark" and "light".
@@ -10,7 +10,7 @@ import { useCallback } from "react";
  */
 export function useToggleTheme(): UseToggleTheme {
   const cookieStore = useCookies();
-  const mesh = useMesh();
+  const { init } = useSettings();
 
   const toggleMode = useCallback((mode: string) => {
     document.documentElement.dataset.themeMode = mode;
@@ -28,8 +28,8 @@ export function useToggleTheme(): UseToggleTheme {
 
     cookieStore.set("theme-mode", toggled);
     toggleMode(toggled);
-    mesh.initializeMesh();
-  }, [cookieStore, mesh, toggleMode]);
+    init("background-enabled");
+  }, [cookieStore, init, toggleMode]);
 
   return { toggle };
 }

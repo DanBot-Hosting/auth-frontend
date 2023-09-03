@@ -2,11 +2,10 @@
 import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
-import { useCookies } from "@/hooks/useCookies";
-import { useMesh } from "@/store/useMesh";
-import { generateThemeOptions, themes } from "@/utils/themes";
+import { useSettings } from "@/hooks/useSettings";
+import { generateThemeOptions } from "@/utils/themes";
 import { css } from "@styles/css";
-import { useCallback } from "react";
+import { useRef } from "react";
 
 const field = css({
   display: "flex",
@@ -69,12 +68,11 @@ const description = css({
 });
 
 export default function Interface() {
-  const mesh = useMesh();
-  const cookieStore = useCookies();
+  const { get, set } = useSettings();
 
   const themePreferences: SelectOption[] = generateThemeOptions();
 
-  const pickedTheme = cookieStore.get("theme") ?? themes[0].value;
+  const pickedTheme = get("theme");
   const themeIndex = themePreferences.findIndex(
     (theme) => theme.value === pickedTheme
   );
@@ -85,27 +83,16 @@ export default function Interface() {
     { label: "Disabled", value: "disabled" },
   ];
 
-  const pickedBlurMode = cookieStore.get("blur-mode") ?? "full";
+  const pickedBlurMode = get("blur-mode");
   const blurModeIndex = blurModes.findIndex(
     (blurMode) => blurMode.value === pickedBlurMode
   );
 
-  const onThemeChange = useCallback(
-    (option: SelectOption) => {
-      document.documentElement.dataset.theme = option.value;
-      cookieStore.set("theme", option.value);
-      mesh.initializeMesh();
-    },
-    [cookieStore, mesh]
-  );
+  const backgroundEnabled = get("background-enabled") === "true";
+  const backgroundAnimated = get("background-animate") === "true";
 
-  const onBlurModeChange = useCallback(
-    (option: SelectOption) => {
-      document.documentElement.dataset.blurMode = option.value;
-      cookieStore.set("blur-mode", option.value);
-    },
-    [cookieStore]
-  );
+  const enabledRef = useRef<HTMLInputElement | null>(null);
+  const animatedRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <div className={fields}>
@@ -116,7 +103,7 @@ export default function Interface() {
             options={themePreferences}
             initial={themeIndex}
             placeholder="Pick a theme..."
-            onChange={onThemeChange}
+            onChange={(option) => set("theme", option.value)}
           />
         </div>
         <span className={description}>Your theme preferences</span>
@@ -128,7 +115,7 @@ export default function Interface() {
             options={blurModes}
             initial={blurModeIndex}
             placeholder="Pick blur mode..."
-            onChange={onBlurModeChange}
+            onChange={(option) => set("blur-mode", option.value)}
           />
         </div>
         <span className={description}>
@@ -138,8 +125,27 @@ export default function Interface() {
       <div className={field}>
         <label className={label}>Background</label>
         <div className={switches}>
-          <Switch>Show the background</Switch>
-          <Switch>Animation shaders</Switch>
+          <Switch
+            checked={backgroundEnabled}
+            ref={enabledRef}
+            onChange={(state) => {
+              if (get("background-animate") === "true" && !state) animatedRef.current?.click();
+              set("background-enabled", state ? "true" : "false");
+            }}
+          >
+            Show the background
+          </Switch>
+          <Switch
+            checked={backgroundAnimated}
+            ref={animatedRef}
+            onChange={(state) => {
+              if (get("background-enabled") === "false" && state)
+                enabledRef.current?.click();
+              set("background-animate", state ? "true" : "false");
+            }}
+          >
+            Animation shaders
+          </Switch>
         </div>
       </div>
       <div className={field}>

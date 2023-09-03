@@ -45,8 +45,6 @@ export function useCookies(): UseCookies {
       if (opts.domain) result += "; domain=" + encodeURIComponent(opts.domain);
       if (opts.secure) result += "; secure";
 
-      console.log(result);
-
       document.cookie = result;
 
       return result;

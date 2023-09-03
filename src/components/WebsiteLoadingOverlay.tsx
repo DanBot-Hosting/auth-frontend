@@ -4,6 +4,7 @@ import { Logo } from "@/components/Logo";
 import { useFakeProgress } from "@/hooks/useFakeProgress";
 import { useEffect, useRef } from "react";
 import { useMesh } from "@/store/useMesh";
+import { useSettings } from "@/hooks/useSettings";
 
 const background = css({
   position: "fixed",
@@ -61,6 +62,7 @@ export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
   const setOptions = useMesh((state) => state.setOptions);
+  const { get } = useSettings();
 
   /**
    * Do not reinit whole class instance on unmount
@@ -69,6 +71,7 @@ export function WebsiteLoadingOverlay() {
   if (!isExecuted.current) {
     isExecuted.current = true;
     setOptions({
+      static: get("background-animate") === "false",
       onLoad: () => {
         const overlay = document.getElementById("website-loading-overlay");
         if (!overlay) return;

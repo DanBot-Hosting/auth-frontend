@@ -17,7 +17,7 @@ export const useMesh = create<MeshStore>((set, get) => ({
   /** Mesh Gradient class, is type of any because module needs ts rewrite. */
   mesh: new Gradient(),
   /** Initializes the mesh without updating the position. */
-  initializeMesh: () => {
+  initializeMesh: (options?: Partial<DefaultOptions>) => {
     const neutral = getRawToken("colors.mesh.1");
     const accent = getRawToken("colors.mesh.2");
     const secondary = getRawToken("colors.mesh.3");
@@ -26,7 +26,14 @@ export const useMesh = create<MeshStore>((set, get) => ({
     // Basically @ts-ignore but in a better way
     // since the module has no defined initGradient method
     get().mesh.connect("#mesh", {
-      colors: [neutral, accent, secondary, tertiary]
+      colors: [neutral, accent, secondary, tertiary],
+      ...options,
     });
+  },
+  toggle: (state: boolean) => {
+    const mesh = get().mesh;
+    for (let i = 0; i < 4; i++) {
+      mesh.setColor(i, state ? 1 : 0);
+    }
   },
 }));

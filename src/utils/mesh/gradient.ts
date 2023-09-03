@@ -429,6 +429,10 @@ export class Gradient {
     this.activeColors[index] = this.activeColors[index] === 0 ? 1 : 0;
   }
 
+  setColor(index: number, color: number) {
+    this.activeColors[index] = color;
+  }
+
   init() {
     // Add loaded class.
     const loadedClass = this.getOption("loadedClass");

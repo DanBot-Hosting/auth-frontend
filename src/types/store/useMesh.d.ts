@@ -1,5 +1,6 @@
 interface MeshStore {
-  mesh: import("@/utils/mesh/gradient").Gradient;
-  initializeMesh: () => void;
   setOptions: (options: Partial<DefaultOptions>) => void;
+  mesh: import("@/utils/mesh/gradient").Gradient;
+  initializeMesh: (options?: Partial<DefaultOptions>) => void;
+  toggle: (state: boolean) => void;
 }
