@@ -115,7 +115,8 @@ export function Select({
 
       borderRadius: "1rem",
       bg: "pillbackground.30",
-      backdropFilter: "blur(3px)",
+      backdropBlur: "full.3",
+      backdropFilter: "auto",
       color: "text.40",
       fontSize: "1rem",
       fontWeight: "400",

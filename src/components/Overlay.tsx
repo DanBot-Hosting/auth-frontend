@@ -14,7 +14,8 @@ const overlay = css({
 
   // Constant color not depending on the theme
   bg: "rgba(0, 0, 0, 0.25)",
-  backdropFilter: "blur(3px)",
+  backdropBlur: "full.3",
+  backdropFilter: "auto",
 });
 
 /**

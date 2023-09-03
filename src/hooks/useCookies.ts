@@ -41,9 +41,11 @@ export function useCookies(): UseCookies {
 
       if (opts.expires) result += "; expires=" + opts.expires;
       if (opts.path) result += "; path=" + encodeURIComponent(opts.path);
-      else result += "; path=" + encodeURIComponent("/");
+      else result += "; path=/";
       if (opts.domain) result += "; domain=" + encodeURIComponent(opts.domain);
       if (opts.secure) result += "; secure";
+
+      console.log(result);
 
       document.cookie = result;
 

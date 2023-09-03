@@ -11,7 +11,8 @@ const notification = css({
 
   borderRadius: "1.25rem",
   bg: "pillbackground.50",
-  backdropFilter: "blur(5px)",
+  backdropBlur: "full.5",
+  backdropFilter: "auto",
 });
 
 const content = css({

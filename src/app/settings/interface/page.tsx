@@ -74,6 +74,7 @@ export default function Interface() {
   const themePreferences: SelectOption[] = [
     { label: "DanBot Hosting", value: "dbh" },
     { label: "Vampire", value: "vampire" },
+    { label: "Midnight Purple", value: "midnightpurple" },
   ];
 
   const pickedTheme = cookieStore.get("theme") ?? "dbh";
@@ -87,6 +88,11 @@ export default function Interface() {
     { label: "Disabled", value: "disabled" },
   ];
 
+  const pickedBlurMode = cookieStore.get("blur-mode") ?? "full";
+  const blurModeIndex = blurModes.findIndex(
+    (blurMode) => blurMode.value === pickedBlurMode
+  );
+
   const onThemeChange = useCallback(
     (option: SelectOption) => {
       document.documentElement.dataset.theme = option.value;
@@ -94,6 +100,14 @@ export default function Interface() {
       mesh.initializeMesh();
     },
     [cookieStore, mesh]
+  );
+
+  const onBlurModeChange = useCallback(
+    (option: SelectOption) => {
+      document.documentElement.dataset.blurMode = option.value;
+      cookieStore.set("blur-mode", option.value);
+    },
+    [cookieStore]
   );
 
   return (
@@ -115,8 +129,9 @@ export default function Interface() {
         <div className={select}>
           <Select
             options={blurModes}
-            initial={0}
+            initial={blurModeIndex}
             placeholder="Pick blur mode..."
+            onChange={onBlurModeChange}
           />
         </div>
         <span className={description}>

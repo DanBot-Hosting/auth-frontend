@@ -30,6 +30,37 @@ function generateOpacities(
   return result;
 }
 
+interface BlurMode {
+  value: {
+    _full: { value: string };
+    _limited: { value: string };
+    _disabled: { value: string };
+  }
+}
+
+/**
+ * Generate blur modes and their values depending on blur mode condition.
+ * 
+ * @param {[boolean, boolean]} values Should full & limited be having the values else 0px.
+ * @param {number[]} [blurs=[3, 5, 7]] What blurs to generate.
+ * @returns {Record<number, BlurMode>} Blurs and show values depending on blur mode.
+ */
+function generateBlurModes(values: [boolean, boolean], blurs: number[] = [3, 5, 7]) {
+  const result: Record<number, BlurMode> = {};
+
+  for (let i in blurs) {
+    result[blurs[i]] = {
+      value: {
+        _full: { value: values[0] ? `${blurs[i]}px` : "0px", },
+        _limited: { value: values[1] ? `${blurs[i]}px` : "0px", },
+        _disabled: { value: "0px" },
+      },
+    };
+  }
+
+  return result;
+}
+
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -52,8 +83,14 @@ export default defineConfig({
   conditions: {
     dark: "[data-theme-mode=dark] &",
     light: "[data-theme-mode=light] &",
+
     dbh: "[data-theme=dbh] &",
     vampire: "[data-theme=vampire] &",
+    midnightpurple: "[data-theme=midnightpurple] &",
+
+    full: "[data-blur-mode=full] &",
+    limited: "[data-blur-mode=limited] &",
+    disabled: "[data-blur-mode=disabled] &",
   },
 
   globalCss: {
@@ -67,6 +104,10 @@ export default defineConfig({
   theme: {
     extend: {},
     semanticTokens: {
+      blurs: {
+        full: generateBlurModes([true, false]),
+        limited: generateBlurModes([true, true]),
+      },
       colors: {
         pillbackground: generateOpacities(
           "hsl(0, 0%, 80%)",
@@ -102,6 +143,10 @@ export default defineConfig({
                 _dark: { value: "#190A0A" },
                 _light: { value: "#F3DDDD" },
               },
+              _midnightpurple: {
+                _dark: { value: "#0F0A19" },
+                _light: { value: "#E4DDF3" },
+              },
             },
           },
           3: {
@@ -111,6 +156,10 @@ export default defineConfig({
                 _light: { value: "#FAFAFA" },
               },
               _vampire: {
+                _dark: { value: "#050505" },
+                _light: { value: "#FAFAFA" },
+              },
+              _midnightpurple: {
                 _dark: { value: "#050505" },
                 _light: { value: "#FAFAFA" },
               },

@@ -12,7 +12,8 @@ const input = css({
 
   borderRadius: "1rem",
   bg: "pillbackground.30",
-  backdropFilter: "blur(3px)",
+  backdropBlur: "full.3",
+  backdropFilter: "auto",
   color: "text.80",
   fontSize: "1rem",
   fontWeight: "400",

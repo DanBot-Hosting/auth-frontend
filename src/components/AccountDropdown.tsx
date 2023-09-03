@@ -53,7 +53,8 @@ export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props
   
     borderRadius: "1.25rem",
     bg: "pillbackground.50",
-    backdropFilter: "blur(5px)",
+    backdropBlur: "limited.5",
+    backdropFilter: "auto",
   }, cssProp);
   
   const option = css({
