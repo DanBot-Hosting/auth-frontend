@@ -144,8 +144,8 @@ export default defineConfig({
                 _light: { value: "#F3DDDD" },
               },
               _midnightpurple: {
-                _dark: { value: "#0F0A19" },
-                _light: { value: "#E4DDF3" },
+                _dark: { value: "#140D23" },
+                _light: { value: "#DDD4F0" },
               },
             },
           },
@@ -160,8 +160,8 @@ export default defineConfig({
                 _light: { value: "#FAFAFA" },
               },
               _midnightpurple: {
-                _dark: { value: "#050505" },
-                _light: { value: "#FAFAFA" },
+                _dark: { value: "#0F0A19" },
+                _light: { value: "#E4DDF3" },
               },
             },
           },
