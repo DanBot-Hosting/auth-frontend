@@ -21,11 +21,12 @@ export const useMesh = create<MeshStore>((set, get) => ({
     const neutral = getRawToken("colors.mesh.1");
     const accent = getRawToken("colors.mesh.2");
     const secondary = getRawToken("colors.mesh.3");
+    const tertiary = getRawToken("colors.mesh.4");
 
     // Basically @ts-ignore but in a better way
     // since the module has no defined initGradient method
     get().mesh.connect("#mesh", {
-      colors: [neutral, accent, secondary, neutral]
+      colors: [neutral, accent, secondary, tertiary]
     });
   },
 }));

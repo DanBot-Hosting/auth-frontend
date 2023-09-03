@@ -1,3 +1,4 @@
+import { generateThemeColors, generateThemeConditions } from "@/utils/themes";
 import { defineConfig } from "@pandacss/dev";
 
 function hslToHsla(opacity: number, hsl: string) {
@@ -84,9 +85,7 @@ export default defineConfig({
     dark: "[data-theme-mode=dark] &",
     light: "[data-theme-mode=light] &",
 
-    dbh: "[data-theme=dbh] &",
-    vampire: "[data-theme=vampire] &",
-    midnightpurple: "[data-theme=midnightpurple] &",
+    ...generateThemeConditions(),
 
     full: "[data-blur-mode=full] &",
     limited: "[data-blur-mode=limited] &",
@@ -126,46 +125,7 @@ export default defineConfig({
           "hsl(224.3, 45.1%, 10%)"
         ),
         // Custom semantic token for mesh because module only accepts hex
-        mesh: {
-          1: {
-            value: {
-              _dark: { value: "#050505" },
-              _light: { value: "#FAFAFA" },
-            },
-          },
-          2: {
-            value: {
-              _dbh: {
-                _dark: { value: "#1A1F2F" },
-                _light: { value: "#DEE3F3" },
-              },
-              _vampire: {
-                _dark: { value: "#190A0A" },
-                _light: { value: "#F3DDDD" },
-              },
-              _midnightpurple: {
-                _dark: { value: "#140D23" },
-                _light: { value: "#DDD4F0" },
-              },
-            },
-          },
-          3: {
-            value: {
-              _dbh: {
-                _dark: { value: "#050505" },
-                _light: { value: "#FAFAFA" },
-              },
-              _vampire: {
-                _dark: { value: "#050505" },
-                _light: { value: "#FAFAFA" },
-              },
-              _midnightpurple: {
-                _dark: { value: "#0F0A19" },
-                _light: { value: "#E4DDF3" },
-              },
-            },
-          },
-        },
+        mesh: generateThemeColors(),
         // Overlay used for loading overlay & modals
         solidoverlay: {
           value: {

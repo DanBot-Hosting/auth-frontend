@@ -4,6 +4,7 @@ import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
 import { useCookies } from "@/hooks/useCookies";
 import { useMesh } from "@/store/useMesh";
+import { generateThemeOptions, themes } from "@/utils/themes";
 import { css } from "@styles/css";
 import { useCallback } from "react";
 
@@ -71,13 +72,9 @@ export default function Interface() {
   const mesh = useMesh();
   const cookieStore = useCookies();
 
-  const themePreferences: SelectOption[] = [
-    { label: "DanBot Hosting", value: "dbh" },
-    { label: "Vampire", value: "vampire" },
-    { label: "Midnight Purple", value: "midnightpurple" },
-  ];
+  const themePreferences: SelectOption[] = generateThemeOptions();
 
-  const pickedTheme = cookieStore.get("theme") ?? "dbh";
+  const pickedTheme = cookieStore.get("theme") ?? themes[0].value;
   const themeIndex = themePreferences.findIndex(
     (theme) => theme.value === pickedTheme
   );
