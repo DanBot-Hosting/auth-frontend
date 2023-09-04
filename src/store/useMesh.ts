@@ -31,11 +31,20 @@ export const useMesh = create<MeshStore>((set, get) => ({
     });
   },
   toggle: (state: boolean) => {
-    const mesh = get().mesh;
+    const { mesh } = get();
     if (state) {
       mesh.getCanvas()!.style.display = "";
     } else {
       mesh.getCanvas()!.style.display = "none";
     }
   },
+  redraw: () => {
+    const { mesh } = get();
+    const neutral = getRawToken("colors.mesh.1");
+    const accent = getRawToken("colors.mesh.2");
+    const secondary = getRawToken("colors.mesh.3");
+    const tertiary = getRawToken("colors.mesh.4");
+    mesh.options.colors = [neutral, accent, secondary, tertiary];
+    mesh.reinit();
+  }
 }));

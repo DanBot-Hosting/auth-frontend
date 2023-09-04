@@ -62,7 +62,7 @@ export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
   const setOptions = useMesh((state) => state.setOptions);
-  const { init } = useSettings();
+  const { get } = useSettings();
 
   /**
    * Do not reinit whole class instance on unmount
@@ -71,6 +71,7 @@ export function WebsiteLoadingOverlay() {
   if (!isExecuted.current) {
     isExecuted.current = true;
     setOptions({
+      static: get("background-animate") === "false",
       onLoad: () => {
         const overlay = document.getElementById("website-loading-overlay");
         if (!overlay) return;
@@ -79,7 +80,6 @@ export function WebsiteLoadingOverlay() {
 
         document.body.classList.remove(hiddenScrollbar);
 
-        init("background-animate");
         setTimeout(() => {
           stop();
           overlay.remove();

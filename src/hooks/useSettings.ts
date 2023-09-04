@@ -4,7 +4,6 @@ import { startTransition, useCallback } from "react";
 
 export function useSettings(): UseSettings {
   const { get: getCookie, set: setCookie } = useCookies();
-  // No shallowing
   const mesh = useMesh();
 
   const get = useCallback(
@@ -40,20 +39,22 @@ export function useSettings(): UseSettings {
 
       switch (setting) {
         case "background-animate":
-          const newState = useMesh.getState();
-          if (value === "false") newState.mesh.pause();
-          else newState.mesh.play();
+          if (mesh.mesh.options.static)
+            mesh.initializeMesh({ static: false });
+          if (value === "true") mesh.mesh.play();
+          else mesh.mesh.pause();
           break;
         case "background-enabled":
           mesh.initializeMesh();
           startTransition(() => mesh.toggle(value === "true"));
+          if (value === "true") mesh.mesh.reinit();
           break;
         case "blur-mode":
           document.documentElement.dataset.blurMode = value;
           break;
         case "theme":
           document.documentElement.dataset.theme = value;
-          mesh.initializeMesh();
+          mesh.redraw();
           break;
         case "theme-mode":
           document.documentElement.dataset.themeMode = value;

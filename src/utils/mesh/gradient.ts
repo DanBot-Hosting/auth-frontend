@@ -240,11 +240,11 @@ export class Gradient {
     }
   }
 
-  animate(event: any = 0) {
+  animate(event: number = 0) {
     const shouldSkipFrame =
       !!window.document.hidden ||
       !this.getFlag("playing") ||
-      parseInt(event as string, 10) % 2 === 0;
+      parseInt(event as unknown as string, 10) % 2 === 0;
     let lastFrame = this.getFlag("lastFrame", 0);
 
     if (!shouldSkipFrame) {
@@ -469,9 +469,26 @@ export class Gradient {
     requestAnimationFrame(this.animate.bind(this));
     // React will call this method when the page is changed.
     // window.addEventListener("resize", this.resize.bind(this));
-    setTimeout(() => {
-      this.getOption("onLoad")();
-    }, 500);
+    this.getOption("onLoad")();
+  }
+
+  // Redraws the mesh.
+  reinit() {
+    const canvas = this.getCanvas();
+    if (!canvas) return;
+    this._minigl = new MiniGL(canvas, canvas.offsetWidth, canvas.offsetHeight);
+    this.initMesh();
+    this.resize();
+
+    requestAnimationFrame((event: number) => {
+      let lastFrame = this.getFlag("lastFrame", 0);
+
+      this.time += Math.min(event - lastFrame, 1000 / 15);
+      lastFrame = this.setFlag("lastFrame", event);
+      if (this.mesh) this.mesh.material.uniforms.u_time!.value = this.time;
+      this._minigl?.render();
+    });
+    // requestAnimationFrame(this.animate.bind(this));
   }
 
   /**
