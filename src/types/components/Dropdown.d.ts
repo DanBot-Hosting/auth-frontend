@@ -13,3 +13,9 @@ interface DropdownOption {
 interface DropdownOptionRef extends DropdownOption {
   ref: HTMLButtonElement | null;
 }
+
+type DropdownRawRef = DropdownOptionRef["ref"];
+
+interface DropdownRef extends DropdownRawRef {
+  switch: (option: DropdownOption) => void;
+}

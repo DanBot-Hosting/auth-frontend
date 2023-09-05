@@ -2,10 +2,11 @@
 import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
+import { useNotification } from "@/hooks/useNotification";
 import { useSettings } from "@/hooks/useSettings";
 import { generateThemeOptions } from "@/utils/themes";
 import { css } from "@styles/css";
-import { useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
 const field = css({
   display: "flex",
@@ -77,11 +78,11 @@ export default function Interface() {
     (theme) => theme.value === pickedTheme
   );
 
-  const blurModes: SelectOption[] = [
+  const blurModes: SelectOption[] = useMemo(() => [
     { label: "Full", value: "full" },
     { label: "Limited", value: "limited" },
     { label: "Disabled", value: "disabled" },
-  ];
+  ], []);
 
   const pickedBlurMode = get("blur-mode");
   const blurModeIndex = blurModes.findIndex(
@@ -93,6 +94,18 @@ export default function Interface() {
 
   const enabledRef = useRef<HTMLInputElement | null>(null);
   const animatedRef = useRef<HTMLInputElement | null>(null);
+  const themeRef = useRef<SelectRef | null>(null);
+  const blurModeRef = useRef<SelectRef | null>(null);
+
+  const { show } = useNotification();
+  const resetSettings = useCallback(() => {
+    if (get("background-enabled") !== "true") enabledRef.current?.click();
+    if (get("background-animate") !== "true") animatedRef.current?.click();
+    if (get("theme") !== "dbh") themeRef.current?.change(themePreferences[0]);
+    if (get("blur-mode") !== "full") blurModeRef.current?.change(blurModes[0]);
+
+    show({ children: "Settings were successfully reset!" });
+  }, [blurModes, get, show, themePreferences]);
 
   return (
     <div className={fields}>
@@ -102,6 +115,7 @@ export default function Interface() {
           <Select
             options={themePreferences}
             initial={themeIndex}
+            ref={themeRef}
             placeholder="Pick a theme..."
             onChange={(option) => set("theme", option.value)}
           />
@@ -114,6 +128,7 @@ export default function Interface() {
           <Select
             options={blurModes}
             initial={blurModeIndex}
+            ref={blurModeRef}
             placeholder="Pick blur mode..."
             onChange={(option) => set("blur-mode", option.value)}
           />
@@ -129,7 +144,8 @@ export default function Interface() {
             checked={backgroundEnabled}
             ref={enabledRef}
             onChange={(state) => {
-              if (get("background-animate") === "true" && !state) animatedRef.current?.click();
+              if (get("background-animate") === "true" && !state)
+                animatedRef.current?.click();
               set("background-enabled", state ? "true" : "false");
             }}
           >
@@ -149,7 +165,7 @@ export default function Interface() {
         </div>
       </div>
       <div className={field}>
-        <Button secondary pill>
+        <Button secondary pill onClick={resetSettings}>
           Reset Settings
         </Button>
       </div>
