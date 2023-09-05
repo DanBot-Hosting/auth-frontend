@@ -65,6 +65,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
         flexDir: "column",
         justifyContent: "center",
         alignItems: "flex-start",
+        position: "relative",
 
         borderRadius: "1.25rem",
         bg: "pillbackground.50",

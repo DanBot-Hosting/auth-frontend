@@ -14,6 +14,7 @@ const dropdown = css({
   justifyContent: "center",
   alignItems: "center",
   flexShrink: "0",
+  position: "relative",
 
   borderRadius: "1.25rem",
   bg: "pillbackground.50",

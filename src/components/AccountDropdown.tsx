@@ -50,6 +50,7 @@ export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props
     flexDir: "column",
     justifyContent: "center",
     alignItems: "flex-start",
+    position: "relative",
   
     borderRadius: "1.25rem",
     bg: "pillbackground.50",

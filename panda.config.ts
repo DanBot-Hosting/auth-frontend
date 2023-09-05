@@ -1,3 +1,4 @@
+import { generateBlurModeConditions, generateBlurModes } from "@/utils/blurModes";
 import { generateThemeColors, generateThemeConditions } from "@/utils/themes";
 import { defineConfig } from "@pandacss/dev";
 
@@ -31,37 +32,6 @@ function generateOpacities(
   return result;
 }
 
-interface BlurMode {
-  value: {
-    _full: { value: string };
-    _limited: { value: string };
-    _disabled: { value: string };
-  }
-}
-
-/**
- * Generate blur modes and their values depending on blur mode condition.
- * 
- * @param {[boolean, boolean]} values Should full & limited be having the values else 0px.
- * @param {number[]} [blurs=[3, 5, 7]] What blurs to generate.
- * @returns {Record<number, BlurMode>} Blurs and show values depending on blur mode.
- */
-function generateBlurModes(values: [boolean, boolean], blurs: number[] = [3, 5, 7]) {
-  const result: Record<number, BlurMode> = {};
-
-  for (let i in blurs) {
-    result[blurs[i]] = {
-      value: {
-        _full: { value: values[0] ? `${blurs[i]}px` : "0px", },
-        _limited: { value: values[1] ? `${blurs[i]}px` : "0px", },
-        _disabled: { value: "0px" },
-      },
-    };
-  }
-
-  return result;
-}
-
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -86,10 +56,7 @@ export default defineConfig({
     light: "[data-theme-mode=light] &",
 
     ...generateThemeConditions(),
-
-    full: "[data-blur-mode=full] &",
-    limited: "[data-blur-mode=limited] &",
-    disabled: "[data-blur-mode=disabled] &",
+    ...generateBlurModeConditions(),
   },
 
   globalCss: {
@@ -103,10 +70,7 @@ export default defineConfig({
   theme: {
     extend: {},
     semanticTokens: {
-      blurs: {
-        full: generateBlurModes([true, false]),
-        limited: generateBlurModes([true, true]),
-      },
+      blurs: generateBlurModes(),
       colors: {
         pillbackground: generateOpacities(
           "hsl(0, 0%, 80%)",
