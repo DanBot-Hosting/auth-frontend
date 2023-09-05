@@ -78,11 +78,14 @@ export default function Interface() {
     (theme) => theme.value === pickedTheme
   );
 
-  const blurModes: SelectOption[] = useMemo(() => [
-    { label: "Full", value: "full" },
-    { label: "Limited", value: "limited" },
-    { label: "Disabled", value: "disabled" },
-  ], []);
+  const blurModes: SelectOption[] = useMemo(
+    () => [
+      { label: "Full", value: "full" },
+      { label: "Limited", value: "limited" },
+      { label: "Disabled", value: "disabled" },
+    ],
+    []
+  );
 
   const pickedBlurMode = get("blur-mode");
   const blurModeIndex = blurModes.findIndex(
@@ -107,6 +110,31 @@ export default function Interface() {
     show({ children: "Settings were successfully reset!" });
   }, [blurModes, get, show, themePreferences]);
 
+  const changeTheme = useCallback(
+    (option: DropdownOption) => set("theme", option.value),
+    [set]
+  );
+  const changeBlur = useCallback(
+    (option: DropdownOption) => set("blur-mode", option.value),
+    [set]
+  );
+  const switchEnabled = useCallback(
+    (state: boolean) => {
+      if (get("background-animate") === "true" && !state)
+        animatedRef.current?.click();
+      set("background-enabled", state ? "true" : "false");
+    },
+    [get, set]
+  );
+  const switchAnimated = useCallback(
+    (state: boolean) => {
+      if (get("background-enabled") === "false" && state)
+        enabledRef.current?.click();
+      set("background-animate", state ? "true" : "false");
+    },
+    [get, set]
+  );
+
   return (
     <div className={fields}>
       <div className={field}>
@@ -117,7 +145,7 @@ export default function Interface() {
             initial={themeIndex}
             ref={themeRef}
             placeholder="Pick a theme..."
-            onChange={(option) => set("theme", option.value)}
+            onChange={changeTheme}
           />
         </div>
         <span className={description}>Your theme preferences</span>
@@ -130,7 +158,7 @@ export default function Interface() {
             initial={blurModeIndex}
             ref={blurModeRef}
             placeholder="Pick blur mode..."
-            onChange={(option) => set("blur-mode", option.value)}
+            onChange={changeBlur}
           />
         </div>
         <span className={description}>
@@ -143,22 +171,14 @@ export default function Interface() {
           <Switch
             checked={backgroundEnabled}
             ref={enabledRef}
-            onChange={(state) => {
-              if (get("background-animate") === "true" && !state)
-                animatedRef.current?.click();
-              set("background-enabled", state ? "true" : "false");
-            }}
+            onChange={switchEnabled}
           >
             Show the background
           </Switch>
           <Switch
             checked={backgroundAnimated}
             ref={animatedRef}
-            onChange={(state) => {
-              if (get("background-enabled") === "false" && state)
-                enabledRef.current?.click();
-              set("background-animate", state ? "true" : "false");
-            }}
+            onChange={switchAnimated}
           >
             Animation shaders
           </Switch>
