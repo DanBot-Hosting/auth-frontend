@@ -53,7 +53,7 @@ export function generateThemeOptions(): SelectOption[] {
   }));
 }
 
-type Accumulator = Partial<Record<ThemeModes, Token>>;
+type Accumulator = Partial<Record<`_${ThemeModes}`, Token>>;
 
 export function generateThemeColors(): Record<
   number,
@@ -68,7 +68,7 @@ export function generateThemeColors(): Record<
       part.value[`_${themes[theme].value}`] = themeModes.reduce<Accumulator>(
         (acc, mode) => ({
           ...acc,
-          [mode]: { value: themes[theme].colors.dark[i - 1] },
+          [`_${mode}`]: { value: themes[theme].colors[mode][i - 1] },
         }),
         {}
       );

@@ -57,6 +57,7 @@ export function useSettings(): UseSettings {
           break;
         case "theme-mode":
           document.documentElement.dataset.themeMode = value;
+          mesh.redraw();
           break;
       }
     },

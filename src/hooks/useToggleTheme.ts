@@ -28,7 +28,7 @@ export function useToggleTheme(): UseToggleTheme {
 
     cookieStore.set("theme-mode", toggled);
     toggleMode(toggled);
-    init("background-enabled");
+    init("theme-mode");
   }, [cookieStore, init, toggleMode]);
 
   return { toggle };
