@@ -10,12 +10,12 @@ import { useEffect } from "react";
  * @returns {JSX.Element} The rendered Mesh component.
  */
 export function Mesh() {
-  const { initializeMesh } = useMesh();
+  const { initialize } = useMesh();
   // On component mount
   // Because module requires querySelector call to get colors
   useEffect(() => {
     // Do not use useSettings' init as it only redraws and does not initialize whole gradient
-    initializeMesh();
+    initialize();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

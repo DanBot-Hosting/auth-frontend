@@ -61,7 +61,7 @@ const percent = css({
 export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
-  const setOptions = useMesh((state) => state.setOptions);
+  const [setOptions, define] = useMesh((state) => [state.setOptions, state.define]);
   const { get } = useSettings();
 
   /**
@@ -86,6 +86,8 @@ export function WebsiteLoadingOverlay() {
         }, 500);
       },
     });
+    // Defining class once options are set
+    define();
   }
 
   useEffect(() => {

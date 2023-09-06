@@ -4,7 +4,6 @@ import { startTransition, useCallback } from "react";
 
 export function useSettings(): UseSettings {
   const { get: getCookie, set: setCookie } = useCookies();
-  const mesh = useMesh();
 
   const get = useCallback(
     (setting: Setting) => {
@@ -36,17 +35,18 @@ export function useSettings(): UseSettings {
   const init = useCallback(
     (setting: Setting, customValue?: string) => {
       const value = customValue ?? get(setting);
+      const mesh = useMesh.getState();
 
       switch (setting) {
         case "background-animate":
-          if (mesh.mesh.options.static) mesh.initializeMesh({ static: false });
-          if (value === "true") mesh.mesh.play();
-          else mesh.mesh.pause();
+          if (mesh.mesh?.options.static) mesh.initialize({ static: false });
+          if (value === "true") mesh.mesh?.play();
+          else mesh.mesh?.pause();
           break;
         case "background-enabled":
-          mesh.initializeMesh();
+          mesh.initialize();
           startTransition(() => mesh.toggle(value === "true"));
-          if (value === "true") mesh.mesh.reinit();
+          if (value === "true") mesh.mesh?.reinit();
           break;
         case "blur-mode":
           document.documentElement.dataset.blurMode = value;
@@ -60,7 +60,7 @@ export function useSettings(): UseSettings {
           break;
       }
     },
-    [get, mesh]
+    [get]
   );
 
   const set = useCallback(

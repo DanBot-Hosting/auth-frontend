@@ -8,42 +8,65 @@ import { create } from "zustand";
  * @return {MeshStore} The created mesh store.
  */
 export const useMesh = create<MeshStore>((set, get) => ({
-  /** Customize Gradient options and reinit gradient instance */
+  /** Options for the mesh. */
+  options: {},
+  /** Customize Gradient options. */
   setOptions: (options) =>
     set((state) => ({
       ...state,
-      mesh: new Gradient(options),
+      options,
     })),
-  /** Mesh Gradient class, is type of any because module needs ts rewrite. */
-  mesh: new Gradient(),
+  /** Destroys the mesh class instance. */
+  destroy: () => set((state) => ({ ...state, mesh: null })),
+  /** Redefines the mesh. */
+  define: () => set((state) => ({ ...state, mesh: new Gradient(get().options) })),
+  /** Mesh Gradient class. */
+  mesh: null,
+  /** Canvas query selector */
+  canvas: "#mesh",
   /** Initializes the mesh without updating the position. */
-  initializeMesh: (options?: Partial<DefaultOptions>) => {
+  initialize: (options?: Partial<DefaultOptions>) => {
+    const { mesh, canvas } = get();
+
     const neutral = getRawToken("colors.mesh.1");
     const accent = getRawToken("colors.mesh.2");
     const secondary = getRawToken("colors.mesh.3");
     const tertiary = getRawToken("colors.mesh.4");
 
-    // Basically @ts-ignore but in a better way
-    // since the module has no defined initGradient method
-    get().mesh.connect("#mesh", {
+    mesh?.connect(canvas, {
       colors: [neutral, accent, secondary, tertiary],
       ...options,
     });
   },
+  /**
+   * Toggles the background visibility.
+   *
+   * @param {boolean} state - The state to toggle.
+   */
   toggle: (state: boolean) => {
-    const { mesh } = get();
+    const { mesh, define, destroy, initialize, canvas } = get();
+    const element = document.querySelector(canvas) as HTMLElement;
+
     if (state) {
-      mesh.getCanvas()!.style.display = "";
+      define();
+      element!.style.display = "";
+      initialize();
     } else {
-      mesh.getCanvas()!.style.display = "none";
+      if (!mesh) return;
+      element!.style.display = "none";
+      destroy();
     }
   },
+  /** Redraws a frame for background. */
   redraw: () => {
     const { mesh } = get();
+    if (!mesh) return;
+
     const neutral = getRawToken("colors.mesh.1");
     const accent = getRawToken("colors.mesh.2");
     const secondary = getRawToken("colors.mesh.3");
     const tertiary = getRawToken("colors.mesh.4");
+
     mesh.options.colors = [neutral, accent, secondary, tertiary];
     mesh.reinit();
   },
