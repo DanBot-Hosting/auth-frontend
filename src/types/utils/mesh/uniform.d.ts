@@ -8,6 +8,6 @@ interface TypeMap {
 }
 
 interface UniformInstance {
-  uniform: Uniform,
-  location: WebGLUniformLocation | null,
+  uniform: Uniform;
+  location: WebGLUniformLocation | null;
 }

@@ -19,7 +19,7 @@ export function useToggleTheme(): UseToggleTheme {
   /**
    * Toggles the theme value by checking cookies via client side cookie store.
    * Updates the document element's theme accordingly along with reinitializing the mesh.
-   * 
+   *
    * @returns {void}
    */
   const toggle = useCallback(() => {

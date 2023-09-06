@@ -39,8 +39,7 @@ export function useSettings(): UseSettings {
 
       switch (setting) {
         case "background-animate":
-          if (mesh.mesh.options.static)
-            mesh.initializeMesh({ static: false });
+          if (mesh.mesh.options.static) mesh.initializeMesh({ static: false });
           if (value === "true") mesh.mesh.play();
           else mesh.mesh.pause();
           break;

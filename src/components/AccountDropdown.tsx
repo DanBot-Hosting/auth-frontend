@@ -14,7 +14,12 @@ import { useHoverable } from "@/hooks/useHoverable";
  * The callback function to be executed when a link is clicked.
  * @returns {JSX.Element} The rendered AccountDropdown component.
  */
-export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props }: AccountDropdownProps) {
+export function AccountDropdown({
+  links,
+  onTabClick,
+  css: cssProp = {},
+  ...props
+}: AccountDropdownProps) {
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const [hoverableElement, setHoverableElement] =
     useState<HTMLDivElement | null>(null);
@@ -42,22 +47,25 @@ export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props
     [change, onTabClick]
   );
 
-  const dropdown = css({
-    display: "flex",
-    minWidth: "12.5rem",
-    width: "max-content",
-    p: "0.625rem",
-    flexDir: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    position: "relative",
-  
-    borderRadius: "1.25rem",
-    bg: "pillbackground.50",
-    backdropBlur: "limited.5",
-    backdropFilter: "auto",
-  }, cssProp);
-  
+  const dropdown = css(
+    {
+      display: "flex",
+      minWidth: "12.5rem",
+      width: "max-content",
+      p: "0.625rem",
+      flexDir: "column",
+      justifyContent: "center",
+      alignItems: "flex-start",
+      position: "relative",
+
+      borderRadius: "1.25rem",
+      bg: "pillbackground.50",
+      backdropBlur: "limited.5",
+      backdropFilter: "auto",
+    },
+    cssProp
+  );
+
   const option = css({
     display: "flex",
     height: "2.5rem",
@@ -66,23 +74,23 @@ export function AccountDropdown({ links, onTabClick, css: cssProp = {}, ...props
     alignSelf: "stretch",
     zIndex: "4",
     userSelect: "none",
-  
+
     borderRadius: "0.625rem",
     color: "text.60",
     fontWeight: "400",
     transition: "color 0.2s ease-in-out",
-  
+
     _hover: {
       color: "text.90",
       transition: "color 0.2s ease-in-out",
     },
-  
+
     "&[data-active-hoverable]": {
       color: "text.90",
       transition: "color 0.2s ease-in-out",
     },
   });
-  
+
   const hoverable = css({
     position: "absolute",
     top: "0",

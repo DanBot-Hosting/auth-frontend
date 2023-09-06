@@ -6,7 +6,7 @@ import { useEffect } from "react";
 /**
  * Renders a Mesh ambient background component as a canvas element.
  * Giving the ability to interact with it via useMesh store wrapped in useSettings.
- * 
+ *
  * @returns {JSX.Element} The rendered Mesh component.
  */
 export function Mesh() {
@@ -20,4 +20,4 @@ export function Mesh() {
   }, []);
 
   return <canvas id="mesh" />;
-};
+}

@@ -31,9 +31,7 @@ export default function SettingsLayout({
           { label: "Interface", value: "/settings/interface" },
         ]}
       />
-      <div className={main}>
-        {children}
-      </div>
+      <div className={main}>{children}</div>
     </div>
   );
 }

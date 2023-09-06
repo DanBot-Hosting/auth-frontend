@@ -1,6 +1,12 @@
 "use client";
 import { css } from "@styles/css";
-import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { Dropdown } from "@/components/Dropdown";
 import { CaretDown } from "@phosphor-icons/react";
 
@@ -15,14 +21,10 @@ import { CaretDown } from "@phosphor-icons/react";
  * @param {SelectProps} props... - The div properties passed to the Select picker component.
  * @returns {JSX.Element} The rendered not responsive Select element.
  */
-export const Select = forwardRef<SelectRef, SelectProps>(function Select({
-  placeholder,
-  options,
-  onChange,
-  initial,
-  css: cssProp = {},
-  ...props
-}, ref) {
+export const Select = forwardRef<SelectRef, SelectProps>(function Select(
+  { placeholder, options, onChange, initial, css: cssProp = {}, ...props },
+  ref
+) {
   const selectRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const caretRef = useRef<SVGSVGElement | null>(null);
@@ -49,16 +51,19 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select({
     dropdownRef.current?.removeAttribute("data-active");
   }, []);
 
-  const switchDropdown = useCallback((option: DropdownOption) => {
-    caretRef.current?.removeAttribute("data-active");
-    selectRef.current?.removeAttribute("data-active");
-    dropdownRef.current?.removeAttribute("data-active");
+  const switchDropdown = useCallback(
+    (option: DropdownOption) => {
+      caretRef.current?.removeAttribute("data-active");
+      selectRef.current?.removeAttribute("data-active");
+      dropdownRef.current?.removeAttribute("data-active");
 
-    selectRef.current?.setAttribute("data-selected", "true");
-    setPickedOption(option);
+      selectRef.current?.setAttribute("data-selected", "true");
+      setPickedOption(option);
 
-    if (onChange) onChange(option);
-  }, [onChange]);
+      if (onChange) onChange(option);
+    },
+    [onChange]
+  );
 
   const wrapper = css({
     position: "relative",
@@ -151,7 +156,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select({
         switchDropdown(option);
         imperativeDropdownRef.current?.switch(option);
       },
-    }
+    };
   });
 
   return (

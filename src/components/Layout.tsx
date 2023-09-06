@@ -137,9 +137,7 @@ const html = css({
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
  * @returns {JSX.Element} The DOM representing the layout.
  */
-export function Layout({
-  children,
-}: LayoutProps) {
+export function Layout({ children }: LayoutProps) {
   // Set cookies as well as inline script
   // To avoid attribute warnings
   // And document shadows
@@ -149,7 +147,13 @@ export function Layout({
   const blurMode = cookieStore.get("blur-mode") ?? "full";
 
   return (
-    <html lang="en" className={html} data-theme={theme} data-theme-mode={themeMode} data-blur-mode={blurMode}>
+    <html
+      lang="en"
+      className={html}
+      data-theme={theme}
+      data-theme-mode={themeMode}
+      data-blur-mode={blurMode}
+    >
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
         <header className={header}>
           <Header links={headerLinks}>
@@ -182,7 +186,7 @@ export function Layout({
           id="settings-setup"
           async
           dangerouslySetInnerHTML={{
-            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full"));`
+            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full"));`,
           }}
         />
       </body>

@@ -10,11 +10,11 @@ const raw = (name: string) => cookies.find((row) => row.startsWith(name + "="));
 const get = <T extends string>(name: string, def: T): string | T => {
   const rawValue = raw(name);
   return rawValue ? rawValue.split("=")[1] : def;
-}
+};
 
-const set = (name: string, value: string) => document.documentElement.dataset[name] = value;
+const set = (name: string, value: string) =>
+  (document.documentElement.dataset[name] = value);
 
 set("theme", get("theme", "dbh"));
 set("themeMode", get("theme-mode", "light"));
 set("blurMode", get("blur-mode", "full"));
-

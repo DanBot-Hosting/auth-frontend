@@ -5,7 +5,7 @@ interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   initial?: number;
 }
 
-interface DropdownOption {  
+interface DropdownOption {
   label: string;
   value: string;
 }

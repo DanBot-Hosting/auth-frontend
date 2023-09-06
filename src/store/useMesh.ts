@@ -46,5 +46,5 @@ export const useMesh = create<MeshStore>((set, get) => ({
     const tertiary = getRawToken("colors.mesh.4");
     mesh.options.colors = [neutral, accent, secondary, tertiary];
     mesh.reinit();
-  }
+  },
 }));

@@ -1,4 +1,7 @@
-import { generateBlurModeConditions, generateBlurModes } from "@/utils/blurModes";
+import {
+  generateBlurModeConditions,
+  generateBlurModes,
+} from "@/utils/blurModes";
 import { generateColors } from "@/utils/colors";
 import { generateThemeModeConditions } from "@/utils/themeModes";
 import { generateThemeConditions } from "@/utils/themes";
@@ -34,7 +37,7 @@ export default defineConfig({
     "::selection": {
       bg: "text.90",
       color: "background.100",
-    }
+    },
   },
 
   // Useful for theme customization
@@ -48,6 +51,6 @@ export default defineConfig({
 
   // The output directory for your css system
   outdir: "styles",
-  
+
   jsxFramework: "react",
 });

@@ -103,7 +103,10 @@ export class Material {
     return shader;
   }
 
-  _getUniformVariableDeclarations(uniforms: Partial<Uniforms | CommonUniforms>, type: string) {
+  _getUniformVariableDeclarations(
+    uniforms: Partial<Uniforms | CommonUniforms>,
+    type: string
+  ) {
     return Object.entries(uniforms)
       .map(([uniform, value]) => {
         return value.getDeclaration(uniform, type);
@@ -127,7 +130,9 @@ export class Material {
     } else {
       this.uniformInstances.push({
         uniform: uniforms,
-        location: (this.gl.getContext() as WebGLRenderingContext).getUniformLocation(this.program, name),
+        location: (
+          this.gl.getContext() as WebGLRenderingContext
+        ).getUniformLocation(this.program, name),
       });
     }
   }

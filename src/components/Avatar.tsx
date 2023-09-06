@@ -57,7 +57,6 @@ const gear = css({
   },
 });
 
-
 /**
  * A configurable Avatar component with additional optimization by next/image.
  *

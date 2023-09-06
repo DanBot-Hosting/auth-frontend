@@ -15,4 +15,6 @@ interface UseOverlay {
   hide: () => void;
 }
 
-type ShowOverlayProps = OverlayProps & UseGeneralOverlayProps & (UseOverlayProps | UseLoadingOverlayProps);
+type ShowOverlayProps = OverlayProps &
+  UseGeneralOverlayProps &
+  (UseOverlayProps | UseLoadingOverlayProps);

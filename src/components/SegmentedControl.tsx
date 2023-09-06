@@ -92,7 +92,10 @@ export function SegmentedControl({ options, onTabClick }: DropdownProps) {
   }, [pathname, hoverableElement]);
 
   const manage = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, opt: DropdownOption) => {
+    (
+      event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+      opt: DropdownOption
+    ) => {
       if (onTabClick) onTabClick(opt);
       change(event.currentTarget);
     },
