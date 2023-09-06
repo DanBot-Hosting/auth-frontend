@@ -18,11 +18,11 @@ export function useCookies(): UseCookies {
     // Server does not have document defined in build time
     // get() method is called on page load in root layout
     if (typeof document === "undefined") return;
-    let cookies = document.cookie.split(/;\s*/);
+    const cookies = document.cookie.split(/;\s*/);
 
     for (let cookie of cookies) {
-      let map = cookie.split("=");
-      let name = decodeURIComponent(map[0]);
+      const map = cookie.split("=");
+      const name = decodeURIComponent(map[0]);
       if (name === key) return decodeURIComponent(map[1]);
     }
   }, []);
