@@ -70,6 +70,7 @@ export class Gradient {
     fragment: Fragment,
   };
 
+  // No rIC because of loading bar animation
   animationCb: () => number = () =>
     requestAnimationFrame(this.animate.bind(this));
 
