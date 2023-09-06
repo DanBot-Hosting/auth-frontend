@@ -4,9 +4,9 @@ import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
 import { useNotification } from "@/hooks/useNotification";
 import { useSettings } from "@/hooks/useSettings";
-import { generateThemeOptions } from "@/utils/panda/themes";
+import { generateBlurModeOptions, generateThemeOptions } from "@/utils/panda";
 import { css } from "@styles/css";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const field = css({
   display: "flex",
@@ -70,24 +70,23 @@ const description = css({
 
 export default function Interface() {
   const { get, set } = useSettings();
+  const [pickedTheme, setPickedTheme] = useState<string | null>(null);
+  const [pickedBlurMode, setPickedBlurMode] = useState<string | null>(null);
 
   const themePreferences: SelectOption[] = generateThemeOptions();
+  const blurModes: SelectOption[] = generateBlurModeOptions();
 
-  const pickedTheme = get("theme");
+  useEffect(() => {
+    setPickedTheme(get("theme"));
+    setPickedBlurMode(get("blur-mode"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   const themeIndex = themePreferences.findIndex(
     (theme) => theme.value === pickedTheme
   );
 
-  const blurModes: SelectOption[] = useMemo(
-    () => [
-      { label: "Full", value: "full" },
-      { label: "Limited", value: "limited" },
-      { label: "Disabled", value: "disabled" },
-    ],
-    []
-  );
-
-  const pickedBlurMode = get("blur-mode");
   const blurModeIndex = blurModes.findIndex(
     (blurMode) => blurMode.value === pickedBlurMode
   );
@@ -135,6 +134,7 @@ export default function Interface() {
     [get, set]
   );
 
+  if (!pickedTheme || !pickedBlurMode) return;
   return (
     <div className={fields}>
       <div className={field}>

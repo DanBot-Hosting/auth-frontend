@@ -7,27 +7,17 @@ export function useSettings(): UseSettings {
 
   const get = useCallback(
     (setting: Setting) => {
-      let defaultValue: string;
       // Getting default value
       // If changed the value has to be set in inline script as well
-      switch (setting) {
-        case "background-animate":
-          defaultValue = "true";
-          break;
-        case "background-enabled":
-          defaultValue = "true";
-          break;
-        case "blur-mode":
-          defaultValue = "full";
-          break;
-        case "theme":
-          defaultValue = "dbh";
-          break;
-        case "theme-mode":
-          defaultValue = "light";
-          break;
-      }
-      return getCookie(setting) ?? defaultValue;
+      let defaultValues: Record<Setting, string> = {
+        "background-animate": "true",
+        "background-enabled": "true",
+        "blur-mode": "full",
+        "theme": "dbh",
+        "theme-mode": "light",
+      };
+
+      return getCookie(setting) ?? defaultValues[setting];
     },
     [getCookie]
   );
@@ -46,7 +36,10 @@ export function useSettings(): UseSettings {
         case "background-enabled":
           mesh.initialize();
           startTransition(() => mesh.toggle(value === "true"));
-          if (value === "true") mesh.mesh?.reinit();
+          if (value === "true") {
+            init("background-animate");
+            mesh.mesh?.reinit();
+          };
           break;
         case "blur-mode":
           document.documentElement.dataset.blurMode = value;

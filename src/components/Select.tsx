@@ -165,18 +165,12 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         className={select}
         ref={selectRef}
         onClick={toggleDropdownVisibility}
-        data-selected={!!pickedOption?.value || undefined}
+        data-selected={!!pickedOption.value || undefined}
         {...props}
       >
-        <span
-          className="label"
-          // Initial value can depend on document
-          suppressHydrationWarning
-          // Will default to initial value no matter what if not dangerouslySetInnerHTML
-          dangerouslySetInnerHTML={{
-            __html: pickedOption?.label,
-          }}
-        />
+        <div>
+          {pickedOption.label}
+        </div>
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>
       <div className={dropdown} ref={dropdownRef}>
