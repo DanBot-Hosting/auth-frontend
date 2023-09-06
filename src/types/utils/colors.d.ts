@@ -1,10 +1,3 @@
-interface OpacityColor {
-  value: {
-    _dark: { value: string };
-    _light: { value: string };
-  };
-}
-
 interface Color {
   name: string;
   value: string;

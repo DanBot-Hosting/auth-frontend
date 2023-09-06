@@ -1,5 +1,6 @@
 import { generateBlurModeConditions, generateBlurModes } from "@/utils/blurModes";
 import { generateColors } from "@/utils/colors";
+import { generateThemeModeConditions } from "@/utils/themeModes";
 import { generateThemeConditions } from "@/utils/themes";
 import { defineConfig } from "@pandacss/dev";
 
@@ -23,9 +24,7 @@ export default defineConfig({
   exclude: [],
 
   conditions: {
-    dark: "[data-theme-mode=dark] &",
-    light: "[data-theme-mode=light] &",
-
+    ...generateThemeModeConditions(),
     ...generateThemeConditions(),
     ...generateBlurModeConditions(),
   },

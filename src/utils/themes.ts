@@ -1,3 +1,6 @@
+import { Recursive, Token } from "@styles/types/composition";
+import { themeModes } from "@/utils/themeModes";
+
 export const themes: Theme[] = [
   {
     name: "DanBot Hosting",
@@ -50,17 +53,25 @@ export function generateThemeOptions(): SelectOption[] {
   }));
 }
 
-export function generateThemeColors(): Record<number, PartColor> {
-  let result: Record<number, PartColor> = {};
+type Accumulator = Partial<Record<ThemeModes, Token>>;
+
+export function generateThemeColors(): Record<
+  number,
+  Recursive<Token> | Token
+> {
+  let result: Record<number, Recursive<Token> | Token> = {};
 
   for (let i = 1; i < 5; i++) {
-    let part: PartColor = { value: {} };
+    let part: Recursive<Token> | Token = { value: {} };
 
     for (let theme in themes) {
-      part.value[`_${themes[theme].value}`] = {
-        _dark: { value: themes[theme].colors.dark[i - 1] },
-        _light: { value: themes[theme].colors.light[i - 1] },
-      };
+      part.value[`_${themes[theme].value}`] = themeModes.reduce<Accumulator>(
+        (acc, mode) => ({
+          ...acc,
+          [mode]: { value: themes[theme].colors.dark[i - 1] },
+        }),
+        {}
+      );
     }
 
     result[i] = part;

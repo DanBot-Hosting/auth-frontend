@@ -8,12 +8,3 @@ interface Theme {
     light: ThemeColors;
   };
 }
-
-interface PartColor {
-  value: {
-    [key: `_${string}`]: {
-      _dark: { value: string };
-      _light: { value: string };
-    };
-  };
-}

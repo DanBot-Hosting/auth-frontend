@@ -6,6 +6,8 @@
   "scripts": {
     "prepare": "panda codegen",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "check": "prettier --check \"**/*.{ts,tsx}\"",
+    "typecheck": "tsc --noEmit",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
