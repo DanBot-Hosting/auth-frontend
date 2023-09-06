@@ -6,11 +6,3 @@ interface Blur {
     [key: string]: boolean;
   };
 }
-
-interface BlurMode {
-  value: {
-    [key: `_${string}`]: {
-      value: string;
-    };
-  };
-}

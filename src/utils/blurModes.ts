@@ -1,3 +1,5 @@
+import type { Token } from "@styles/types/composition";
+
 const blurs: Blur[] = [
   {
     name: "Full",
@@ -36,18 +38,18 @@ export function generateBlurModeConditions() {
 /**
  * Generate blur modes and their values depending on blur mode conditions.
  *
- * @returns {Record<string, Record<number, BlurMode>>} Blurs and show values depending on blur mode.
+ * @returns {Record<string, Record<number, Token>>} Blurs and show values depending on blur mode.
  */
 export function generateBlurModes() {
-  const result: Record<string, Record<number, BlurMode>> = {};
+  const result: Record<string, Record<number, Token>> = {};
 
   for (let blur of blurs) {
-    let part: Record<number, BlurMode> = {};
+    let part: Record<number, Token> = {};
     const { tokens, modes } = blur;
 
     if (!tokens || !modes) continue;
     for (let token of tokens) {
-      let tokenValue: BlurMode = { value: {} };
+      let tokenValue: Token = { value: {} };
 
       for (let mode in modes) {
         tokenValue.value[`_${mode}`] = {

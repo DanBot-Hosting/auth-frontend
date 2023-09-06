@@ -1,11 +1,11 @@
-type Colors = [string, string, string, string];
+type ThemeColors = [string, string, string, string];
 
 interface Theme {
   name: string;
   value: string;
   colors: {
-    dark: Colors;
-    light: Colors;
+    dark: ThemeColors;
+    light: ThemeColors;
   };
 }
 
