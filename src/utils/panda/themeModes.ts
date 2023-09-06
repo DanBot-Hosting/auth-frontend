@@ -1,6 +1,6 @@
 export const themeModes = ["dark", "light"] as const;
 
-// The type is globally imported in @/types/utils/themeModes.d.ts
+// The type is globally imported in @/types/utils/panda/themeModes.d.ts
 export type ThemeModes = (typeof themeModes)[number];
 
 export function generateThemeModeConditions() {

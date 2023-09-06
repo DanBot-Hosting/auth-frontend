@@ -70,6 +70,9 @@ export class Gradient {
     fragment: Fragment,
   };
 
+  animationCb: () => number = () =>
+    requestAnimationFrame(this.animate.bind(this));
+
   /**
    * User defined options
    *
@@ -261,7 +264,7 @@ export class Gradient {
     }
 
     if (/*this.getFlag('isIntersecting') && */ this.getFlag("playing")) {
-      requestAnimationFrame(this.animate.bind(this));
+      this.animationCb();
     }
   }
 
@@ -276,7 +279,7 @@ export class Gradient {
    * Start or continue the animation.
    */
   play() {
-    requestAnimationFrame(this.animate.bind(this));
+    requestIdleCallback(this.animationCb);
     this.setFlag("playing", true);
   }
 
@@ -466,7 +469,7 @@ export class Gradient {
 
     this.initMesh();
     this.resize();
-    requestAnimationFrame(this.animate.bind(this));
+    this.animationCb();
     // React will call this method when the page is changed.
     // window.addEventListener("resize", this.resize.bind(this));
     this.getOption("onLoad")();
@@ -488,7 +491,6 @@ export class Gradient {
       if (this.mesh) this.mesh.material.uniforms.u_time!.value = this.time;
       this._minigl?.render();
     });
-    // requestAnimationFrame(this.animate.bind(this));
   }
 
   /**
