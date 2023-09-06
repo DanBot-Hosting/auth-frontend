@@ -7,7 +7,7 @@ export function generateThemeModeConditions() {
   let result: Partial<Record<ThemeModes, string>> = {};
 
   for (let mode of themeModes) {
-    result[mode] = `[data-theme=${mode}] &`;
+    result[mode] = `[data-theme-mode=${mode}] &`;
   }
 
   return result;
