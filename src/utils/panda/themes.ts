@@ -6,8 +6,8 @@ export const themes: Theme[] = [
     name: "DanBot Hosting",
     value: "dbh",
     colors: {
-      dark: ["#050505", "#1A1F2F", "#050505", "#050505"],
-      light: ["#FAFAFA", "#DEE3F3", "#FAFAFA", "#FAFAFA"],
+      dark: ["#050505", "#1A1F2F", "#10121A", "#050505"],
+      light: ["#FAFAFA", "#DEE3F3", "#ECEFF7", "#FAFAFA"],
     },
   },
   {
