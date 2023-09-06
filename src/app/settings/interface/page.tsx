@@ -4,7 +4,7 @@ import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
 import { useNotification } from "@/hooks/useNotification";
 import { useSettings } from "@/hooks/useSettings";
-import { generateThemeOptions } from "@/utils/themes";
+import { generateThemeOptions } from "@/utils/panda/themes";
 import { css } from "@styles/css";
 import { useCallback, useMemo, useRef } from "react";
 

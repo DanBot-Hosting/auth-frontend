@@ -1,10 +1,10 @@
 import {
   generateBlurModeConditions,
   generateBlurModes,
-} from "@/utils/blurModes";
-import { generateColors } from "@/utils/colors";
-import { generateThemeModeConditions } from "@/utils/themeModes";
-import { generateThemeConditions } from "@/utils/themes";
+  generateColors,
+  generateThemeModeConditions,
+  generateThemeConditions,
+} from "@/utils/panda";
 import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({

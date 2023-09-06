@@ -1,5 +1,5 @@
 import { Recursive, Token } from "@styles/types/composition";
-import { themeModes } from "@/utils/themeModes";
+import { themeModes } from "@/utils/panda/themeModes";
 
 export const themes: Theme[] = [
   {
