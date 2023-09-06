@@ -61,7 +61,7 @@ const percent = css({
 export function WebsiteLoadingOverlay() {
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
-  const [setOptions, define] = useMesh((state) => [state.setOptions, state.define]);
+  const [setOptions, define, toggle] = useMesh((state) => [state.setOptions, state.define, state.toggle]);
   const { get } = useSettings();
 
   /**
@@ -79,6 +79,7 @@ export function WebsiteLoadingOverlay() {
         overlay.dataset.hidden = "true";
 
         document.body.classList.remove(hiddenScrollbar);
+        if (get("background-enabled") !== "true") toggle(false);
 
         setTimeout(() => {
           stop();
