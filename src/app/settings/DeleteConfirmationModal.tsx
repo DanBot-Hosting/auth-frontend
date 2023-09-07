@@ -25,7 +25,7 @@ const modalCodeInput = css({
     textAlign: "center",
     maxW: "100%",
     borderRadius: "0.625rem",
-  }
+  },
 });
 
 export function useDeleteConfirmationModal() {
@@ -46,7 +46,7 @@ export function useDeleteConfirmationModal() {
       <div className={modalCodeInput}>
         <Input placeholder="000 000" />
       </div>
-    )
+    ),
   };
 
   function show() {

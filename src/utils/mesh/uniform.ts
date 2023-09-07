@@ -89,7 +89,7 @@ export class Uniform {
 
   getDeclaration(name: string, type: string, length: number = 0) {
     if (this.excludeFrom !== type) {
-      if (this.type === "array") {
+      if (this.type === "array" && this.value[0]) {
         return `${this.value[0].getDeclaration(name, type, this.value.length)}
 const int ${name}_length = ${this.value.length};`;
       }

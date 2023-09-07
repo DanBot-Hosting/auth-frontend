@@ -1,4 +1,5 @@
-interface AvatarProps extends Omit<import("next/image").ImageProps, "width" | "height"> {
+interface AvatarProps
+  extends Omit<import("next/image").ImageProps, "width" | "height"> {
   configurable?: boolean;
   size: number;
 }

@@ -14,10 +14,12 @@ const dropdown = css({
   justifyContent: "center",
   alignItems: "center",
   flexShrink: "0",
+  position: "relative",
 
   borderRadius: "1.25rem",
   bg: "pillbackground.50",
-  backdropFilter: "blur(5px)",
+  backdropBlur: "full.5",
+  backdropFilter: "auto",
 });
 
 const option = css({
@@ -90,7 +92,10 @@ export function SegmentedControl({ options, onTabClick }: DropdownProps) {
   }, [pathname, hoverableElement]);
 
   const manage = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, opt: DropdownOption) => {
+    (
+      event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+      opt: DropdownOption
+    ) => {
       if (onTabClick) onTabClick(opt);
       change(event.currentTarget);
     },

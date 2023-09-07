@@ -24,7 +24,7 @@ interface DefaultOptions {
   amplitude: number;
   static: boolean;
   loadedClass: string;
-  onLoad: () => void,
+  onLoad: () => void;
   zoom: number;
   speed: number;
   rotation: number;

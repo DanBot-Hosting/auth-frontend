@@ -1,6 +1,6 @@
 import { useCookies } from "@/hooks/useCookies";
-import { useMesh } from "@/store/useMesh";
 import { useCallback } from "react";
+import { useSettings } from "@/hooks/useSettings";
 
 /**
  * Hook for toggling the theme in client side between "dark" and "light".
@@ -10,26 +10,26 @@ import { useCallback } from "react";
  */
 export function useToggleTheme(): UseToggleTheme {
   const cookieStore = useCookies();
-  const mesh = useMesh();
+  const { init } = useSettings();
 
   const toggleMode = useCallback((mode: string) => {
-    document.documentElement.dataset.theme = mode;
+    document.documentElement.dataset.themeMode = mode;
   }, []);
 
   /**
    * Toggles the theme value by checking cookies via client side cookie store.
    * Updates the document element's theme accordingly along with reinitializing the mesh.
-   * 
+   *
    * @returns {void}
    */
   const toggle = useCallback(() => {
-    const theme = cookieStore.get("theme");
+    const theme = cookieStore.get("theme-mode");
     const toggled = theme === "dark" ? "light" : "dark";
 
-    cookieStore.set("theme", toggled);
+    cookieStore.set("theme-mode", toggled);
     toggleMode(toggled);
-    mesh.initializeMesh();
-  }, [cookieStore, mesh, toggleMode]);
+    init("theme-mode");
+  }, [cookieStore, init, toggleMode]);
 
   return { toggle };
 }

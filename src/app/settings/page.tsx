@@ -10,7 +10,8 @@ const main = css({
   flexDirection: "column",
   alignItems: "center",
   gap: "1rem",
-  alignSelf: "stretch",
+  maxW: "37.5rem",
+  w: "100%",
 });
 
 const button = css({
@@ -47,6 +48,7 @@ const fields = css({
   flexDirection: "column",
   alignItems: "center",
   gap: "3.75rem",
+  w: "100%",
 });
 
 const section = css({
@@ -109,7 +111,7 @@ export default function Settings() {
   const { show: showAccountDeletionModal } = useAccountDeletionModal();
 
   return (
-    <div className={main}>
+    <>
       <Avatar
         size={120}
         src="https://avatars.githubusercontent.com/u/69919939"
@@ -159,6 +161,6 @@ export default function Settings() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

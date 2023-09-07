@@ -52,13 +52,14 @@ export function ProgressBar() {
 
       // Flush animations and width from previous click
       element.style.transition = "none";
-      if (element.getAttribute("data-finished") === "") element.removeAttribute("data-finished");
+      if (element.getAttribute("data-finished") === "")
+        element.removeAttribute("data-finished");
       stop();
       set(0);
       // apply the "transition: none" rule immediately
       flush(element);
       // Restore animation, needed to not skip the assign
-      setTimeout(() => element.style.transition = "");
+      setTimeout(() => (element.style.transition = ""));
 
       start();
     },

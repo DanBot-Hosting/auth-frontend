@@ -8,6 +8,15 @@ const centered = css({
   gap: "3.4375rem",
 });
 
+const main = css({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "1rem",
+  maxW: "37.5rem",
+  w: "100%",
+});
+
 export default function SettingsLayout({
   children,
 }: {
@@ -22,7 +31,7 @@ export default function SettingsLayout({
           { label: "Interface", value: "/settings/interface" },
         ]}
       />
-      {children}
+      <div className={main}>{children}</div>
     </div>
   );
 }

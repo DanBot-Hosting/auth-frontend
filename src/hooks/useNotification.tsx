@@ -17,7 +17,7 @@ export function useNotification(): UseNotification {
    * Forces Notification to hide.
    * Will take 150ms to hide it for the user.
    * Will take 300ms to delete it from the DOM.
-   * 
+   *
    * @returns {void}
    */
   const hide = useCallback(() => {

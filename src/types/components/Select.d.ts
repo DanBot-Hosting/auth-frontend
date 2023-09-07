@@ -6,4 +6,8 @@ interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   css?: import("@styles/types").SystemStyleObject;
 }
 
+interface SelectRef {
+  change: (option: SelectOption) => void;
+}
+
 type SelectOption = DropdownOption;

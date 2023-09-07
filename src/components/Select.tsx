@@ -1,6 +1,13 @@
 "use client";
 import { css } from "@styles/css";
-import { useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { Dropdown } from "@/components/Dropdown";
 import { CaretDown } from "@phosphor-icons/react";
 
@@ -15,19 +22,15 @@ import { CaretDown } from "@phosphor-icons/react";
  * @param {SelectProps} props... - The div properties passed to the Select picker component.
  * @returns {JSX.Element} The rendered not responsive Select element.
  */
-export function Select({
-  placeholder,
-  options,
-  onChange,
-  initial,
-  css: cssProp = {},
-  ...props
-}: SelectProps) {
+export const Select = forwardRef<SelectRef, SelectProps>(function Select(
+  { placeholder, options, onChange, initial, css: cssProp = {}, ...props },
+  ref
+) {
   const selectRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const caretRef = useRef<SVGSVGElement | null>(null);
   const [pickedOption, setPickedOption] = useState<DropdownOption>(
-    initial
+    typeof initial === "number"
       ? options[initial]
       : {
           label: placeholder ?? "",
@@ -35,7 +38,27 @@ export function Select({
         }
   );
 
-  function toggleDropdownVisibility() {
+  const hideDropdown = useCallback(() => {
+    selectRef.current?.removeAttribute("data-active");
+    caretRef.current?.removeAttribute("data-active");
+    dropdownRef.current?.removeAttribute("data-active");
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") hideDropdown();
+    });
+
+    document.body.addEventListener("click", (event) => {
+      // Without the use of stopPropagation as it's not recommended
+      if (selectRef.current?.contains(event.target as Node)) return;
+      if (selectRef.current?.isEqualNode(event.target as Node)) return;
+
+      hideDropdown();
+    });
+  }, [hideDropdown]);
+
+  const toggleDropdownVisibility = useCallback(() => {
     const currentVisibility = caretRef.current?.getAttribute("data-active");
     if (!currentVisibility) {
       selectRef.current?.setAttribute("data-active", "true");
@@ -44,21 +67,20 @@ export function Select({
       return;
     }
 
-    selectRef.current?.removeAttribute("data-active");
-    caretRef.current?.removeAttribute("data-active");
-    dropdownRef.current?.removeAttribute("data-active");
-  }
+    hideDropdown();
+  }, [hideDropdown]);
 
-  function switchDropdown(option: DropdownOption) {
-    caretRef.current?.removeAttribute("data-active");
-    selectRef.current?.removeAttribute("data-active");
-    dropdownRef.current?.removeAttribute("data-active");
+  const switchDropdown = useCallback(
+    (option: DropdownOption) => {
+      hideDropdown();
 
-    selectRef.current?.setAttribute("data-selected", "true");
-    setPickedOption(option);
+      selectRef.current?.setAttribute("data-selected", "true");
+      setPickedOption(option);
 
-    if (onChange) onChange(option);
-  }
+      if (onChange) onChange(option);
+    },
+    [hideDropdown, onChange]
+  );
 
   const wrapper = css({
     position: "relative",
@@ -115,13 +137,14 @@ export function Select({
 
       borderRadius: "1rem",
       bg: "pillbackground.30",
-      backdropFilter: "blur(3px)",
+      backdropBlur: "full.3",
+      backdropFilter: "auto",
       color: "text.40",
       fontSize: "1rem",
       fontWeight: "400",
       boxShadow: "none",
       // Needed to remove white outline from transition effect
-      outline: "1px solid token(colors.text.5)",
+      outline: "1px solid transparent",
       transition: "all 0.15s ease-in-out",
 
       "&[data-selected]": {
@@ -143,22 +166,35 @@ export function Select({
     cssProp
   );
 
+  const imperativeDropdownRef = useRef<DropdownRef | null>(null);
+  useImperativeHandle(ref, () => {
+    return {
+      change: (option) => {
+        switchDropdown(option);
+        imperativeDropdownRef.current?.switch(option);
+      },
+    };
+  });
+
   return (
     <div className={wrapper}>
       <div
         className={select}
         ref={selectRef}
         onClick={toggleDropdownVisibility}
-        data-selected={!!pickedOption?.value || undefined}
+        data-selected={!!pickedOption.value || undefined}
         {...props}
       >
-        <span className="label">{pickedOption?.label}</span>
+        <div>
+          {pickedOption.label}
+        </div>
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>
       <div className={dropdown} ref={dropdownRef}>
         <Dropdown
           options={options}
           initial={initial}
+          ref={imperativeDropdownRef}
           onTabClick={switchDropdown}
           css={{
             borderRadius: "1rem",
@@ -173,4 +209,4 @@ export function Select({
       </div>
     </div>
   );
-}
+});

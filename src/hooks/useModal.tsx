@@ -14,7 +14,7 @@ export function useModal(): UseModal {
 
   /**
    * Shows a modal with the given props.
-   * 
+   *
    * @param {ModalProps} modalProps - The properties passed to the modal.
    * @param {boolean} [props.closeOnEscape=false] - Indicates whether to close the modal on pressing escape or clicking outside.
    * @param {string} modalProps.label - The label aka title for the modal.
@@ -24,18 +24,25 @@ export function useModal(): UseModal {
    * Gets applied custom styles but they can be overriden by !important sign (or simply ! in panda-css).
    * @returns {void}
    */
-  const show = useCallback(({ closeOnEscape = false, ...modalProps }: ModalProps & ShowModalProps) => {
-    showOverlay({
-      asLoading: false,
-      closeOnEscape,
-      children: (
-        <Modal
-          buttons={[<div onClick={hide} key="cancel">Cancel</div>]}
-          {...modalProps}
-        />
-      ),
-    });
-  }, [showOverlay, hide]);
+  const show = useCallback(
+    ({ closeOnEscape = false, ...modalProps }: ModalProps & ShowModalProps) => {
+      showOverlay({
+        asLoading: false,
+        closeOnEscape,
+        children: (
+          <Modal
+            buttons={[
+              <div onClick={hide} key="cancel">
+                Cancel
+              </div>,
+            ]}
+            {...modalProps}
+          />
+        ),
+      });
+    },
+    [showOverlay, hide]
+  );
 
   return { show, hide };
 }

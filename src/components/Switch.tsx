@@ -1,6 +1,6 @@
 "use client";
 import { css } from "@styles/css";
-import { useCallback, useState } from "react";
+import { forwardRef, useCallback, useState } from "react";
 
 /**
  * Custom styled Input element with a checkbox but styled as a switch.
@@ -16,14 +16,10 @@ import { useCallback, useState } from "react";
  * @param {SwitchProps} props... - The input properties passed to the switch component.
  * @return {JSX.Element} The rendered wrapper around input checkbox component.
  */
-export function Switch({
-  css: cssProp = {},
-  onChange,
-  children,
-  checked = false,
-  name,
-  ...props
-}: SwitchProps) {
+export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
+  { css: cssProp = {}, onChange, children, checked = false, name, ...props },
+  ref
+) {
   const [isChecked, setIsChecked] = useState<boolean>(checked);
 
   const element = css(
@@ -104,7 +100,7 @@ export function Switch({
 
   const handleChange = useCallback(() => {
     const changedValue = !isChecked;
-    if (onChange) onChange(isChecked);
+    if (onChange) onChange(changedValue);
     setIsChecked(() => changedValue);
   }, [isChecked, onChange]);
 
@@ -115,6 +111,7 @@ export function Switch({
         className={checkbox}
         checked={isChecked}
         onChange={handleChange}
+        ref={ref}
         name={name}
         {...props}
       />
@@ -128,4 +125,4 @@ export function Switch({
       ) : null}
     </div>
   );
-}
+});
