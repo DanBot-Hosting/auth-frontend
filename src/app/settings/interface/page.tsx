@@ -79,6 +79,11 @@ export default function Interface() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Do not render if there's a default useState value,
+   * That way with useEffect we avoid hydration mismatch
+   * @see {@link https://nextjs.org/docs/app/building-your-application/rendering/client-components#full-page-load Full Page Load}
+   */
   if (!pickedTheme || !pickedBlurMode) return;
   return (
     <div className={fields}>
