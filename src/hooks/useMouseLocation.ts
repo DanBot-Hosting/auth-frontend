@@ -19,6 +19,10 @@ export function useMouseLocation(): UseMouseLocation {
       position.y = window.innerHeight - position.y;
     };
 
+    // Fix overflow
+    if (position.x < 0) position.x = 0;
+    if (position.y < 0) position.y = 0;
+
     return { position, direction };
   }, []);
 
