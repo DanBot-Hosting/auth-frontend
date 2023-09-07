@@ -144,7 +144,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
       fontWeight: "400",
       boxShadow: "none",
       // Needed to remove white outline from transition effect
-      outline: "1px solid token(colors.text.5)",
+      outline: "1px solid transparent",
       transition: "all 0.15s ease-in-out",
 
       "&[data-selected]": {
