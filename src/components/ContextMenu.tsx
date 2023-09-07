@@ -36,7 +36,7 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
       zIndex: "200",
 
       borderRadius: "0.875rem",
-      bg: "pillbackground.50",
+      bg: "solidoverlay",
 
       transition: "opacity 0.15s ease-in-out, scale 0.15s ease-in-out",
       opacity: "0",
@@ -47,22 +47,6 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
         opacity: "1",
         scale: "1",
         pointerEvents: "auto",
-      },
-
-      /** @see {@link https://stackoverflow.com/q/60997948 Chrome bug} */
-      _before: {
-        content: "''",
-        position: "absolute",
-        display: "block",
-        top: "0",
-        left: "0",
-        width: "100%",
-        height: "100%",
-        backdropBlur: "limited.5",
-        backdropFilter: "auto",
-        zIndex: "-1",
-        borderRadius: "0.875rem",
-        overflow: "hidden",
       },
     },
     cssProp
