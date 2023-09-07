@@ -3,6 +3,7 @@ import { css } from "@styles/css";
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -37,6 +38,26 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         }
   );
 
+  const hideDropdown = useCallback(() => {
+    selectRef.current?.removeAttribute("data-active");
+    caretRef.current?.removeAttribute("data-active");
+    dropdownRef.current?.removeAttribute("data-active");
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") hideDropdown();
+    });
+
+    document.body.addEventListener("click", (event) => {
+      // Without the use of stopPropagation as it's not recommended
+      if (selectRef.current?.contains(event.target as Node)) return;
+      if (selectRef.current?.isEqualNode(event.target as Node)) return;
+
+      hideDropdown();
+    });
+  }, [hideDropdown]);
+
   const toggleDropdownVisibility = useCallback(() => {
     const currentVisibility = caretRef.current?.getAttribute("data-active");
     if (!currentVisibility) {
@@ -46,23 +67,19 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
       return;
     }
 
-    selectRef.current?.removeAttribute("data-active");
-    caretRef.current?.removeAttribute("data-active");
-    dropdownRef.current?.removeAttribute("data-active");
-  }, []);
+    hideDropdown();
+  }, [hideDropdown]);
 
   const switchDropdown = useCallback(
     (option: DropdownOption) => {
-      caretRef.current?.removeAttribute("data-active");
-      selectRef.current?.removeAttribute("data-active");
-      dropdownRef.current?.removeAttribute("data-active");
+      hideDropdown();
 
       selectRef.current?.setAttribute("data-selected", "true");
       setPickedOption(option);
 
       if (onChange) onChange(option);
     },
-    [onChange]
+    [hideDropdown, onChange]
   );
 
   const wrapper = css({
