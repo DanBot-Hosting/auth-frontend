@@ -4,6 +4,7 @@ import { css, cx } from "@styles/css";
 import { Header } from "@/components/Header";
 import { ProgressBar } from "@/components/ProgressBar";
 import { Footer } from "@/components/Footer";
+import { ContextMenu } from "@/components/ContextMenu";
 import { footerLinks, headerLinks } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
@@ -173,6 +174,7 @@ export function Layout({ children }: LayoutProps) {
         </div>
         <NotificationProvider />
         <OverlayProvider />
+        <ContextMenu />
         <footer className={footer}>
           <Footer links={footerLinks} />
         </footer>

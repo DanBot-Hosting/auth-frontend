@@ -70,7 +70,6 @@ export default function Interface() {
 
   /**
    * Do not render if there's a default useState value,
-   * That way with useEffect we avoid hydration mismatch
    * @see {@link https://nextjs.org/docs/app/building-your-application/rendering/client-components#full-page-load Full Page Load}
    */
   if (!state.theme || !state.blurMode) return;

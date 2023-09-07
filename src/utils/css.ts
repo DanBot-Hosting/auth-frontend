@@ -13,6 +13,16 @@ export function flush(element: HTMLElement) {
 }
 
 /**
+ * Clears any inline CSS style changes
+ *
+ * @param {HTMLElement} element - The element's css changes to clear
+ * @returns {void}
+ */
+export function clearInlineStyles(element: HTMLElement) {
+  element.style.cssText = "";
+}
+
+/**
  * Removes the additional var() syntax and returns "--varname" string
  *
  * @param cssVar - The css variable with var() syntax
