@@ -18,8 +18,11 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
   const { init } = useContextMenu(contextMenuRef);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(init, []);
+  useEffect(() => {
+    // convert null to undefined
+    init(document.getElementById("header") ?? undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const contextMenu = css(
     {

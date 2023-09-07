@@ -51,9 +51,9 @@ export function useContextMenu(
     [contextMenu, detect, lock]
   );
 
-  const init = useCallback(() => {
+  const init = useCallback((target?: HTMLElement) => {
     document.body.addEventListener("mousedown", mousedown);
-    document.addEventListener("contextmenu", show);
+    target?.addEventListener("contextmenu", show);
 
     document.addEventListener("keyup", (event) => {
       if (event.key === "Escape") hide();

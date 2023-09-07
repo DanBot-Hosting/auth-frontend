@@ -156,7 +156,7 @@ export function Layout({ children }: LayoutProps) {
       data-blur-mode={blurMode}
     >
       <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
-        <header className={header}>
+        <header className={header} id="header">
           <Header links={headerLinks}>
             <div className={progressBar}>
               <ProgressBar />
@@ -164,18 +164,18 @@ export function Layout({ children }: LayoutProps) {
           </Header>
         </header>
         <div className={wrapper}>
-          <div className={mesh}>
+          <div className={mesh} id="background">
             <Mesh />
           </div>
-          <main className={main}>{children}</main>
-          <div className={affix}>
+          <main className={main} id="main">{children}</main>
+          <div className={affix} id="toggle-theme">
             <ToggleTheme />
           </div>
         </div>
         <NotificationProvider />
         <OverlayProvider />
         <ContextMenu />
-        <footer className={footer}>
+        <footer className={footer} id="footer">
           <Footer links={footerLinks} />
         </footer>
         <WebsiteLoadingOverlay />
