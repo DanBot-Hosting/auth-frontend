@@ -8,11 +8,17 @@ export function useInterface() {
   const themePreferences: SelectOption[] = generateThemeOptions();
   const blurModes: SelectOption[] = generateBlurModeOptions();
 
-  const findThemeIndex = (pickedTheme: string) =>
-    themePreferences.findIndex((theme) => theme.value === pickedTheme);
+  const findThemeIndex = useCallback(
+    (pickedTheme: string) =>
+      themePreferences.findIndex((theme) => theme.value === pickedTheme),
+    [themePreferences]
+  );
 
-  const findBlurModeIndex = (pickedBlurMode: string) =>
-    blurModes.findIndex((blurMode) => blurMode.value === pickedBlurMode);
+  const findBlurModeIndex = useCallback(
+    (pickedBlurMode: string) =>
+      blurModes.findIndex((blurMode) => blurMode.value === pickedBlurMode),
+    [blurModes]
+  );
 
   const backgroundEnabled = get("background-enabled") === "true";
   const backgroundAnimated = get("background-animate") === "true";
@@ -95,8 +101,8 @@ export function useInterface() {
     find: {
       themeIndex: findThemeIndex,
       blurModeIndex: findBlurModeIndex,
-    }
-  }
+    },
+  };
 
   return { ...logic, ...ref, ...options };
 }
