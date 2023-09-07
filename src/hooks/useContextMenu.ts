@@ -35,7 +35,7 @@ export function useContextMenu(
       if (!contextMenu.current) return false;
       event.preventDefault();
 
-      const value = detect(event);
+      const value = detect(event, contextMenu.current);
 
       clearInlineStyles(contextMenu.current);
 

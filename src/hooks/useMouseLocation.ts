@@ -6,15 +6,15 @@ import { useCallback } from "react";
  * @returns {UseMouseLocation} Detect callback to return client x & y with direction
  */
 export function useMouseLocation(): UseMouseLocation {
-  const detect = useCallback((event: MouseEvent) => {
+  const detect = useCallback((event: MouseEvent, target: HTMLElement) => {
     const position: MousePosition = { x: event.clientX, y: event.clientY };
     const direction: MouseDirection = { x: "left", y: "top" };
 
-    if (position.x > window.innerWidth / 2) {
+    if (window.innerWidth - position.x < target.offsetWidth) {
       direction.x = "right";
       position.x = window.innerWidth - position.x;
     };
-    if (position.y > window.innerHeight / 2) {
+    if (window.innerHeight - position.y < target.offsetHeight) {
       direction.y = "bottom";
       position.y = window.innerHeight - position.y;
     };

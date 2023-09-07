@@ -1,5 +1,5 @@
 interface UseMouseLocation {
-  detect: (event: MouseEvent) => MouseLocation;
+  detect: (event: MouseEvent, target: HTMLElement) => MouseLocation;
 }
 
 interface MouseLocation {
