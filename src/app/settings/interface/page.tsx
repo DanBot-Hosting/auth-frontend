@@ -3,9 +3,7 @@ import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
 import { useInterface } from "@/hooks/useInterface";
-import { useSettings } from "@/hooks/useSettings";
 import { css } from "@styles/css";
-import { useEffect, useState } from "react";
 
 const field = css({
   display: "flex",
@@ -68,23 +66,14 @@ const description = css({
 });
 
 export default function Interface() {
-  const { get } = useSettings();
   const { resetSettings, change, state, ref, options, find } = useInterface();
-  const [pickedTheme, setPickedTheme] = useState<string | null>(null);
-  const [pickedBlurMode, setPickedBlurMode] = useState<string | null>(null);
-
-  useEffect(() => {
-    setPickedTheme(get("theme"));
-    setPickedBlurMode(get("blur-mode"));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   /**
    * Do not render if there's a default useState value,
    * That way with useEffect we avoid hydration mismatch
    * @see {@link https://nextjs.org/docs/app/building-your-application/rendering/client-components#full-page-load Full Page Load}
    */
-  if (!pickedTheme || !pickedBlurMode) return;
+  if (!state.theme || !state.blurMode) return;
   return (
     <div className={fields}>
       <div className={field}>
@@ -92,7 +81,7 @@ export default function Interface() {
         <div className={select}>
           <Select
             options={options.themes}
-            initial={find.themeIndex(pickedTheme)}
+            initial={find.themeIndex()}
             ref={ref.theme}
             placeholder="Pick a theme..."
             onChange={change.theme}
@@ -105,7 +94,7 @@ export default function Interface() {
         <div className={select}>
           <Select
             options={options.blurModes}
-            initial={find.blurModeIndex(pickedBlurMode)}
+            initial={find.blurModeIndex()}
             ref={ref.blurMode}
             placeholder="Pick blur mode..."
             onChange={change.blurMode}

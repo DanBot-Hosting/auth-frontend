@@ -1,11 +1,11 @@
 import { generateBlurModeOptions, generateThemeOptions } from "@/utils/panda";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNotification } from "@/hooks/useNotification";
 import { useSettings } from "@/hooks/useSettings";
 
 /**
  * A general hook wrapper around useSettings & useCookies hooks for interface-related logic
- * 
+ *
  * @returns {UseInterface} logic, refs, states, options & finders to manipulate interface settings
  */
 export function useInterface(): UseInterface {
@@ -13,20 +13,27 @@ export function useInterface(): UseInterface {
   const themePreferences: SelectOption[] = generateThemeOptions();
   const blurModes: SelectOption[] = generateBlurModeOptions();
 
+  const backgroundEnabled = get("background-enabled") === "true";
+  const backgroundAnimated = get("background-animate") === "true";
+  const [pickedTheme, setPickedTheme] = useState<string | null>(null);
+  const [pickedBlurMode, setPickedBlurMode] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Avoiding hydration for text mismatch
+    setPickedTheme(get("theme"));
+    setPickedBlurMode(get("blur-mode"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const findThemeIndex = useCallback(
-    (pickedTheme: string) =>
-      themePreferences.findIndex((theme) => theme.value === pickedTheme),
-    [themePreferences]
+    () => themePreferences.findIndex((theme) => theme.value === pickedTheme),
+    [pickedTheme, themePreferences]
   );
 
   const findBlurModeIndex = useCallback(
-    (pickedBlurMode: string) =>
-      blurModes.findIndex((blurMode) => blurMode.value === pickedBlurMode),
-    [blurModes]
+    () => blurModes.findIndex((blurMode) => blurMode.value === pickedBlurMode),
+    [blurModes, pickedBlurMode]
   );
-
-  const backgroundEnabled = get("background-enabled") === "true";
-  const backgroundAnimated = get("background-animate") === "true";
 
   const enabledRef = useRef<HTMLInputElement | null>(null);
   const animatedRef = useRef<HTMLInputElement | null>(null);
@@ -86,6 +93,8 @@ export function useInterface(): UseInterface {
   // Refs and states
   const ref = {
     state: {
+      theme: pickedTheme,
+      blurMode: pickedBlurMode,
       backgroundEnabled,
       backgroundAnimated,
     },

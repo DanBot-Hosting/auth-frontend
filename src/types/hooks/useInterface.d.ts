@@ -7,6 +7,8 @@ interface UseInterface {
     backgroundAnimated: (state: boolean) => void;
   };
   state: {
+    theme: string | null;
+    blurMode: string | null;
     backgroundEnabled: boolean;
     backgroundAnimated: boolean;
   };
@@ -21,7 +23,7 @@ interface UseInterface {
     blurModes: DropdownOption[];
   };
   find: {
-    themeIndex: (pickedTheme: string) => number;
-    blurModeIndex: (pickedBlurMode: string) => number;
+    themeIndex: () => number;
+    blurModeIndex: () => number;
   };
 }
