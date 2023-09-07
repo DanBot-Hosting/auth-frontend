@@ -3,7 +3,12 @@ import { useCallback, useRef } from "react";
 import { useNotification } from "@/hooks/useNotification";
 import { useSettings } from "@/hooks/useSettings";
 
-export function useInterface() {
+/**
+ * A general hook wrapper around useSettings & useCookies hooks for interface-related logic
+ * 
+ * @returns {UseInterface} logic, refs, states, options & finders to manipulate interface settings
+ */
+export function useInterface(): UseInterface {
   const { get, set } = useSettings();
   const themePreferences: SelectOption[] = generateThemeOptions();
   const blurModes: SelectOption[] = generateBlurModeOptions();
