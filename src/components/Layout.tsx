@@ -8,9 +8,7 @@ import { ContextMenu } from "@/components/ContextMenu";
 import { footerLinks, headerLinks } from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
-import {
-  WebsiteLoadingOverlay,
-} from "@/components/WebsiteLoadingOverlay";
+import { WebsiteLoadingOverlay } from "@/components/WebsiteLoadingOverlay";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { OverlayProvider } from "@/components/OverlayProvider";
 import { useCookies } from "@/hooks/useCookies";
@@ -167,7 +165,9 @@ export function Layout({ children }: LayoutProps) {
           <div className={mesh} id="background">
             <Mesh />
           </div>
-          <main className={main} id="main">{children}</main>
+          <main className={main} id="main">
+            {children}
+          </main>
           <div className={affix} id="toggle-theme">
             <ToggleTheme />
           </div>

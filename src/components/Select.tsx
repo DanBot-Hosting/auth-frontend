@@ -186,9 +186,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         data-selected={!!pickedOption.value || undefined}
         {...props}
       >
-        <div>
-          {pickedOption.label}
-        </div>
+        <div>{pickedOption.label}</div>
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>
       <div className={dropdown} ref={dropdownRef}>

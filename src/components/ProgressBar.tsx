@@ -13,19 +13,22 @@ import { useCallback, useEffect, useRef } from "react";
  * @return {void}
  */
 export function ProgressBar({ css: cssProp = {} }: ProgressBarProps) {
-  const progressBar = css({
-    height: "0.125rem",
-    backgroundColor: "text.70",
-    transition: "width 15s ease-out",
-    opacity: "1",
-  
-    "&[data-finished]": {
-      width: "100%!",
-      opacity: "0",
-      transition: "width .15s ease-in-out, opacity .2s ease-in-out",
+  const progressBar = css(
+    {
+      height: "0.125rem",
+      backgroundColor: "text.70",
+      transition: "width 15s ease-out",
+      opacity: "1",
+
+      "&[data-finished]": {
+        width: "100%!",
+        opacity: "0",
+        transition: "width .15s ease-in-out, opacity .2s ease-in-out",
+      },
     },
-  }, cssProp);
-  
+    cssProp
+  );
+
   const progressRef = useRef<HTMLDivElement | null>(null);
   const { start, stop, set, progress } = useFakeProgress(0.5, 50);
   const pathname = usePathname();

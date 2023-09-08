@@ -25,44 +25,47 @@ export function Header({
     avatarUrl: "https://avatars.githubusercontent.com/u/69919939",
   },
 }: HeaderProps) {
-  const header = css({
-    display: "inline-flex",
-    h: "3.75rem",
-    p: "0.625rem",
-    alignItems: "center",
-    flexShrink: "0",
-    gap: "2.5rem",
-  
-    borderRadius: "1.25rem",
-    bg: "pillbackground.50",
-  
-    "@media screen and (max-width: 500px)": {
-      width: "calc(100vw - 1.25rem)",
-      justifyContent: "space-between",
-      gap: "0",
-    },
-  
-    /** @see {@link https://stackoverflow.com/q/60997948 Chrome bug} */
-    _before: {
-      content: "''",
-      position: "absolute",
-      display: "block",
-      top: "0",
-      left: "0",
-      width: "100%",
-      height: "100%",
-      backdropBlur: "limited.5",
-      backdropFilter: "auto",
-      zIndex: "-1",
+  const header = css(
+    {
+      display: "inline-flex",
+      h: "3.75rem",
+      p: "0.625rem",
+      alignItems: "center",
+      flexShrink: "0",
+      gap: "2.5rem",
+
       borderRadius: "1.25rem",
-      overflow: "hidden",
+      bg: "pillbackground.50",
+
+      "@media screen and (max-width: 500px)": {
+        width: "calc(100vw - 1.25rem)",
+        justifyContent: "space-between",
+        gap: "0",
+      },
+
+      /** @see {@link https://stackoverflow.com/q/60997948 Chrome bug} */
+      _before: {
+        content: "''",
+        position: "absolute",
+        display: "block",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        backdropBlur: "limited.5",
+        backdropFilter: "auto",
+        zIndex: "-1",
+        borderRadius: "1.25rem",
+        overflow: "hidden",
+      },
     },
-  }, cssProp);
-  
+    cssProp
+  );
+
   const part = css({
     display: "inline-flex",
   });
-  
+
   const logo = css({
     display: "flex",
     height: "2.5rem",
@@ -72,13 +75,13 @@ export function Header({
     alignItems: "center",
     cursor: "pointer",
     transition: "filter .2s ease-in-out",
-  
+
     _hover: {
       filter: "drop-shadow(0 0 8px token(colors.text.20))",
       transition: "filter .2s ease-in-out",
     },
   });
-  
+
   const button = css({
     display: "flex",
     height: "2.5rem",
@@ -87,40 +90,40 @@ export function Header({
     justifyContent: "center",
     alignItems: "center",
     userSelect: "none",
-  
+
     borderRadius: "0.625rem",
     fontWeight: "400",
   });
-  
+
   const additionalLink = css({
     color: "text.60",
     transition: "color .3s ease-in-out",
-  
+
     _hover: {
       color: "text.90",
       transition: "color .3s ease-in-out",
     },
-  
+
     "@media screen and (max-width: 500px)": {
       display: "none",
     },
   });
-  
+
   const signSection = css({
     display: "flex",
     // justifyContent: "center",
     alignItems: "center",
     gap: "0.625rem",
   });
-  
+
   const account = css({
     cursor: "pointer",
   });
-  
+
   const caret = css({
     color: "text.50",
     transition: "transform .15s ease-in-out",
-  
+
     "&[data-active]": {
       // Rotate -180 degrees instead of 180 degrees
       // In order to have transition rotating
@@ -129,28 +132,28 @@ export function Header({
       transition: "transform .15s ease-in-out",
     },
   });
-  
+
   const secondaryButton = css({
     color: "text.100",
     border: "1px solid token(colors.text.50)",
   });
-  
+
   const primaryButton = css({
     bg: "text.100",
     boxShadow: "0px 0px 8px 1px token(colors.accent.100)",
     color: "background.100",
   });
-  
+
   const dropdown = css({
     position: "absolute",
     top: "calc(100% + 0.625rem)",
     right: "0",
-  
+
     opacity: "0",
     scale: ".8",
     pointerEvents: "none",
     transition: "opacity .15s ease-in-out, scale .15s ease-in-out",
-  
+
     '&[data-active="true"]': {
       opacity: "1",
       scale: "1",

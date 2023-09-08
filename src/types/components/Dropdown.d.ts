@@ -1,4 +1,6 @@
-interface DropdownProps extends React.HTMLAttributes<HTMLDivElement>, GlobalComponent {
+interface DropdownProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    GlobalComponent {
   options: DropdownOption[];
   onTabClick?: (option: DropdownOption) => void;
   initial?: number;

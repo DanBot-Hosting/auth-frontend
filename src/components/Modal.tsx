@@ -14,21 +14,30 @@ import { css } from "@styles/css";
  * Gets applied custom styles but they can be overriden by !important sign (or simply ! in panda-css).
  * @returns {JSX.Element} The rendered Modal component. Will only render dialog (without semantics).
  */
-export function Modal({ label, description, children, buttons, css: cssProp = {} }: ModalProps) {
-  const modal = css({
-    display: "flex",
-    maxWidth: "28.125rem",
-    width: "100%",
-    p: "0.625rem",
-    flexDir: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "0.625rem",
-  
-    borderRadius: "1.25rem",
-    bg: "solidoverlay",
-  }, cssProp);
-  
+export function Modal({
+  label,
+  description,
+  children,
+  buttons,
+  css: cssProp = {},
+}: ModalProps) {
+  const modal = css(
+    {
+      display: "flex",
+      maxWidth: "28.125rem",
+      width: "100%",
+      p: "0.625rem",
+      flexDir: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "0.625rem",
+
+      borderRadius: "1.25rem",
+      bg: "solidoverlay",
+    },
+    cssProp
+  );
+
   const header = css({
     display: "flex",
     p: "0.625rem 0.75rem",
@@ -38,7 +47,7 @@ export function Modal({ label, description, children, buttons, css: cssProp = {}
     alignItems: "flex-start",
     gap: "0.9375rem",
   });
-  
+
   const heading = css({
     color: "text.90",
     fontSize: "1.25rem",
@@ -46,17 +55,17 @@ export function Modal({ label, description, children, buttons, css: cssProp = {}
     lineHeight: "normal",
     m: "0",
   });
-  
+
   const subLabel = css({
     color: "text.60",
     fontSize: "1rem",
     fontWeight: "400",
   });
-  
+
   const content = css({
     alignSelf: "stretch",
   });
-  
+
   const buttonList = css({
     display: "flex",
     p: "0.625rem 0.9375rem",
@@ -65,7 +74,7 @@ export function Modal({ label, description, children, buttons, css: cssProp = {}
     gap: "1.25rem",
     alignSelf: "stretch",
     flexWrap: "wrap",
-  
+
     "& > *": {
       display: "flex",
       padding: "0.3125rem 0",
@@ -74,7 +83,7 @@ export function Modal({ label, description, children, buttons, css: cssProp = {}
       alignItems: "center",
       cursor: "pointer",
       whiteSpace: "nowrap",
-  
+
       color: "text.60",
       fontWeight: "400",
       fontSize: "1rem",
@@ -83,7 +92,7 @@ export function Modal({ label, description, children, buttons, css: cssProp = {}
       textUnderlineOffset: "0.1875rem",
       textDecorationThickness: "0.078125rem",
       transition: "all 0.2s ease-in-out",
-  
+
       _hover: {
         color: "text.80",
         textDecorationColor: "text.90",

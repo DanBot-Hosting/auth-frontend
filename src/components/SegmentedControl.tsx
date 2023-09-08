@@ -15,7 +15,11 @@ import { flush } from "@/utils/css";
  * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
  * @returns {JSX.Element} The rendered SegmentedControl component.
  */
-export function SegmentedControl({ options, onTabClick, css: cssProp = {} }: DropdownProps) {
+export function SegmentedControl({
+  options,
+  onTabClick,
+  css: cssProp = {},
+}: DropdownProps) {
   const dropdown = css({
     display: "inline-flex",
     height: "3.75rem",
@@ -25,38 +29,41 @@ export function SegmentedControl({ options, onTabClick, css: cssProp = {} }: Dro
     alignItems: "center",
     flexShrink: "0",
     position: "relative",
-  
+
     borderRadius: "1.25rem",
     bg: "pillbackground.50",
     backdropBlur: "full.5",
     backdropFilter: "auto",
   });
-  
-  const option = css({
-    display: "flex",
-    height: "2.5rem",
-    p: "0rem 0.9375rem",
-    alignItems: "center",
-    alignSelf: "stretch",
-    zIndex: "4",
-    userSelect: "none",
-  
-    borderRadius: "0.625rem",
-    color: "text.60",
-    fontWeight: "400",
-    transition: "color 0.2s ease-in-out",
-  
-    _hover: {
-      color: "text.90",
+
+  const option = css(
+    {
+      display: "flex",
+      height: "2.5rem",
+      p: "0rem 0.9375rem",
+      alignItems: "center",
+      alignSelf: "stretch",
+      zIndex: "4",
+      userSelect: "none",
+
+      borderRadius: "0.625rem",
+      color: "text.60",
+      fontWeight: "400",
       transition: "color 0.2s ease-in-out",
+
+      _hover: {
+        color: "text.90",
+        transition: "color 0.2s ease-in-out",
+      },
+
+      "&[data-active-hoverable]": {
+        color: "text.90",
+        transition: "color 0.2s ease-in-out",
+      },
     },
-  
-    "&[data-active-hoverable]": {
-      color: "text.90",
-      transition: "color 0.2s ease-in-out",
-    },
-  }, cssProp);
-  
+    cssProp
+  );
+
   const hoverable = css({
     position: "absolute",
     top: "0",

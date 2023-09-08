@@ -6,13 +6,13 @@ import { css } from "@styles/css";
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered Logo component.
  */
-export function Logo({
-  css: cssProp = {},
-  ...props
-}: LogoProps) {
-  const logo = css({
-    color: "text.100",
-  }, cssProp);
+export function Logo({ css: cssProp = {}, ...props }: LogoProps) {
+  const logo = css(
+    {
+      color: "text.100",
+    },
+    cssProp
+  );
 
   return (
     <svg

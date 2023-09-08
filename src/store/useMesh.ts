@@ -19,7 +19,8 @@ export const useMesh = create<MeshStore>((set, get) => ({
   /** Destroys the mesh class instance. */
   destroy: () => set((state) => ({ ...state, mesh: null })),
   /** Redefines the mesh. */
-  define: () => set((state) => ({ ...state, mesh: new Gradient(get().options) })),
+  define: () =>
+    set((state) => ({ ...state, mesh: new Gradient(get().options) })),
   /** Mesh Gradient class. */
   mesh: null,
   /** Canvas query selector */

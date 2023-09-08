@@ -22,39 +22,42 @@ export function LoadingOverlay({
   withCancel = false,
   cancelLabel = "Cancel",
   onCancel,
-  css: cssProp = {}
+  css: cssProp = {},
 }: LoadingOverlayProps) {
-  const loading = css({
-    display: "inline-flex",
-    flexDir: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "1.25rem",
-  }, cssProp);
-  
+  const loading = css(
+    {
+      display: "inline-flex",
+      flexDir: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "1.25rem",
+    },
+    cssProp
+  );
+
   const content = css({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   });
-  
+
   const spinner = css({
     color: "text.60",
     animation: "spin 1s linear infinite",
   });
-  
+
   const label = css({
     display: "flex",
     padding: "0.3125rem 0.75rem",
     flexDir: "column",
     justifyContent: "center",
     alignItems: "center",
-  
+
     color: "text.60",
     fontSize: "0.875rem",
     fontWeight: "400",
   });
-  
+
   const cancel = css({
     display: "flex",
     flexDir: "column",
@@ -62,7 +65,7 @@ export function LoadingOverlay({
     alignItems: "center",
     cursor: "pointer",
     userSelect: "none",
-  
+
     fontWeight: "400",
     fontSize: "0.875rem",
     color: "text.100",
@@ -71,7 +74,7 @@ export function LoadingOverlay({
     textUnderlineOffset: "0.1875rem",
     textDecorationThickness: "0.078125rem",
     transition: "all 0.2s ease-in-out",
-  
+
     _hover: {
       textDecorationColor: "text.90",
       textDecorationThickness: "0.09375rem",

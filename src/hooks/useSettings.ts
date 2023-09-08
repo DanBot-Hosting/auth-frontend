@@ -13,7 +13,7 @@ export function useSettings(): UseSettings {
         "background-animate": "true",
         "background-enabled": "true",
         "blur-mode": "full",
-        "theme": "dbh",
+        theme: "dbh",
         "theme-mode": "light",
       };
 
@@ -39,7 +39,7 @@ export function useSettings(): UseSettings {
           if (value === "true") {
             init("background-animate");
             mesh.mesh?.reinit();
-          };
+          }
           break;
         case "blur-mode":
           document.documentElement.dataset.blurMode = value;

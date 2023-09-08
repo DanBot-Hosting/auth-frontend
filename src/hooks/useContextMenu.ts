@@ -5,7 +5,7 @@ import { useCallback } from "react";
 
 /**
  * Context menu to convert an element into a context menu.
- * 
+ *
  * @param {React.MutableRefObject<HTMLDivElement | null>} contextMenu - The ref to the element that has to be manipulated.
  * @returns {UseContextMenu} An object containing initializer callback and additional manipulation methods.
  */
@@ -21,13 +21,16 @@ export function useContextMenu(
     unlock();
   }, [contextMenu, unlock]);
 
-  const mousedown = useCallback((event: MouseEvent) => {
-    // Without the use of stopPropagation as it's not recommended
-    if (contextMenu.current?.contains(event.target as Node)) return;
-    if (contextMenu.current?.isEqualNode(event.target as Node)) return;
+  const mousedown = useCallback(
+    (event: MouseEvent) => {
+      // Without the use of stopPropagation as it's not recommended
+      if (contextMenu.current?.contains(event.target as Node)) return;
+      if (contextMenu.current?.isEqualNode(event.target as Node)) return;
 
-    hide();
-  }, [contextMenu, hide]);
+      hide();
+    },
+    [contextMenu, hide]
+  );
 
   const show = useCallback(
     (event: MouseEvent) => {
@@ -50,15 +53,17 @@ export function useContextMenu(
     [contextMenu, detect, lock]
   );
 
-  const init = useCallback((target?: HTMLElement) => {
-    document.body.addEventListener("mousedown", mousedown);
-    target?.addEventListener("contextmenu", show);
+  const init = useCallback(
+    (target?: HTMLElement) => {
+      document.body.addEventListener("mousedown", mousedown);
+      target?.addEventListener("contextmenu", show);
 
-    document.addEventListener("keyup", (event) => {
-      if (event.key === "Escape") hide();
-    });
-
-  }, [hide, mousedown, show]);
+      document.addEventListener("keyup", (event) => {
+        if (event.key === "Escape") hide();
+      });
+    },
+    [hide, mousedown, show]
+  );
 
   return { detect, show, hide, init };
 }

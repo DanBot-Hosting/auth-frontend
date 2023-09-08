@@ -16,40 +16,45 @@ import { useSettings } from "@/hooks/useSettings";
  *
  * @returns {JSX.Element} The JSX element representing the loading overlay.
  */
-export function WebsiteLoadingOverlay({ css: cssProp = {} }: WebsiteLoadingOverlayProps) {
-  const background = css({
-    position: "fixed",
-    display: "flex",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    flexShrink: "0",
-    zIndex: "100",
-  
-    bg: "radial-gradient(circle, token(colors.solidoverlay) 0%, #000 1000%)",
-  
-    "&[data-hidden]": {
-      opacity: "0",
-      pointerEvents: "none",
-      transition: "opacity 0.25s ease-in-out",
+export function WebsiteLoadingOverlay({
+  css: cssProp = {},
+}: WebsiteLoadingOverlayProps) {
+  const background = css(
+    {
+      position: "fixed",
+      display: "flex",
+      top: "0",
+      left: "0",
+      width: "100%",
+      height: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      flexShrink: "0",
+      zIndex: "100",
+
+      bg: "radial-gradient(circle, token(colors.solidoverlay) 0%, #000 1000%)",
+
+      "&[data-hidden]": {
+        opacity: "0",
+        pointerEvents: "none",
+        transition: "opacity 0.25s ease-in-out",
+      },
     },
-  }, cssProp);
-  
+    cssProp
+  );
+
   const logo = css.raw({
     // Do not make text smaller when shifted with paddingLeft
     width: "100%",
     color: "text.80",
   });
-  
+
   const percent = css({
     position: "absolute",
     left: "50%",
     bottom: "4rem",
     transform: "translateX(-50%)",
-  
+
     color: "text.70",
     fontSize: "1rem",
     fontWeight: "300",
@@ -57,7 +62,11 @@ export function WebsiteLoadingOverlay({ css: cssProp = {} }: WebsiteLoadingOverl
 
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
-  const [setOptions, define, toggle] = useMesh((state) => [state.setOptions, state.define, state.toggle]);
+  const [setOptions, define, toggle] = useMesh((state) => [
+    state.setOptions,
+    state.define,
+    state.toggle,
+  ]);
   const { get } = useSettings();
 
   /**
