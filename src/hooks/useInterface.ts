@@ -15,6 +15,7 @@ export function useInterface(): UseInterface {
 
   const backgroundEnabled = get("background-enabled") === "true";
   const backgroundAnimated = get("background-animate") === "true";
+  const transitions = get("transitions") === "true";
   const [pickedTheme, setPickedTheme] = useState<string | null>(null);
   const [pickedBlurMode, setPickedBlurMode] = useState<string | null>(null);
 
@@ -37,6 +38,7 @@ export function useInterface(): UseInterface {
 
   const enabledRef = useRef<HTMLInputElement | null>(null);
   const animatedRef = useRef<HTMLInputElement | null>(null);
+  const transitionsRef = useRef<HTMLInputElement | null>(null);
   const themeRef = useRef<SelectRef | null>(null);
   const blurModeRef = useRef<SelectRef | null>(null);
 
@@ -45,6 +47,7 @@ export function useInterface(): UseInterface {
   const resetSettings = useCallback(() => {
     if (get("background-enabled") !== "true") enabledRef.current?.click();
     if (get("background-animate") !== "true") animatedRef.current?.click();
+    if (get("transitions") !== "true") transitionsRef.current?.click();
     if (get("theme") !== "dbh") themeRef.current?.change(themePreferences[0]);
     if (get("blur-mode") !== "full") blurModeRef.current?.change(blurModes[0]);
 
@@ -79,6 +82,13 @@ export function useInterface(): UseInterface {
     [get, set]
   );
 
+  const switchTransitions = useCallback(
+    (state: boolean) => {
+      set("transitions", state ? "true" : "false");
+    },
+    [set]
+  );
+
   // Callbacks
   const logic = {
     resetSettings,
@@ -87,6 +97,7 @@ export function useInterface(): UseInterface {
       blurMode: switchBlurMode,
       backgroundEnabled: switchBackgroundEnabled,
       backgroundAnimated: switchBackgroundAnimated,
+      transitions: switchTransitions,
     },
   };
 
@@ -97,12 +108,14 @@ export function useInterface(): UseInterface {
       blurMode: pickedBlurMode,
       backgroundEnabled,
       backgroundAnimated,
+      transitions,
     },
     ref: {
       theme: themeRef,
       blurMode: blurModeRef,
       backgroundEnabled: enabledRef,
       backgroundAnimated: animatedRef,
+      transitions: transitionsRef,
     },
   };
 

@@ -121,6 +121,12 @@ const body = css({
   // Add scrollbar to body instead of html
   overflowY: "scroll",
   maxHeight: "100vh",
+
+  _transitionsDisabled: {
+    "& *": {
+      transition: "none!",
+    }
+  },
 });
 
 const html = css({
@@ -188,7 +194,7 @@ export function Layout({ children }: LayoutProps) {
           id="settings-setup"
           async
           dangerouslySetInnerHTML={{
-            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full"));`,
+            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full")),set("transitions",get("transitions","true"));`,
           }}
         />
       </body>

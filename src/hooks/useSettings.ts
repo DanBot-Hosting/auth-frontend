@@ -15,6 +15,7 @@ export function useSettings(): UseSettings {
         "blur-mode": "full",
         theme: "dbh",
         "theme-mode": "light",
+        transitions: "true",
       };
 
       return getCookie(setting) ?? defaultValues[setting];
@@ -52,6 +53,8 @@ export function useSettings(): UseSettings {
           document.documentElement.dataset.themeMode = value;
           mesh.redraw();
           break;
+        case "transitions":
+          document.documentElement.dataset.transitions = value;
       }
     },
     [get]

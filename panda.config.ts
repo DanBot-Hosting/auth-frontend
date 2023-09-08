@@ -4,6 +4,7 @@ import {
   generateColors,
   generateThemeModeConditions,
   generateThemeConditions,
+  generateTransitionConditions,
 } from "@/utils/panda";
 import { defineConfig } from "@pandacss/dev";
 
@@ -30,6 +31,7 @@ export default defineConfig({
     ...generateThemeModeConditions(),
     ...generateThemeConditions(),
     ...generateBlurModeConditions(),
+    ...generateTransitionConditions(),
   },
 
   globalCss: {

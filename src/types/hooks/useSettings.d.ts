@@ -3,7 +3,8 @@ type Setting =
   | "theme-mode"
   | "blur-mode"
   | "background-enabled"
-  | "background-animate";
+  | "background-animate"
+  | "transitions";
 
 interface UseSettings {
   init: (setting: Setting, customValue?: string) => void;
