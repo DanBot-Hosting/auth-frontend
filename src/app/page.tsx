@@ -4,6 +4,7 @@ import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { Switch } from "@/components/Switch";
 import { Checkbox } from "@/components/Checkbox";
+import { Tooltip } from "@/components/Tooltip";
 import { useModal } from "@/hooks/useModal";
 import { useNotification } from "@/hooks/useNotification";
 import { useOverlay } from "@/hooks/useOverlay";
@@ -100,7 +101,9 @@ export default function Home() {
         <Input placeholder="Dummy input..." />
         <Switch>Sell my privacy for $1</Switch>
         <Checkbox>I agree to the terms and conditions</Checkbox>
-        <Button>Submit</Button>
+        <Tooltip label="It won't work :)" position="right">
+          <Button>Submit</Button>
+        </Tooltip>
       </div>
     </>
   );
