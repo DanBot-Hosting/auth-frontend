@@ -77,6 +77,11 @@ export function ToggleTheme({ css: cssProp = {} }: ToggleThemeProps) {
     _light: {
       opacity: "0",
       pointerEvents: "none",
+    },
+
+    // Weird firefox bug not applying top property when transitions disabled
+    // Also a panda css issue not allowing nested conditions, 0.13.1
+    "[data-theme-mode=light][data-transitions=true] &": {
       top: "200%",
     },
   });
@@ -91,6 +96,11 @@ export function ToggleTheme({ css: cssProp = {} }: ToggleThemeProps) {
     _dark: {
       opacity: "0",
       pointerEvents: "none",
+    },
+    
+    // Weird firefox bug not applying top property when transitions disabled
+    // Also a panda css issue not allowing nested conditions, 0.13.1
+    "[data-theme-mode=dark][data-transitions=true] &": {
       top: "200%",
     },
   });

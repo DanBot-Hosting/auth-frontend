@@ -17,6 +17,8 @@ export default defineConfig({
   minify: true,
   // Shorten classnames
   hash: true,
+  // Opt out of default styles config
+  presets: ["@pandacss/preset-base"],
 
   // Where to look for css declarations
   include: [
@@ -44,7 +46,16 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        // Loading spinning animation
+        spin: {
+          to: {
+            transform: "rotate(360deg)",
+          },
+        },
+      },
+    },
     semanticTokens: {
       blurs: generateBlurModes(),
       colors: generateColors(),
