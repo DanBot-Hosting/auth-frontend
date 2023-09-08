@@ -5,7 +5,7 @@ import { forwardRef, useCallback, useState } from "react";
 /**
  * Custom styled Input element with a checkbox but styled as a switch.
  *
- * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the switch.
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * Is part of panda-css styling.
  * @param {(state: boolean) => void} [props.onChange] - The function to be called when the switch value changes.
  * @param {React.ReactNode} [props.children] - The content to be displayed next to the switch.

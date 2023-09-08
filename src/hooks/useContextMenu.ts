@@ -31,7 +31,6 @@ export function useContextMenu(
 
   const show = useCallback(
     (event: MouseEvent) => {
-      console.log(contextMenu);
       if (!contextMenu.current) return false;
       event.preventDefault();
 

@@ -14,6 +14,7 @@ import { CaretDown } from "@phosphor-icons/react";
 /**
  * Custom styled Select element.
  *
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {string} [placeholder] - The placeholder text to be displayed when the select is empty.
  * @param {DropdownOption[]} props.options - The array of options to be displayed in the Dropdown.
  * @param {((option: DropdownOption) => void)} [props.onChange] -

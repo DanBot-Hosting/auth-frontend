@@ -1,1 +1,1 @@
-type OverlayProps = React.PropsWithChildren;
+type OverlayProps = React.PropsWithChildren & GlobalComponent;

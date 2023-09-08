@@ -1,9 +1,8 @@
-interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SelectProps extends React.HTMLAttributes<HTMLDivElement>, GlobalComponent {
   placeholder?: string;
   options: SelectOption[];
   onChange?: (state: SelectOption) => void;
   initial?: number;
-  css?: import("@styles/types").SystemStyleObject;
 }
 
 interface SelectRef {

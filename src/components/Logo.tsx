@@ -3,13 +3,17 @@ import { css } from "@styles/css";
 /**
  * Detailed Logo component with the ability to change the color.
  *
- * @param {string} props.className - Class which determines the color of the logo.
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered Logo component.
  */
 export function Logo({
-  className = css({ color: "text.100" }),
+  css: cssProp = {},
   ...props
 }: LogoProps) {
+  const logo = css({
+    color: "text.100",
+  }, cssProp);
+
   return (
     <svg
       width="198"
@@ -17,7 +21,7 @@ export function Logo({
       viewBox="0 0 198 94"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={logo}
       {...props}
     >
       <path

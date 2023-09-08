@@ -5,3 +5,5 @@ interface Link {
   /** The href of the link, do not add trailing slash for internal links. */
   link: string;
 }
+
+type CSSObject = import("@styles/types").SystemStyleObject;

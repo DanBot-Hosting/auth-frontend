@@ -10,7 +10,6 @@ import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
 import {
   WebsiteLoadingOverlay,
-  hiddenScrollbar,
 } from "@/components/WebsiteLoadingOverlay";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { OverlayProvider } from "@/components/OverlayProvider";
@@ -120,6 +119,7 @@ const body = css({
   bg: "background.100",
   color: "text.100",
 
+  overflow: "hidden",
   // Add scrollbar to body instead of html
   overflowY: "scroll",
   maxHeight: "100vh",
@@ -155,7 +155,7 @@ export function Layout({ children }: LayoutProps) {
       data-theme-mode={themeMode}
       data-blur-mode={blurMode}
     >
-      <body className={cx(inter.className, scrollbar, hiddenScrollbar, body)}>
+      <body className={cx(inter.className, scrollbar, body)}>
         <header className={header} id="header">
           <Header links={headerLinks}>
             <div className={progressBar}>

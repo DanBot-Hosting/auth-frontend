@@ -1,15 +1,17 @@
 "use client";
-import { useSettings } from "@/hooks/useSettings";
 import { useMesh } from "@/store/useMesh";
+import { css } from "@styles/css";
 import { useEffect } from "react";
 
 /**
  * Renders a Mesh ambient background component as a canvas element.
  * Giving the ability to interact with it via useMesh store wrapped in useSettings.
  *
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered Mesh component.
  */
-export function Mesh() {
+export function Mesh({ css: cssProp = {} }: MeshProps) {
+  const canvas = css(cssProp);
   const { initialize } = useMesh();
   // On component mount
   // Because module requires querySelector call to get colors
@@ -19,5 +21,5 @@ export function Mesh() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <canvas id="mesh" />;
+  return <canvas className={canvas} id="mesh" />;
 }

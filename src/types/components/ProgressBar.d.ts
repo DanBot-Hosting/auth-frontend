@@ -1,3 +1,5 @@
+type ProgressBarProps = GlobalComponent;
+
 type PushStateInput = [
   data: any,
   unused: string,

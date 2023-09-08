@@ -1,3 +1,3 @@
 interface ContextMenuProps {
-  css?: import("@styles/types").SystemStyleObject;
+  css?: CSSObject;
 }
