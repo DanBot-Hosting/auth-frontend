@@ -9,6 +9,7 @@ import { useHoverable } from "@/hooks/useHoverable";
  * A AccountDropdown menu with a list of links and buttons to interact with.
  * Uses hoverable to slide to the selected/hovered element.
  *
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {Link[]} props.links - The array of links to be displayed in the Dropdown.
  * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] -
  * The callback function to be executed when a link is clicked.

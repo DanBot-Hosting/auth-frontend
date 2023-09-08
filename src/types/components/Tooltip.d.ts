@@ -1,5 +1,7 @@
-interface TooltipProps extends React.PropsWithChildren extends React.HTMLAttributes<HTMLDivElement> {
+interface TooltipProps
+  extends React.PropsWithChildren,
+    React.HTMLAttributes<HTMLDivElement>,
+    GlobalComponent {
   label: string;
   position?: "top" | "left" | "right" | "bottom";
-  css?: import("@styles/types").SystemStyleObject;
 }

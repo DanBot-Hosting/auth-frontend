@@ -5,26 +5,30 @@ import { css } from "@styles/css";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 
-const progressBar = css({
-  height: "0.125rem",
-  backgroundColor: "text.70",
-  transition: "width 15s ease-out",
-  opacity: "1",
-
-  "&[data-finished]": {
-    width: "100%!",
-    opacity: "0",
-    transition: "width .15s ease-in-out, opacity .2s ease-in-out",
-  },
-});
-
 /**
  * Functioning progress bar utilizing useFakeProgress.
  *
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @see {@link https://github.com/apal21/nextjs-progressbar/issues/86#issuecomment-1447977706 Issue}
  * @return {void}
  */
-export function ProgressBar() {
+export function ProgressBar({ css: cssProp = {} }: ProgressBarProps) {
+  const progressBar = css(
+    {
+      height: "0.125rem",
+      backgroundColor: "text.70",
+      transition: "width 15s ease-out",
+      opacity: "1",
+
+      "&[data-finished]": {
+        width: "100%!",
+        opacity: "0",
+        transition: "width .15s ease-in-out, opacity .2s ease-in-out",
+      },
+    },
+    cssProp
+  );
+
   const progressRef = useRef<HTMLDivElement | null>(null);
   const { start, stop, set, progress } = useFakeProgress(0.5, 50);
   const pathname = usePathname();

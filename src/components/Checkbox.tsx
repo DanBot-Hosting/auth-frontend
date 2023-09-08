@@ -6,7 +6,7 @@ import { forwardRef, useCallback, useState } from "react";
 /**
  * Custom styled Input element with a checkbox.
  *
- * @param {import("@styles/types").SystemStyleObject} [props.css={}] - Custom CSS styles to be applied to the checkbox.
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * Is part of panda-css styling.
  * @param {(state: boolean) => void} [props.onChange] - The function to be called when the checkbox value changes.
  * @param {React.ReactNode} [props.children] - The content to be displayed next to the checkbox.

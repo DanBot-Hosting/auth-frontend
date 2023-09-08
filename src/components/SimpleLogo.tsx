@@ -3,13 +3,17 @@ import { css } from "@styles/css";
 /**
  * Simplified Logo component with the ability to change the color.
  *
- * @param {string} props.className - Class which determines the color of the logo.
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered SimpleLogo component.
  */
-export function SimpleLogo({
-  className = css({ color: "text.100" }),
-  ...props
-}: LogoProps) {
+export function SimpleLogo({ css: cssProp = {}, ...props }: LogoProps) {
+  const logo = css(
+    {
+      color: "text.100",
+    },
+    cssProp
+  );
+
   return (
     <svg
       width="50"
@@ -17,7 +21,7 @@ export function SimpleLogo({
       viewBox="0 0 50 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={logo}
       {...props}
     >
       <path

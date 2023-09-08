@@ -3,7 +3,7 @@ import { css, cx } from "@styles/css";
 /**
  * Custom-styled Button element.
  *
- * @param {import("@styles/types").SystemStyleObject} [props.cssProp={}] - Custom CSS styles to be applied to the button.
+ * @param {CSSObject} [props.cssProp={}] - Custom CSS styles to be applied to the component.
  * Is part of panda-css styling.
  * @param {boolean} [props.secondaryProp=false] - Specifies whether the button should have secondary styles.
  * @param {boolean} [props.pillProp=false] - Specifies whether the button should have pill-shaped styles.

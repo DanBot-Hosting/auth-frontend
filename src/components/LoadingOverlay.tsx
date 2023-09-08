@@ -2,61 +2,6 @@ import { Overlay } from "@/components/Overlay";
 import { CircleNotch } from "@phosphor-icons/react";
 import { css } from "@styles/css";
 
-const loading = css({
-  display: "inline-flex",
-  flexDir: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "1.25rem",
-});
-
-const content = css({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
-
-const spinner = css({
-  color: "text.60",
-  animation: "spin 1s linear infinite",
-});
-
-const label = css({
-  display: "flex",
-  padding: "0.3125rem 0.75rem",
-  flexDir: "column",
-  justifyContent: "center",
-  alignItems: "center",
-
-  color: "text.60",
-  fontSize: "0.875rem",
-  fontWeight: "400",
-});
-
-const cancel = css({
-  display: "flex",
-  flexDir: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  cursor: "pointer",
-  userSelect: "none",
-
-  fontWeight: "400",
-  fontSize: "0.875rem",
-  color: "text.100",
-  textDecorationColor: "text.30",
-  textDecorationLine: "underline",
-  textUnderlineOffset: "0.1875rem",
-  textDecorationThickness: "0.078125rem",
-  transition: "all 0.2s ease-in-out",
-
-  _hover: {
-    textDecorationColor: "text.90",
-    textDecorationThickness: "0.09375rem",
-    transition: "all 0.2s ease-in-out",
-  },
-});
-
 /**
  * The LoadingOverlay component for loading screens for API calls.
  * Made on top of the Overlay component.
@@ -64,6 +9,7 @@ const cancel = css({
  * This component should not be used directly.
  *
  * @param {LoadingOverlayProps} props - The properties for the LoadingOverlay.
+ * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {React.ReactNode} [props.children="Loading..."] - The content to display inside the overlay. Defaults to "Loading...".
  * Won't add dot animation at the end.
  * @param {boolean} [props.withCancel=false] - Indicates whether to display a cancel button. Defaults to false.
@@ -76,7 +22,66 @@ export function LoadingOverlay({
   withCancel = false,
   cancelLabel = "Cancel",
   onCancel,
+  css: cssProp = {},
 }: LoadingOverlayProps) {
+  const loading = css(
+    {
+      display: "inline-flex",
+      flexDir: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "1.25rem",
+    },
+    cssProp
+  );
+
+  const content = css({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  });
+
+  const spinner = css({
+    color: "text.60",
+    animation: "spin 1s linear infinite",
+  });
+
+  const label = css({
+    display: "flex",
+    padding: "0.3125rem 0.75rem",
+    flexDir: "column",
+    justifyContent: "center",
+    alignItems: "center",
+
+    color: "text.60",
+    fontSize: "0.875rem",
+    fontWeight: "400",
+  });
+
+  const cancel = css({
+    display: "flex",
+    flexDir: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    userSelect: "none",
+
+    fontWeight: "400",
+    fontSize: "0.875rem",
+    color: "text.100",
+    textDecorationColor: "text.30",
+    textDecorationLine: "underline",
+    textUnderlineOffset: "0.1875rem",
+    textDecorationThickness: "0.078125rem",
+    transition: "all 0.2s ease-in-out",
+
+    _hover: {
+      textDecorationColor: "text.90",
+      textDecorationThickness: "0.09375rem",
+      transition: "all 0.2s ease-in-out",
+    },
+  });
+
   return (
     <Overlay>
       <div className={loading}>

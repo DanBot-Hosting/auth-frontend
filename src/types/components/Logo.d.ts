@@ -1,1 +1,1 @@
-type LogoProps = React.SVGProps<SVGSVGElement>;
+type LogoProps = React.SVGProps<SVGSVGElement> & GlobalComponent;

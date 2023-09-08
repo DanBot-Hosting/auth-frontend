@@ -9,8 +9,8 @@ import { useContextMenu } from "@/hooks/useContextMenu";
 /**
  * A custom context menu that provides additional functionalities.
  *
- * @param {import("@styles/types").SystemStyleObject} [props.css={}] - 
- * Custom CSS styles to be applied to the context menu.
+ * @param {CSSObject} [props.css={}] -
+ * Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
 export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
@@ -20,7 +20,7 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
 
   useEffect(() => {
     // convert null to undefined
-    init(document.getElementById("header") ?? undefined)
+    init(document.getElementById("header") ?? undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
