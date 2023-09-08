@@ -1,5 +1,17 @@
 import { css } from "@styles/css";
 
+/**
+ * Renders a Tooltip component with the provided label and position.
+ *
+ * @param {ReactNode} [props.children] - The content to be rendered inside the Tooltip component.
+ * hovering over it shows the tooltip.
+ * @param {string} props.label - The label to be displayed inside the Tooltip.
+ * @param {object} [props.css={}] - Additional CSS styles to be applied to the Tooltip wrapper.
+ * @param {string} [props.position="top"] - The position of the Tooltip relative to its wrapper.
+ * Valid values are "top", "bottom", "right", and "left".
+ * @param {object} props... - Additional props to be spread onto the Tooltip wrapper.
+ * @return {ReactNode} - The rendered Tooltip component.
+ */
 export function Tooltip({
   children,
   label,
