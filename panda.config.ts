@@ -5,6 +5,8 @@ import {
   generateThemeModeConditions,
   generateThemeConditions,
   generateTransitionConditions,
+  globalCss,
+  keyframes,
 } from "@/utils/panda";
 import { defineConfig } from "@pandacss/dev";
 
@@ -36,26 +38,11 @@ export default defineConfig({
     ...generateTransitionConditions(),
   },
 
-  globalCss: {
-    // Global selection
-    "::selection": {
-      bg: "text.90",
-      color: "background.100",
-    },
-  },
+  globalCss,
 
   // Useful for theme customization
   theme: {
-    extend: {
-      keyframes: {
-        // Loading spinning animation
-        spin: {
-          to: {
-            transform: "rotate(360deg)",
-          },
-        },
-      },
-    },
+    extend: { keyframes },
     semanticTokens: {
       blurs: generateBlurModes(),
       colors: generateColors(),
