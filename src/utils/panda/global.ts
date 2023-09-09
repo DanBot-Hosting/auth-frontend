@@ -6,4 +6,11 @@ export const globalCss = defineGlobalStyles({
     bg: "text.90",
     color: "background.100",
   },
+
+  // Overriding all the settings
+  "@media (prefers-reduced-motion)": {
+    "*": {
+      transition: "none!",
+    },
+  },
 });

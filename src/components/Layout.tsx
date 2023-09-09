@@ -11,7 +11,8 @@ import { Mesh } from "@/components/Mesh";
 import { WebsiteLoadingOverlay } from "@/components/WebsiteLoadingOverlay";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { OverlayProvider } from "@/components/OverlayProvider";
-import { useCookies } from "@/hooks/useCookies";
+import { useSettings } from "@/hooks/useSettings";
+import { useEffect } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -125,7 +126,7 @@ const body = css({
   _transitionsDisabled: {
     "& *": {
       transition: "none!",
-    }
+    },
   },
 });
 
@@ -146,10 +147,12 @@ export function Layout({ children }: LayoutProps) {
   // Set cookies as well as inline script
   // To avoid attribute warnings
   // And document shadows
-  const cookieStore = useCookies();
-  const theme = cookieStore.get("theme") ?? "dbh";
-  const themeMode = cookieStore.get("theme-mode") ?? "light";
-  const blurMode = cookieStore.get("blur-mode") ?? "full";
+  const { get, handle } = useSettings();
+  const theme = get("theme");
+  const themeMode = get("theme-mode");
+  const blurMode = get("blur-mode");
+
+  useEffect(() => handle("transitions")(), [handle]);
 
   return (
     <html
