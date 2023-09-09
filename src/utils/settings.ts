@@ -18,3 +18,4 @@ const set = (name: string, value: string) =>
 set("theme", get("theme", "dbh"));
 set("themeMode", get("theme-mode", "light"));
 set("blurMode", get("blur-mode", "full"));
+set("transitions", get("transitions", "true"));

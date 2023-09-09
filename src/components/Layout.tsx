@@ -11,7 +11,8 @@ import { Mesh } from "@/components/Mesh";
 import { WebsiteLoadingOverlay } from "@/components/WebsiteLoadingOverlay";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import { OverlayProvider } from "@/components/OverlayProvider";
-import { useCookies } from "@/hooks/useCookies";
+import { useSettings } from "@/hooks/useSettings";
+import { useEffect } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -121,6 +122,12 @@ const body = css({
   // Add scrollbar to body instead of html
   overflowY: "scroll",
   maxHeight: "100vh",
+
+  _transitionsDisabled: {
+    "& *": {
+      transition: "none!",
+    },
+  },
 });
 
 const html = css({
@@ -140,10 +147,12 @@ export function Layout({ children }: LayoutProps) {
   // Set cookies as well as inline script
   // To avoid attribute warnings
   // And document shadows
-  const cookieStore = useCookies();
-  const theme = cookieStore.get("theme") ?? "dbh";
-  const themeMode = cookieStore.get("theme-mode") ?? "light";
-  const blurMode = cookieStore.get("blur-mode") ?? "full";
+  const { get, handle } = useSettings();
+  const theme = get("theme");
+  const themeMode = get("theme-mode");
+  const blurMode = get("blur-mode");
+
+  useEffect(() => handle("transitions")(), [handle]);
 
   return (
     <html
@@ -188,7 +197,7 @@ export function Layout({ children }: LayoutProps) {
           id="settings-setup"
           async
           dangerouslySetInnerHTML={{
-            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full"));`,
+            __html: `const cookies=document.cookie.split("; "),raw=e=>cookies.find(t=>t.startsWith(e+"=")),get=(e,t)=>{let o=raw(e);return o?o.split("=")[1]:t},set=(e,t)=>document.documentElement.dataset[e]=t;set("theme",get("theme","dbh")),set("themeMode",get("theme-mode","light")),set("blurMode",get("blur-mode","full")),set("transitions",get("transitions","true"));`,
           }}
         />
       </body>

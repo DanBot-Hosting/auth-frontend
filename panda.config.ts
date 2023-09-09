@@ -4,6 +4,9 @@ import {
   generateColors,
   generateThemeModeConditions,
   generateThemeConditions,
+  generateTransitionConditions,
+  globalCss,
+  keyframes,
 } from "@/utils/panda";
 import { defineConfig } from "@pandacss/dev";
 
@@ -16,6 +19,8 @@ export default defineConfig({
   minify: true,
   // Shorten classnames
   hash: true,
+  // Opt out of default styles config
+  presets: ["@pandacss/preset-base"],
 
   // Where to look for css declarations
   include: [
@@ -30,19 +35,14 @@ export default defineConfig({
     ...generateThemeModeConditions(),
     ...generateThemeConditions(),
     ...generateBlurModeConditions(),
+    ...generateTransitionConditions(),
   },
 
-  globalCss: {
-    // Global selection
-    "::selection": {
-      bg: "text.90",
-      color: "background.100",
-    },
-  },
+  globalCss,
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: { keyframes },
     semanticTokens: {
       blurs: generateBlurModes(),
       colors: generateColors(),

@@ -153,7 +153,7 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
         />
       </div>
       <div className={field}>
-        <label className={label}>Blur mode</label>
+        <label className={label}>Background</label>
         <Switch
           css={switchElement}
           checked={state.backgroundEnabled}
@@ -169,6 +169,17 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
           onChange={change.backgroundAnimated}
         >
           Animation shaders
+        </Switch>
+      </div>
+      <div className={field}>
+        <label className={label}>Transitions</label>
+        <Switch
+          css={switchElement}
+          checked={state.transitions}
+          ref={ref.transitions}
+          onChange={change.transitions}
+        >
+          Transitions
         </Switch>
       </div>
     </div>

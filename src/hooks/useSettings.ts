@@ -1,25 +1,31 @@
 import { useMesh } from "@/store/useMesh";
 import { useCookies } from "./useCookies";
-import { startTransition, useCallback } from "react";
+import { startTransition, useCallback, useMemo } from "react";
+import { useNotification } from "./useNotification";
 
 export function useSettings(): UseSettings {
   const { get: getCookie, set: setCookie } = useCookies();
+  const { show } = useNotification();
+
+  // Getting default value
+  // If changed the value has to be set in inline script as well
+  const defaultValues: Record<Setting, string> = useMemo(
+    () => ({
+      "background-animate": "true",
+      "background-enabled": "true",
+      "blur-mode": "full",
+      theme: "dbh",
+      "theme-mode": "light",
+      transitions: "true",
+    }),
+    []
+  );
 
   const get = useCallback(
     (setting: Setting) => {
-      // Getting default value
-      // If changed the value has to be set in inline script as well
-      let defaultValues: Record<Setting, string> = {
-        "background-animate": "true",
-        "background-enabled": "true",
-        "blur-mode": "full",
-        theme: "dbh",
-        "theme-mode": "light",
-      };
-
       return getCookie(setting) ?? defaultValues[setting];
     },
-    [getCookie]
+    [defaultValues, getCookie]
   );
 
   const init = useCallback(
@@ -52,6 +58,8 @@ export function useSettings(): UseSettings {
           document.documentElement.dataset.themeMode = value;
           mesh.redraw();
           break;
+        case "transitions":
+          document.documentElement.dataset.transitions = value;
       }
     },
     [get]
@@ -65,5 +73,33 @@ export function useSettings(): UseSettings {
     [setCookie, init]
   );
 
-  return { init, get, set };
+  const reducedMotionCallback = useCallback(
+    (matches: boolean) => {
+      if (!matches) return;
+
+      show({
+        children: "Reduced motion has been enabled",
+      });
+    },
+    [show]
+  );
+
+  const handle = useCallback(
+    (setting: Setting) => {
+      switch (setting) {
+        case "transitions":
+          return () => {
+            const mql = matchMedia("(prefers-reduced-motion: reduce)");
+            reducedMotionCallback(mql.matches);
+            mql.addEventListener("change", (event) =>
+              reducedMotionCallback(event.matches)
+            );
+          };
+      }
+      return () => {};
+    },
+    [reducedMotionCallback]
+  );
+
+  return { init, get, set, handle };
 }

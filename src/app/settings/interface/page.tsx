@@ -123,6 +123,18 @@ export default function Interface() {
         </div>
       </div>
       <div className={field}>
+        <label className={label}>Animations</label>
+        <div className={switches}>
+          <Switch
+            checked={state.transitions}
+            ref={ref.transitions}
+            onChange={change.transitions}
+          >
+            Transitions
+          </Switch>
+        </div>
+      </div>
+      <div className={field}>
         <Button secondary pill onClick={resetSettings}>
           Reset Settings
         </Button>
