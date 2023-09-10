@@ -161,3 +161,7 @@ export const headerLinks: HeaderLinks = {
   Panel: "https://panel.danbot.host",
   Discord: "https://discord.com/invite/dbh",
 };
+
+export const headerDropdownLinks: Link[] = [
+  { label: "Settings", link: "/settings" },
+];

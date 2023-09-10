@@ -128,6 +128,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
     return (
       <div className={dropdown} {...props}>
         <div ref={setHoverableElement} className={hoverable} />
+        {/* Non-deterministic so we don't use million's optimization as it breaks from ROB */}
         {options.map((opt, i) => (
           <button
             key={i}

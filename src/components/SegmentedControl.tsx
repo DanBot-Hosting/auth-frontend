@@ -45,6 +45,7 @@ export function SegmentedControl({
       alignSelf: "stretch",
       zIndex: "4",
       userSelect: "none",
+      listStyle: "none",
 
       borderRadius: "0.625rem",
       color: "text.60",
@@ -113,6 +114,7 @@ export function SegmentedControl({
   return (
     <div className={dropdown}>
       <div ref={setHoverableElement} className={hoverable} />
+      {/* Slot syntax breaks event handling thus we don't use million's For */}
       {options.map((opt, i) => (
         <Link
           key={i}
