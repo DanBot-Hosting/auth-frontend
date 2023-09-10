@@ -19,6 +19,7 @@ const group = css({
 
 const elements = css({
   display: "flex",
+  alignItems: "center",
   p: "1rem",
   flexDir: "column",
   gap: "1rem",
@@ -101,7 +102,7 @@ export default function Home() {
         <Input placeholder="Dummy input..." />
         <Switch>Sell my privacy for $1</Switch>
         <Checkbox>I agree to the terms and conditions</Checkbox>
-        <Tooltip label="It won't work :)" position="right">
+        <Tooltip label="It won't work :)" position="top">
           <Button>Submit</Button>
         </Tooltip>
       </div>
