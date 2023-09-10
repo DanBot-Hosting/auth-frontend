@@ -165,3 +165,21 @@ export const headerLinks: HeaderLinks = {
 export const headerDropdownLinks: Link[] = [
   { label: "Settings", link: "/settings" },
 ];
+
+export const contextMenuLocale: ContextMenuLocale = {
+  labels: {
+    theme: "Theme",
+    blurMode: "Blur mode",
+    background: "Background",
+    transitions: "Transitions",
+  },
+  switches: {
+    backgroundEnabled: "Show the background",
+    backgroundAnimated: "Animation shaders",
+    transitions: "Transitions",
+  },
+  placeholders: {
+    theme: "Pick a theme...",
+    blurMode: "Pick a blur mode...",
+  }
+};

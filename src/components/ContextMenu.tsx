@@ -5,6 +5,7 @@ import { Switch } from "@/components/Switch";
 import { useInterface } from "@/hooks/useInterface";
 import { useEffect, useRef } from "react";
 import { useContextMenu } from "@/hooks/useContextMenu";
+import { contextMenuLocale } from "@/utils/constants";
 
 /**
  * A custom context menu that provides additional functionalities.
@@ -13,7 +14,7 @@ import { useContextMenu } from "@/hooks/useContextMenu";
  * Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
-export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
+export function ContextMenu({ css: cssProp = {}, locale = contextMenuLocale }: ContextMenuProps) {
   const { change, state, ref, options, find } = useInterface();
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
   const { init } = useContextMenu(contextMenuRef);
@@ -131,36 +132,36 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
   return (
     <div className={contextMenu} ref={contextMenuRef}>
       <div className={field}>
-        <label className={label}>Theme</label>
+        <label className={label}>{locale.labels.theme}</label>
         <Select
           css={select}
           options={options.themes}
           initial={find.themeIndex()}
           ref={ref.theme}
-          placeholder="Pick a theme..."
+          placeholder={locale.placeholders.theme}
           onChange={change.theme}
         />
       </div>
       <div className={field}>
-        <label className={label}>Blur mode</label>
+        <label className={label}>{locale.labels.blurMode}</label>
         <Select
           css={select}
           options={options.blurModes}
           initial={find.blurModeIndex()}
           ref={ref.blurMode}
-          placeholder="Pick blur mode..."
+          placeholder={locale.placeholders.blurMode}
           onChange={change.blurMode}
         />
       </div>
       <div className={field}>
-        <label className={label}>Background</label>
+        <label className={label}>{locale.labels.background}</label>
         <Switch
           css={switchElement}
           checked={state.backgroundEnabled}
           ref={ref.backgroundEnabled}
           onChange={change.backgroundEnabled}
         >
-          Show the background
+          {locale.switches.backgroundEnabled}
         </Switch>
         <Switch
           css={switchElement}
@@ -168,18 +169,18 @@ export function ContextMenu({ css: cssProp = {} }: ContextMenuProps) {
           ref={ref.backgroundAnimated}
           onChange={change.backgroundAnimated}
         >
-          Animation shaders
+          {locale.switches.backgroundAnimated}
         </Switch>
       </div>
       <div className={field}>
-        <label className={label}>Transitions</label>
+        <label className={label}>{locale.labels.transitions}</label>
         <Switch
           css={switchElement}
           checked={state.transitions}
           ref={ref.transitions}
           onChange={change.transitions}
         >
-          Transitions
+          {locale.switches.transitions}
         </Switch>
       </div>
     </div>
