@@ -1,6 +1,7 @@
 import "./global.css";
 import type { Metadata } from "next";
 import { Layout } from "@/components/Layout";
+import { locale } from "@/utils/dictionary";
 
 export const metadata: Metadata = {
   title: "DanBot Hosting",
@@ -36,6 +37,10 @@ export const metadata: Metadata = {
     "msapplication-config": "/favicon/browserconfig.xml",
   },
 };
+
+export async function generateStaticParams() {
+  return locale.map((locale) => ({ lang: locale }));
+}
 
 export default function RootLayout({
   children,

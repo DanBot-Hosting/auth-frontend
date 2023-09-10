@@ -1,0 +1,45 @@
+{
+  "header": {
+    "links": {
+      "main": {
+        "Panel": "Panel",
+        "Discord": "Discord"
+      },
+      "dropdown": {
+        "Settings": "Settings"
+      }
+    }
+  },
+  "footer": {
+    "categories": {
+      "updates": "Updates",
+      "support": "Support",
+      "legal": "Legal"
+    },
+    "links": {
+      "Discord": "Discord",
+      "GitHub": "GitHub",
+      "Contact": "Contact",
+      "FAQ": "FAQ",
+      "Terms of Service": "Terms of Service",
+      "Privacy Policy": "Privacy Policy"
+    }
+  },
+  "contextMenu": {
+    "labels": {
+      "theme": "Theme",
+      "blurMode": "Blur mode",
+      "background": "Background",
+      "transitions": "Animations"
+    },
+    "switches": {
+      "backgroundEnabled": "Show the background",
+      "backgroundAnimated": "Animation shaders",
+      "transitions": "Transitions"
+    },
+    "placeholders": {
+      "theme": "Pick a theme...",
+      "blurMode": "Pick a blur mode..."
+    }
+  }
+}

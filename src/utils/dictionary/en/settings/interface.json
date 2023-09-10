@@ -1,0 +1,21 @@
+{
+  "labels": {
+    "theme": "Theme",
+    "blurMode": "Blur mode",
+    "background": "Background",
+    "transitions": "Animations"
+  },
+  "switches": {
+    "backgroundEnabled": "Show the background",
+    "backgroundAnimated": "Animation shaders",
+    "transitions": "Transitions"
+  },
+  "placeholders": {
+    "theme": "Pick a theme...",
+    "blurMode": "Pick a blur mode..."
+  },
+  "resetSettings": {
+    "label": "Reset Settings",
+    "notification": "Settings were successfully reset!"
+  }
+}

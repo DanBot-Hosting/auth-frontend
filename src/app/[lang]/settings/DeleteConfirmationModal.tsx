@@ -38,7 +38,7 @@ export function useDeleteConfirmationModal() {
       <button key="cancel" onClick={hide}>
         Cancel
       </button>,
-      <button key="update" className={modalConfirm} onClick={hide}>
+      <button key="confirm" className={modalConfirm} onClick={hide}>
         Delete my account!
       </button>,
     ],

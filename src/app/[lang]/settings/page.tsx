@@ -5,15 +5,6 @@ import { useAccountDeletionModal } from "./AccountDeletionModal";
 import { usePasswordChangeModal } from "./PasswordChangeModal";
 import { Input } from "@/components/Input";
 
-const main = css({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "1rem",
-  maxW: "37.5rem",
-  w: "100%",
-});
-
 const button = css({
   cursor: "pointer",
 

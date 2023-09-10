@@ -51,7 +51,7 @@ export function usePasswordChangeModal() {
       <button key="cancel" onClick={hide}>
         Cancel
       </button>,
-      <button key="update" className={modalConfirm} onClick={hide}>
+      <button key="confirm" className={modalConfirm} onClick={hide}>
         Change my password!
       </button>,
     ],

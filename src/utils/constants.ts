@@ -144,7 +144,6 @@ export const footerLinks: FooterLinks = {
       link: "https://status.danbot.host",
     },
   ],
-
   legal: [
     {
       label: "Terms of Service",
@@ -157,10 +156,10 @@ export const footerLinks: FooterLinks = {
   ],
 };
 
-export const headerLinks: HeaderLinks = {
-  Panel: "https://panel.danbot.host",
-  Discord: "https://discord.com/invite/dbh",
-};
+export const headerLinks: Link[] = [
+  { label: "Panel", link: "https://panel.danbot.host" },
+  { label: "Discord", link: "https://discord.com/invite/dbh" },
+];
 
 export const headerDropdownLinks: Link[] = [
   { label: "Settings", link: "/settings" },
@@ -171,7 +170,7 @@ export const contextMenuLocale: ContextMenuLocale = {
     theme: "Theme",
     blurMode: "Blur mode",
     background: "Background",
-    transitions: "Transitions",
+    transitions: "Animations",
   },
   switches: {
     backgroundEnabled: "Show the background",

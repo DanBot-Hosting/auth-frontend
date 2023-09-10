@@ -14,7 +14,7 @@ import { For } from "million/react";
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {UserHeaderData} [props.user] - The user data to be shown if signed in.
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the Header.
- * @param {HeaderLinks} props.links - List of additional links in the header.
+ * @param {Link[]} props.links - List of additional links in the header.
  * @returns {JSX.Element} The rendered Header component.
  */
 export function Header({
@@ -250,11 +250,11 @@ export function Header({
         <Link className={logo} href="/">
           <SimpleLogo />
         </Link>
-        <For each={Object.keys(links)} memo>
+        <For each={links} memo>
           {(key) => (
             <li className={cx(additionalLink, button)}>
               {/* Million's For isn't compatible with Link so we're wrapping it with <li /> */}
-              <Link href={links[key]}>{key}</Link>
+              <Link href={key.link}>{key.label}</Link>
             </li>
           )}
         </For>

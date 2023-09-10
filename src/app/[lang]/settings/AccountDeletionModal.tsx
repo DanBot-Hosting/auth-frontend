@@ -21,7 +21,7 @@ export function useAccountDeletionModal() {
       <button key="cancel" onClick={hide}>
         Cancel
       </button>,
-      <button key="update" className={verify} onClick={hide}>
+      <button key="confirm" className={verify} onClick={hide}>
         Get the verification code
       </button>,
     ],
