@@ -105,6 +105,7 @@ export function AccountDropdown({
   return (
     <div className={dropdown} {...props}>
       <div ref={setHoverableElement} className={hoverable} />
+      {/* Slot syntax breaks event handling thus we don't use million's For */}
       {links.map((link, i) => (
         <Link
           key={i}

@@ -2,7 +2,7 @@
 import { css } from "@styles/css";
 import { Logo } from "@/components/Logo";
 import { useFakeProgress } from "@/hooks/useFakeProgress";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { useMesh } from "@/store/useMesh";
 import { useSettings } from "@/hooks/useSettings";
 
@@ -16,7 +16,7 @@ import { useSettings } from "@/hooks/useSettings";
  *
  * @returns {JSX.Element} The JSX element representing the loading overlay.
  */
-export function WebsiteLoadingOverlay({
+export const WebsiteLoadingOverlay = memo(function WebsiteLoadingOverlay({
   css: cssProp = {},
 }: WebsiteLoadingOverlayProps) {
   const background = css(
@@ -62,6 +62,7 @@ export function WebsiteLoadingOverlay({
 
   const { progress, start, stop } = useFakeProgress();
   const isExecuted = useRef(false);
+  const websiteLoadingOverlayRef = useRef<HTMLDivElement | null>(null);
   const [setOptions, define, toggle] = useMesh((state) => [
     state.setOptions,
     state.define,
@@ -78,7 +79,7 @@ export function WebsiteLoadingOverlay({
     setOptions({
       static: get("background-animate") === "false",
       onLoad: () => {
-        const overlay = document.getElementById("website-loading-overlay");
+        const overlay = websiteLoadingOverlayRef.current;
         if (!overlay) return;
 
         overlay.dataset.hidden = "true";
@@ -104,9 +105,9 @@ export function WebsiteLoadingOverlay({
   }, []);
 
   return (
-    <div className={background} id="website-loading-overlay">
+    <div className={background} ref={websiteLoadingOverlayRef} id="website-loading-overlay">
       <Logo css={logo} />
       <span className={percent}>{Math.floor(progress)}%</span>
     </div>
   );
-}
+});

@@ -1,4 +1,5 @@
 import { css } from "@styles/css";
+import { For } from "million/react";
 import Link from "next/link";
 
 /**
@@ -109,20 +110,24 @@ export function Footer({ links, children, css: cssProp = {} }: FooterProps) {
   return (
     <div className={footer}>
       <div className={columns}>
-        {Object.keys(links).map((key, i) => (
-          <div key={i} className={column}>
-            <span className={columnTitle}>{key}</span>
-            <ul className={list}>
-              {links[key as keyof FooterLinks].map((update, i) => (
-                <li key={i} className={listItem}>
-                  <Link href={update.link} className={anchor}>
-                    {update.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <For each={Object.keys(links)} memo>
+          {(key) => (
+            <div className={column}>
+              <span className={columnTitle}>{key}</span>
+              <ul className={list}>
+                <For each={links[key]} memo>
+                  {(update) => (
+                    <li className={listItem}>
+                      <Link href={update.link} className={anchor}>
+                        {update.label}
+                      </Link>
+                    </li>
+                  )}
+                </For>
+              </ul>
+            </div>
+          )}
+        </For>
       </div>
       {children}
 

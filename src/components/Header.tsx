@@ -6,6 +6,7 @@ import { AccountDropdown } from "@/components/AccountDropdown";
 import { CaretDown } from "@/utils/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { For } from "million/react";
 
 /**
  * Pill-styled Header component with additional links and access to user data.
@@ -18,6 +19,7 @@ import Link from "next/link";
  */
 export function Header({
   links,
+  dropdownLinks,
   children,
   css: cssProp = {},
   user = {
@@ -98,6 +100,7 @@ export function Header({
   const additionalLink = css({
     color: "text.60",
     transition: "color .3s ease-in-out",
+    listStyle: "none",
 
     _hover: {
       color: "text.90",
@@ -211,7 +214,7 @@ export function Header({
       <div />
       <div className={dropdown} ref={dropdownRef}>
         <AccountDropdown
-          links={[{ label: "Settings", link: "/settings" }]}
+          links={dropdownLinks}
           onTabClick={hideAccountDropdown}
           css={{
             backdropFilter: "unset",
@@ -247,15 +250,14 @@ export function Header({
         <Link className={logo} href="/">
           <SimpleLogo />
         </Link>
-        {Object.keys(links).map((key, i) => (
-          <Link
-            key={i}
-            className={cx(additionalLink, button)}
-            href={links[key]}
-          >
-            {key}
-          </Link>
-        ))}
+        <For each={Object.keys(links)} memo>
+          {(key) => (
+            <li className={cx(additionalLink, button)}>
+              {/* Million's For isn't compatible with Link so we're wrapping it with <li /> */}
+              <Link href={links[key]}>{key}</Link>
+            </li>
+          )}
+        </For>
       </span>
       {user ? userManagement : signManagement}
       {children}

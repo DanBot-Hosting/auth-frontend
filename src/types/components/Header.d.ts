@@ -8,4 +8,5 @@ interface UserHeaderData {
 interface HeaderProps extends React.PropsWithChildren, GlobalComponent {
   user?: UserHeaderData;
   links: HeaderLinks;
+  dropdownLinks: Link[];
 }

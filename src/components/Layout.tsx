@@ -5,7 +5,11 @@ import { Header } from "@/components/Header";
 import { ProgressBar } from "@/components/ProgressBar";
 import { Footer } from "@/components/Footer";
 import { ContextMenu } from "@/components/ContextMenu";
-import { footerLinks, headerLinks } from "@/utils/constants";
+import {
+  footerLinks,
+  headerDropdownLinks,
+  headerLinks,
+} from "@/utils/constants";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { Mesh } from "@/components/Mesh";
 import { WebsiteLoadingOverlay } from "@/components/WebsiteLoadingOverlay";
@@ -151,6 +155,7 @@ export function Layout({ children }: LayoutProps) {
   const theme = get("theme");
   const themeMode = get("theme-mode");
   const blurMode = get("blur-mode");
+  const transitions = get("transitions");
 
   useEffect(() => handle("transitions")(), [handle]);
 
@@ -161,10 +166,11 @@ export function Layout({ children }: LayoutProps) {
       data-theme={theme}
       data-theme-mode={themeMode}
       data-blur-mode={blurMode}
+      data-transitions={transitions}
     >
       <body className={cx(inter.className, scrollbar, body)}>
         <header className={header} id="header">
-          <Header links={headerLinks}>
+          <Header links={headerLinks} dropdownLinks={headerDropdownLinks}>
             <div className={progressBar}>
               <ProgressBar />
             </div>
