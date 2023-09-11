@@ -21,6 +21,12 @@ export function translate<T extends Dictionary.Imports = Dictionary.Imports>(
   );
 }
 
+/**
+ * Parses the accept language string and returns an array of Language objects.
+ *
+ * @param {string} [acceptLanguage=""] - The accept language string to parse. If not provided, an empty string is used.
+ * @return {Language[]} An array of Language objects representing the parsed accept language string. If the acceptLanguage parameter is empty or invalid, an empty array is returned.
+ */
 export function parseAcceptLanguage(acceptLanguage?: string): Language[] {
   const regex =
     /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g;
@@ -44,6 +50,14 @@ export function parseAcceptLanguage(acceptLanguage?: string): Language[] {
     }) as Language[];
 }
 
+/**
+ * Retrieves the preferred locale from a list of supported locales based on the accept language header.
+ *
+ * @param {string | Language[]} acceptLanguage - The accept language header or an array of language objects.
+ * @param {T[]} supportedLanguages - An array of supported language objects.
+ * @param {PickOptions} [options] - Optional parameters for customizing the language matching algorithm.
+ * @returns {T | null} - The preferred locale or null if no matching locale is found.
+ */
 export function getPreferredLocale<T extends Locale>(
   acceptLanguage: string | Language[],
   supportedLanguages: T[],
@@ -97,6 +111,12 @@ export function getPreferredLocale<T extends Locale>(
   return null;
 }
 
+/**
+ * Normalizes a given path by removing the locale.
+ *
+ * @param {string} path - The path to be normalized.
+ * @return {string} The normalized path.
+ */
 export function normalizePath(path: string): string {
   const deconstructed = path.split("/");
   // Remove first empty element & locale
@@ -104,6 +124,13 @@ export function normalizePath(path: string): string {
   return "/" + removedLocale.join("/");
 }
 
+/**
+ * Prepend the locale to the given path.
+ *
+ * @param {string} path - The path to prepend the locale to.
+ * @param {string} [locale="en"] - The locale to prepend.
+ * @return {string} - The path with the locale prepended.
+ */
 export function prependLocale(path: string, locale: string = "en"): string {
   if (path.includes("://")) return path;
   return `/${locale}${path.startsWith("/") ? "" : "/"}${path}`;
