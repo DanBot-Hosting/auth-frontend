@@ -1,14 +1,11 @@
 import { Client } from "@/app/[lang]/settings/client";
-import { getDictionary } from "@/utils/dictionary";
-import { use } from "react";
+import { translate } from "@/utils/dictionary";
 
 export default function Settings({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const translation = use(
-    getDictionary<Dictionary.Settings.Index>(lang, "settings/index")
-  );
+  const translation = translate("settings/index", lang);
   return <Client translation={translation} />;
 }

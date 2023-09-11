@@ -20,6 +20,7 @@ import { useHoverable } from "@/hooks/useHoverable";
  * The callback function to be executed when an option is clicked.
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * Is part of panda-css styling.
+ * @param {{[x: string]: string}} props.translation - The translation dictionary for values.
  * @param {DropdownProps} props... - The div properties passed to the wrapper Dropdown component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */

@@ -13,7 +13,9 @@ import { prependLocale, normalizePath } from "@/utils/dictionary";
  *
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {Link[]} props.links - The array of links to be displayed in the SegmentedControl.
- * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
+ * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] -
+ * The callback function to be executed when a link is clicked.
+ * @param {{ [key: string]: string; }} props.translation - The translation dictionary for values.
  * @returns {JSX.Element} The rendered SegmentedControl component.
  */
 export function SegmentedControl({

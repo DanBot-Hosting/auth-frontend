@@ -67,7 +67,7 @@ const description = css({
 
 export function Client({
   translation,
-  locale
+  locale,
 }: {
   translation: Dictionary.Settings.Interface;
   locale: Locale;

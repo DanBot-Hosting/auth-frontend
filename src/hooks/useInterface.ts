@@ -6,6 +6,7 @@ import { useSettings } from "@/hooks/useSettings";
 /**
  * A general hook wrapper around useSettings & useCookies hooks for interface-related logic
  *
+ * @param {Dictionary.Settings.Interface} translation - The translation object for resetting the settings
  * @returns {UseInterface} logic, refs, states, options & finders to manipulate interface settings
  */
 export function useInterface(

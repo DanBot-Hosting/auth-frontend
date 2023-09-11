@@ -1,3 +1,5 @@
+import { use } from "react";
+
 // export const locale = ["en", "ru", "hi", "tr"] as const;
 export const locale = ["en", "ru"] as const;
 
@@ -8,22 +10,15 @@ export const locale = ["en", "ru"] as const;
  * @param {string | string[]} path - The path to the dictionary file.
  * @returns {Promise<any>} A promise that resolves to the dictionary object.
  */
-export async function getDictionary<
-  U,
-  T extends string | string[] = string | string[]
->(locale: Locale, path: T): Promise<U> {
-  if (typeof path === "string") {
-    return import(`@/utils/dictionary/${locale}/${path}.json`).then(
+export function translate<T extends Dictionary.Imports = Dictionary.Imports>(
+  path: T,
+  locale: Locale
+): Dictionary.Return<T> {
+  return use(
+    import(`@/utils/dictionary/${locale}/${path}.json`).then(
       (module) => module.default
-    );
-  }
-  return Promise.all(
-    path.map((element) =>
-      import(`@/utils/dictionary/${locale}/${element}.json`).then(
-        (module) => module.default
-      )
     )
-  ) as any;
+  );
 }
 
 export function parseAcceptLanguage(acceptLanguage?: string): Language[] {

@@ -1,8 +1,7 @@
 import { Button } from "@/components/Button";
-import { getDictionary, prependLocale } from "@/utils/dictionary";
+import { translate, prependLocale } from "@/utils/dictionary";
 import { css } from "@styles/css";
 import Link from "next/link";
-import { use } from "react";
 
 const main = css({
   display: "flex",
@@ -45,12 +44,13 @@ const text = css({
   alignItems: "center",
 });
 
+// Not found page is dynamically rendered because of lack of params
 export default function NotFound({
   params: { lang },
 }: {
   params: { lang: Locale },
 }) {
-  const translation = use(getDictionary<Dictionary.NotFound>(lang, "not-found"))
+  const translation = translate("not-found", lang);
   return (
     <div className={main}>
       <div className={text}>

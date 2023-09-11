@@ -145,6 +145,7 @@ const html = css({
  * `layout.tsx` doesn't allow the usage of client components, so we use wrapper.
  *
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
+ * @param {[Dictionary.Layout, Dictionary.Settings.Interface]} props.translation - The translation dictionary for values.
  * @returns {JSX.Element} The DOM representing the layout.
  */
 export function Layout({ children, translation, locale }: LayoutProps) {

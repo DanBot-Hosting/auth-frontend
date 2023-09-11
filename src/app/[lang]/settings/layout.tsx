@@ -1,7 +1,6 @@
 import { SegmentedControl } from "@/components/SegmentedControl";
-import { getDictionary } from "@/utils/dictionary";
+import { translate } from "@/utils/dictionary";
 import { css } from "@styles/css";
-import { use } from "react";
 
 const centered = css({
   display: "flex",
@@ -26,9 +25,7 @@ export default function SettingsLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const translation = use(
-    getDictionary<Dictionary.Settings.Layout>(lang, "settings/layout")
-  );
+  const translation = translate("settings/layout", lang);
   return (
     <div className={centered}>
       <SegmentedControl

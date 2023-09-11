@@ -13,6 +13,7 @@ import { prependLocale } from "@/utils/dictionary";
  * Pill-styled Header component with additional links and access to user data.
  *
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
+ * @param {Dictionary.Layout} props.translation - The translation dictionary for values.
  * @param {UserHeaderData} [props.user] - The user data to be shown if signed in.
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the Header.
  * @param {Link[]} props.links - List of additional links in the header.

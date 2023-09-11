@@ -1,14 +1,11 @@
 import { Client } from "@/app/[lang]/settings/interface/client";
-import { getDictionary } from "@/utils/dictionary";
-import { use } from "react";
+import { translate } from "@/utils/dictionary";
 
 export default function Interface({
   params: { lang },
 }: {
   params: { lang: Locale };
 }) {
-  const translation = use(
-    getDictionary<Dictionary.Settings.Interface>(lang, "settings/interface")
-  );
+  const translation = translate("settings/interface", lang);
   return <Client translation={translation} locale={lang} />;
 }

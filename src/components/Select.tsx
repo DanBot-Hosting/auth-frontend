@@ -20,6 +20,7 @@ import { CaretDown } from "@phosphor-icons/react";
  * @param {((option: DropdownOption) => void)} [props.onChange] -
  * The callback function to be executed when an option is changed.
  * @param {number} [props.initial] - The index of the initial option to be selected.
+ * @param {{ [x: string]: string; }} props.translation - The translation dictionary for values.
  * @param {SelectProps} props... - The div properties passed to the Select picker component.
  * @returns {JSX.Element} The rendered not responsive Select element.
  */

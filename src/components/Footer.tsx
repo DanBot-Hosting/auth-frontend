@@ -9,6 +9,7 @@ import Link from "next/link";
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {FooterLinks} props.links - Columns and their links used to render the Footer.
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the Footer.
+ * @param {Dictionary.Layout} props.translation - The translation dictionary for values.
  * @returns {JSX.Element} The rendered Footer component.
  */
 export function Footer({

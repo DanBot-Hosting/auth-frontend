@@ -11,9 +11,15 @@ import { useContextMenu } from "@/hooks/useContextMenu";
  *
  * @param {CSSObject} [props.css={}] -
  * Custom CSS styles to be applied to the component.
+ * @param {Dictionary.Settings.Interface} props.translation -
+ * The translation dictionary for fields.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
-export function ContextMenu({ translation, locale, css: cssProp = {} }: ContextMenuProps) {
+export function ContextMenu({
+  translation,
+  locale,
+  css: cssProp = {},
+}: ContextMenuProps) {
   const { change, state, ref, options, find } = useInterface(translation);
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
   const { init } = useContextMenu(contextMenuRef);

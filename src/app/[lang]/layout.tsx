@@ -1,8 +1,7 @@
 import "./global.css";
 import type { Metadata } from "next";
 import { Layout } from "@/components/Layout";
-import { getDictionary, locale } from "@/utils/dictionary";
-import { use } from "react";
+import { translate, locale } from "@/utils/dictionary";
 
 export const metadata: Metadata = {
   title: "DanBot Hosting",
@@ -50,6 +49,11 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const translation = use(getDictionary<[Dictionary.Layout, Dictionary.Settings.Interface]>(lang, ["layout", "settings/interface"]));
-  return <Layout translation={translation} locale={lang}>{children}</Layout>;
+  const layout = translate("layout", lang);
+  const settingsInterface = translate("settings/interface", lang);
+  return (
+    <Layout translation={[layout, settingsInterface]} locale={lang}>
+      {children}
+    </Layout>
+  );
 }
