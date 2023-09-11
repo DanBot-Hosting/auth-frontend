@@ -67,8 +67,8 @@ export function generateBlurModes() {
 }
 
 export function generateBlurModeOptions(): SelectOption[] {
-  return blurs.map(({ name, value }) => ({
-    label: name,
+  return blurs.map(({ value }) => ({
+    label: value,
     value,
   }));
 }

@@ -41,32 +41,40 @@ const modalLabel = css({
   fontWeight: "400",
 });
 
-export function usePasswordChangeModal() {
+export function usePasswordChangeModal(
+  translation: Dictionary.Settings.Index
+) {
   const { show: showModal, hide } = useModal();
 
   const modalConfig: ModalProps = {
-    label: "Update your password",
-    description: "Enter your current password and a new password",
+    label: translation.modals.passwordChange.title,
+    description: translation.modals.passwordChange.description,
     buttons: [
       <button key="cancel" onClick={hide}>
-        Cancel
+        {translation.modals.passwordChange.buttons.cancel}
       </button>,
       <button key="confirm" className={modalConfirm} onClick={hide}>
-        Change my password!
+        {translation.modals.passwordChange.buttons.confirm}
       </button>,
     ],
     children: (
       <div className={modalFields}>
         <div className={modalField}>
-          <span className={modalLabel}>Current password</span>
+          <span className={modalLabel}>
+            {translation.modals.passwordChange.fields.currentPassword.label}
+          </span>
           <Input placeholder="" />
         </div>
         <div className={modalField}>
-          <span className={modalLabel}>New password</span>
+          <span className={modalLabel}>
+            {translation.modals.passwordChange.fields.newPassword.label}
+          </span>
           <Input placeholder="" />
         </div>
         <div className={modalField}>
-          <span className={modalLabel}>Confirm new password</span>
+          <span className={modalLabel}>
+            {translation.modals.passwordChange.fields.confirmNewPassword.label}
+          </span>
           <Input placeholder="" />
         </div>
       </div>

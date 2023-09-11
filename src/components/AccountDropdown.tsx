@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHoverable } from "@/hooks/useHoverable";
+import { prependLocale, normalizePath } from "@/utils/dictionary";
 
 /**
  * A AccountDropdown menu with a list of links and buttons to interact with.
@@ -18,6 +19,8 @@ import { useHoverable } from "@/hooks/useHoverable";
 export function AccountDropdown({
   links,
   onTabClick,
+  translation,
+  locale,
   css: cssProp = {},
   ...props
 }: AccountDropdownProps) {
@@ -109,14 +112,14 @@ export function AccountDropdown({
       {links.map((link, i) => (
         <Link
           key={i}
-          href={link.link}
+          href={prependLocale(link.link, locale)}
           onClick={manage}
           ref={(ref) => linksRef.current.push(ref)}
           onMouseEnter={(event) => set(event.currentTarget)}
           onMouseOut={find}
           className={option}
         >
-          {link.label}
+          {translation[link.label] ?? link.label}
         </Link>
       ))}
     </div>

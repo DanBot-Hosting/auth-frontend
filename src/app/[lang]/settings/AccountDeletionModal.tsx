@@ -10,19 +10,20 @@ const verify = css({
   },
 });
 
-export function useAccountDeletionModal() {
+export function useAccountDeletionModal(
+  translation: Dictionary.Settings.Index
+) {
   const { show: showModal, hide } = useModal();
 
   const modalConfig: ModalProps = {
-    label: "Are you sure?",
-    description:
-      "Are you sure you want to delete your account? This action is irreversible!",
+    label: translation.modals.accountDeletion.title,
+    description: translation.modals.accountDeletion.description,
     buttons: [
       <button key="cancel" onClick={hide}>
-        Cancel
+        {translation.modals.accountDeletion.buttons.cancel}
       </button>,
       <button key="confirm" className={verify} onClick={hide}>
-        Get the verification code
+        {translation.modals.accountDeletion.buttons.confirm}
       </button>,
     ],
   };

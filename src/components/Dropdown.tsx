@@ -25,7 +25,7 @@ import { useHoverable } from "@/hooks/useHoverable";
  */
 export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
   function Dropdown(
-    { options, initial, onTabClick, css: cssProp = {}, ...props },
+    { options, initial, onTabClick, css: cssProp = {}, translation, ...props },
     ref
   ) {
     const optionsRef = useRef<(DropdownOptionRef | null)[]>([]);
@@ -138,7 +138,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
             onMouseOut={find}
             className={option}
           >
-            {opt.label}
+            {translation[opt.label] ?? opt.label}
           </button>
         ))}
       </div>

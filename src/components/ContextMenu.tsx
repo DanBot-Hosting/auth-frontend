@@ -5,7 +5,6 @@ import { Switch } from "@/components/Switch";
 import { useInterface } from "@/hooks/useInterface";
 import { useEffect, useRef } from "react";
 import { useContextMenu } from "@/hooks/useContextMenu";
-import { contextMenuLocale } from "@/utils/constants";
 
 /**
  * A custom context menu that provides additional functionalities.
@@ -14,8 +13,8 @@ import { contextMenuLocale } from "@/utils/constants";
  * Custom CSS styles to be applied to the component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
-export function ContextMenu({ css: cssProp = {}, locale = contextMenuLocale }: ContextMenuProps) {
-  const { change, state, ref, options, find } = useInterface();
+export function ContextMenu({ translation, locale, css: cssProp = {} }: ContextMenuProps) {
+  const { change, state, ref, options, find } = useInterface(translation);
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
   const { init } = useContextMenu(contextMenuRef);
 
@@ -132,36 +131,40 @@ export function ContextMenu({ css: cssProp = {}, locale = contextMenuLocale }: C
   return (
     <div className={contextMenu} ref={contextMenuRef}>
       <div className={field}>
-        <label className={label}>{locale.labels.theme}</label>
+        <label className={label}>{translation.theme.label}</label>
         <Select
           css={select}
           options={options.themes}
           initial={find.themeIndex()}
           ref={ref.theme}
-          placeholder={locale.placeholders.theme}
+          placeholder={translation.theme.selectPlaceholder}
+          translation={translation.theme.themes}
+          locale={locale}
           onChange={change.theme}
         />
       </div>
       <div className={field}>
-        <label className={label}>{locale.labels.blurMode}</label>
+        <label className={label}>{translation.blurMode.label}</label>
         <Select
           css={select}
           options={options.blurModes}
           initial={find.blurModeIndex()}
           ref={ref.blurMode}
-          placeholder={locale.placeholders.blurMode}
+          placeholder={translation.blurMode.selectPlaceholder}
+          translation={translation.blurMode.blurModes}
+          locale={locale}
           onChange={change.blurMode}
         />
       </div>
       <div className={field}>
-        <label className={label}>{locale.labels.background}</label>
+        <label className={label}>{translation.background.label}</label>
         <Switch
           css={switchElement}
           checked={state.backgroundEnabled}
           ref={ref.backgroundEnabled}
           onChange={change.backgroundEnabled}
         >
-          {locale.switches.backgroundEnabled}
+          {translation.background.backgroundEnabledSwitch}
         </Switch>
         <Switch
           css={switchElement}
@@ -169,18 +172,18 @@ export function ContextMenu({ css: cssProp = {}, locale = contextMenuLocale }: C
           ref={ref.backgroundAnimated}
           onChange={change.backgroundAnimated}
         >
-          {locale.switches.backgroundAnimated}
+          {translation.background.backgroundAnimatedSwitch}
         </Switch>
       </div>
       <div className={field}>
-        <label className={label}>{locale.labels.transitions}</label>
+        <label className={label}>{translation.transitions.label}</label>
         <Switch
           css={switchElement}
           checked={state.transitions}
           ref={ref.transitions}
           onChange={change.transitions}
         >
-          {locale.switches.transitions}
+          {translation.transitions.transitionsSwitch}
         </Switch>
       </div>
     </div>

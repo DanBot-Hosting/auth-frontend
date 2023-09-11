@@ -24,7 +24,16 @@ import { CaretDown } from "@phosphor-icons/react";
  * @returns {JSX.Element} The rendered not responsive Select element.
  */
 export const Select = forwardRef<SelectRef, SelectProps>(function Select(
-  { placeholder, options, onChange, initial, css: cssProp = {}, ...props },
+  {
+    placeholder,
+    options,
+    onChange,
+    initial,
+    translation,
+    locale,
+    css: cssProp = {},
+    ...props
+  },
   ref
 ) {
   const selectRef = useRef<HTMLDivElement | null>(null);
@@ -186,13 +195,15 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         data-selected={!!pickedOption.value || undefined}
         {...props}
       >
-        <div>{pickedOption.label}</div>
+        <div>{translation[pickedOption.label] ?? pickedOption.label}</div>
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>
       <div className={dropdown} ref={dropdownRef}>
         <Dropdown
           options={options}
           initial={initial}
+          translation={translation}
+          locale={locale}
           ref={imperativeDropdownRef}
           onTabClick={switchDropdown}
           css={{

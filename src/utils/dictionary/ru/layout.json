@@ -1,0 +1,30 @@
+{
+  "header": {
+    "links": {
+      "main": {
+        "panel": "Панель",
+        "discord": "Дискорд"
+      },
+      "dropdown": {
+        "settings": "Настройки"
+      }
+    },
+    "register": "Регистрация",
+    "login": "Логин"
+  },
+  "footer": {
+    "categories": {
+      "updates": "Медиа",
+      "support": "Помощь",
+      "legal": "Официальное"
+    },
+    "links": {
+      "discord": "Дискорд",
+      "github": "Гитхаб",
+      "contact": "Контакты",
+      "faq": "ЧаВо",
+      "termsOfService": "Условия использования",
+      "privacyPolicy": "Политика конфиденциальности"
+    }
+  }
+}

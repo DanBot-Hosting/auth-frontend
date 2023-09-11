@@ -1,3 +1,4 @@
+import { prependLocale } from "@/utils/dictionary";
 import { css } from "@styles/css";
 import { For } from "million/react";
 import Link from "next/link";
@@ -10,7 +11,13 @@ import Link from "next/link";
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the Footer.
  * @returns {JSX.Element} The rendered Footer component.
  */
-export function Footer({ links, children, css: cssProp = {} }: FooterProps) {
+export function Footer({
+  links,
+  children,
+  translation,
+  locale,
+  css: cssProp = {},
+}: FooterProps) {
   const footer = css(
     {
       display: "flex",
@@ -113,13 +120,23 @@ export function Footer({ links, children, css: cssProp = {} }: FooterProps) {
         <For each={Object.keys(links)} memo>
           {(key) => (
             <div className={column}>
-              <span className={columnTitle}>{key}</span>
+              <span className={columnTitle}>
+                {
+                  translation.footer.categories[
+                    key as keyof typeof translation.footer.categories
+                  ]
+                }
+              </span>
               <ul className={list}>
                 <For each={links[key]} memo>
                   {(update) => (
                     <li className={listItem}>
-                      <Link href={update.link} className={anchor}>
-                        {update.label}
+                      <Link href={prependLocale(update.link, locale)} className={anchor}>
+                        {
+                          translation.footer.links[
+                            update.label as keyof typeof translation.footer.links
+                          ]
+                        }
                       </Link>
                     </li>
                   )}

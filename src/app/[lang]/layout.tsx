@@ -1,7 +1,8 @@
 import "./global.css";
 import type { Metadata } from "next";
 import { Layout } from "@/components/Layout";
-import { locale } from "@/utils/dictionary";
+import { getDictionary, locale } from "@/utils/dictionary";
+import { use } from "react";
 
 export const metadata: Metadata = {
   title: "DanBot Hosting",
@@ -44,8 +45,11 @@ export async function generateStaticParams() {
 
 export default function RootLayout({
   children,
+  params: { lang },
 }: {
   children: React.ReactNode;
+  params: { lang: Locale };
 }) {
-  return <Layout>{children}</Layout>;
+  const translation = use(getDictionary<[Dictionary.Layout, Dictionary.Settings.Interface]>(lang, ["layout", "settings/interface"]));
+  return <Layout translation={translation} locale={lang}>{children}</Layout>;
 }

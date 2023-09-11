@@ -47,8 +47,8 @@ export function generateThemeConditions() {
 }
 
 export function generateThemeOptions(): SelectOption[] {
-  return themes.map(({ name, value }) => ({
-    label: name,
+  return themes.map(({ value }) => ({
+    label: value,
     value,
   }));
 }

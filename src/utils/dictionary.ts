@@ -1,4 +1,5 @@
-export const locale = ["en", "ru", "hi", "tr"] as const;
+// export const locale = ["en", "ru", "hi", "tr"] as const;
+export const locale = ["en", "ru"] as const;
 
 /**
  * Retrieves the dictionary for a given locale and path.
@@ -7,17 +8,22 @@ export const locale = ["en", "ru", "hi", "tr"] as const;
  * @param {string | string[]} path - The path to the dictionary file.
  * @returns {Promise<any>} A promise that resolves to the dictionary object.
  */
-export async function getDictionary(locale: Locale, path: string | string[]) {
+export async function getDictionary<
+  U,
+  T extends string | string[] = string | string[]
+>(locale: Locale, path: T): Promise<U> {
   if (typeof path === "string") {
     return import(`@/utils/dictionary/${locale}/${path}.json`).then(
       (module) => module.default
     );
   }
-  return path.map((element) =>
-    import(`@/utils/dictionary/${locale}/${element}.json`).then(
-      (module) => module.default
+  return Promise.all(
+    path.map((element) =>
+      import(`@/utils/dictionary/${locale}/${element}.json`).then(
+        (module) => module.default
+      )
     )
-  );
+  ) as any;
 }
 
 export function parseAcceptLanguage(acceptLanguage?: string): Language[] {
@@ -94,4 +100,16 @@ export function getPreferredLocale<T extends Locale>(
   }
 
   return null;
+}
+
+export function normalizePath(path: string): string {
+  const deconstructed = path.split("/");
+  // Remove first empty element & locale
+  const removedLocale = deconstructed.slice(2);
+  return "/" + removedLocale.join("/");
+}
+
+export function prependLocale(path: string, locale: string = "en"): string {
+  if (path.includes("://")) return path;
+  return `/${locale}${path.startsWith("/") ? "" : "/"}${path}`;
 }

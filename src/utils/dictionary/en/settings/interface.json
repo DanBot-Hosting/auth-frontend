@@ -1,18 +1,33 @@
 {
-  "labels": {
-    "theme": "Theme",
-    "blurMode": "Blur mode",
-    "background": "Background",
-    "transitions": "Animations"
+  "theme": {
+    "label": "Theme",
+    "description": "Your theme preferences",
+    "selectPlaceholder": "Pick a theme...",
+    "themes": {
+      "dbh": "DanBot Hosting",
+      "vampire": "Vampire",
+      "midnightpurple": "Midnight Purple",
+      "gainsboro": "Gainsboro"
+    }
   },
-  "switches": {
-    "backgroundEnabled": "Show the background",
-    "backgroundAnimated": "Animation shaders",
-    "transitions": "Transitions"
+  "blurMode": {
+    "label": "Blur mode",
+    "description": "Blur may affect performance of low end devices",
+    "selectPlaceholder": "Pick a blur mode...",
+    "blurModes": {
+      "full": "Full",
+      "limited": "Limited",
+      "disabled": "Disabled"
+    }
   },
-  "placeholders": {
-    "theme": "Pick a theme...",
-    "blurMode": "Pick a blur mode..."
+  "background": {
+    "label": "Background",
+    "backgroundEnabledSwitch": "Show the background",
+    "backgroundAnimatedSwitch": "Animation shaders"
+  },
+  "transitions": {
+    "label": "Animations",
+    "transitionsSwitch": "Transitions"
   },
   "resetSettings": {
     "label": "Reset Settings",

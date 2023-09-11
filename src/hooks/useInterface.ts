@@ -8,7 +8,9 @@ import { useSettings } from "@/hooks/useSettings";
  *
  * @returns {UseInterface} logic, refs, states, options & finders to manipulate interface settings
  */
-export function useInterface(): UseInterface {
+export function useInterface(
+  translation: Dictionary.Settings.Interface
+): UseInterface {
   const { get, set } = useSettings();
   const themePreferences: SelectOption[] = generateThemeOptions();
   const blurModes: SelectOption[] = generateBlurModeOptions();
@@ -51,8 +53,14 @@ export function useInterface(): UseInterface {
     if (get("theme") !== "dbh") themeRef.current?.change(themePreferences[0]);
     if (get("blur-mode") !== "full") blurModeRef.current?.change(blurModes[0]);
 
-    show({ children: "Settings were successfully reset!" });
-  }, [blurModes, get, show, themePreferences]);
+    show({ children: translation.resetSettings.notification });
+  }, [
+    blurModes,
+    get,
+    show,
+    themePreferences,
+    translation.resetSettings.notification,
+  ]);
 
   const switchTheme = useCallback(
     (option: DropdownOption) => set("theme", option.value),

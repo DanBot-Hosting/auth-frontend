@@ -2,13 +2,15 @@
   "header": {
     "links": {
       "main": {
-        "Panel": "Panel",
-        "Discord": "Discord"
+        "panel": "Panel",
+        "discord": "Discord"
       },
       "dropdown": {
-        "Settings": "Settings"
+        "settings": "Settings"
       }
-    }
+    },
+    "register": "Register",
+    "login": "Sign in"
   },
   "footer": {
     "categories": {
@@ -17,29 +19,12 @@
       "legal": "Legal"
     },
     "links": {
-      "Discord": "Discord",
-      "GitHub": "GitHub",
-      "Contact": "Contact",
-      "FAQ": "FAQ",
-      "Terms of Service": "Terms of Service",
-      "Privacy Policy": "Privacy Policy"
-    }
-  },
-  "contextMenu": {
-    "labels": {
-      "theme": "Theme",
-      "blurMode": "Blur mode",
-      "background": "Background",
-      "transitions": "Animations"
-    },
-    "switches": {
-      "backgroundEnabled": "Show the background",
-      "backgroundAnimated": "Animation shaders",
-      "transitions": "Transitions"
-    },
-    "placeholders": {
-      "theme": "Pick a theme...",
-      "blurMode": "Pick a blur mode..."
+      "discord": "Discord",
+      "github": "GitHub",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy"
     }
   }
 }

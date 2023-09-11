@@ -25,7 +25,11 @@ const elements = css({
   gap: "1rem",
 });
 
-export default function Home() {
+export default function Home({
+  params: { lang },
+}: {
+  params: { lang: Locale };
+}) {
   const { show: showOverlay, hide: hideOverlay } = useOverlay();
   const { show: showNotification } = useNotification();
   const { show: showModal, hide: hideModal } = useModal();
@@ -96,6 +100,14 @@ export default function Home() {
             { label: "Next.js", value: "4" },
             { label: "Remix", value: "5" },
           ]}
+          translation={{
+            Nuxt: "Nuxt",
+            Qwik: "Qwik",
+            Astro: "Astro",
+            "Next.js": "Next.js",
+            Remix: "Remix",
+          }}
+          locale={lang}
           initial={4}
           placeholder="Pick favorite framework..."
         />
