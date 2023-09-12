@@ -54,12 +54,16 @@ export function useInterface(
     if (get("theme") !== "dbh") themeRef.current?.change(themePreferences[0]);
     if (get("blur-mode") !== "full") blurModeRef.current?.change(blurModes[0]);
 
-    show({ children: translation.resetSettings.notification });
+    show({
+      children: translation.resetSettings.notification,
+      confirmLabel: translation.resetSettings.acceptNotification,
+    });
   }, [
     blurModes,
     get,
     show,
     themePreferences,
+    translation.resetSettings.acceptNotification,
     translation.resetSettings.notification,
   ]);
 

@@ -31,6 +31,7 @@
   },
   "resetSettings": {
     "label": "Reset Settings",
-    "notification": "Settings were successfully reset!"
+    "notification": "Settings were successfully reset!",
+    "acceptNotification": "Accept"
   }
 }
