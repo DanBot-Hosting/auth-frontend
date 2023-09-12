@@ -9,16 +9,20 @@ export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
   const pathname = request.nextUrl.pathname;
   const pathnameIsMissingLocale = supportedLocale.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    (locale) =>
+      !pathname.startsWith(`/${locale.locale}/`) &&
+      pathname !== `/${locale.locale}`
   );
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale =
+      request.cookies.get("language")?.value ??
       getPreferredLocale(
         request.headers.get("accept-language") as string,
-        supportedLocale as unknown as Locale[]
-      ) ?? "en";
+        supportedLocale.map((lang) => lang.locale) as Locale[]
+      ) ??
+      "en";
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products

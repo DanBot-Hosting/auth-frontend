@@ -13,6 +13,8 @@
     "login": "Логин"
   },
   "footer": {
+    "motto": "Навсегда бесплатный хостинг для тебя.",
+    "lowerCopyright": "ДанБот Хостинг",
     "categories": {
       "updates": "Медиа",
       "support": "Помощь",
@@ -25,6 +27,12 @@
       "faq": "ЧаВо",
       "termsOfService": "Условия использования",
       "privacyPolicy": "Политика конфиденциальности"
+    },
+    "languages": {
+      "English": "Английский",
+      "Russian": "Русский",
+      "Hindi": "Хинди",
+      "Turkish": "Турецкий"
     }
   }
 }

@@ -1,7 +1,28 @@
 import { use } from "react";
 
 // export const locale = ["en", "ru", "hi", "tr"] as const;
-export const locale = ["en", "ru"] as const;
+export const locale = [
+  {
+    locale: "en",
+    emoji: "🇺🇸",
+    label: "English",
+  },
+  {
+    locale: "ru",
+    emoji: "🇷🇺",
+    label: "Russian",
+  },
+  // {
+  //   locale: "hi",
+  //   emoji: "🇮🇳",
+  //   label: "Hindi"
+  // },
+  // {
+  //   locale: "tr",
+  //   emoji: "🇹🇷",
+  //   label: "Turkish"
+  // },
+] as const;
 
 /**
  * Retrieves the dictionary for a given locale and path.
@@ -132,6 +153,7 @@ export function normalizePath(path: string): string {
  * @return {string} - The path with the locale prepended.
  */
 export function prependLocale(path: string, locale: string = "en"): string {
+  // Not using URL constructor as it stops font preload script (will do font swap from times new roman)
   if (path.includes("://")) return path;
   return `/${locale}${path.startsWith("/") ? "" : "/"}${path}`;
 }

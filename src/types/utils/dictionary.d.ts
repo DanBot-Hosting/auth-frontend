@@ -1,4 +1,4 @@
-type Locale = typeof import("@/utils/dictionary").locale[number];
+type Locale = typeof import("@/utils/dictionary").locale[number]["locale"];
 
 interface Language {
   code: string;

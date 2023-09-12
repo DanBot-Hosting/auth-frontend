@@ -13,6 +13,8 @@
     "login": "Sign in"
   },
   "footer": {
+    "motto": "Free forever hosting you need.",
+    "lowerCopyright": "DanBot Hosting",
     "categories": {
       "updates": "Updates",
       "support": "Support",
@@ -25,6 +27,12 @@
       "faq": "FAQ",
       "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy"
+    },
+    "languages": {
+      "English": "English",
+      "Russian": "Russian",
+      "Hindi": "Hindi",
+      "Turkish": "Turkish"
     }
   }
 }

@@ -1,6 +1,7 @@
 interface SelectProps<T extends SelectOption[] = SelectOption[]>
   extends React.HTMLAttributes<HTMLDivElement>,
-    GlobalComponent {
+    GlobalComponent,
+    React.PropsWithChildren {
   placeholder?: string;
   options: T;
   onChange?: (state: T[number]) => void;
@@ -11,7 +12,7 @@ interface SelectProps<T extends SelectOption[] = SelectOption[]>
   locale: Locale;
 }
 
-interface SelectRef {
+interface SelectRef extends (HTMLDivElement | null) {
   change: (option: SelectOption) => void;
 }
 

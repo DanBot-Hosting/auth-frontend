@@ -32,6 +32,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
     initial,
     translation,
     locale,
+    children,
     css: cssProp = {},
     ...props
   },
@@ -103,7 +104,6 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
     position: "absolute",
     width: "100%",
     top: "calc(100% + 0.625rem)",
-    right: "left",
 
     opacity: "0",
     scale: ".95",
@@ -184,6 +184,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         switchDropdown(option);
         imperativeDropdownRef.current?.switch(option);
       },
+      ...selectRef,
     };
   });
 
@@ -197,6 +198,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         {...props}
       >
         <div>{translation[pickedOption.label] ?? pickedOption.label}</div>
+        {children}
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>
       <div className={dropdown} ref={dropdownRef}>
