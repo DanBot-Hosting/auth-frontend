@@ -14,6 +14,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@flagkit/react": "^1.0.4",
     "@phosphor-icons/react": "^2.0.10",
     "million": "2.6.0-beta.13",
     "next": "^13.4.19",
