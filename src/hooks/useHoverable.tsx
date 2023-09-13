@@ -75,7 +75,7 @@ export function useHoverable({
   /**
    * Updates the position of the hoverable depending on the element.
    *
-   * @param {HTMLAnchorElement} element - The element to update the position to.
+   * @param {HTMLElement} element - The element to update the position to.
    */
   const set = useCallback(
     (element: HTMLElement) => {

@@ -65,8 +65,15 @@ const description = css({
   fontWeight: "400",
 });
 
-export default function Interface() {
-  const { resetSettings, change, state, ref, options, find } = useInterface();
+export function Client({
+  translation,
+  locale,
+}: {
+  translation: Dictionary.Settings.Interface;
+  locale: Locale;
+}) {
+  const { resetSettings, change, state, ref, options, find } =
+    useInterface(translation);
 
   /**
    * Do not render if there's a default useState value,
@@ -76,67 +83,69 @@ export default function Interface() {
   return (
     <div className={fields}>
       <div className={field}>
-        <label className={label}>Theme</label>
+        <label className={label}>{translation.theme.label}</label>
         <div className={select}>
           <Select
             options={options.themes}
             initial={find.themeIndex()}
             ref={ref.theme}
-            placeholder="Pick a theme..."
+            placeholder={translation.theme.selectPlaceholder}
             onChange={change.theme}
+            translation={translation.theme.themes}
+            locale={locale}
           />
         </div>
-        <span className={description}>Your theme preferences</span>
+        <span className={description}>{translation.theme.description}</span>
       </div>
       <div className={field}>
-        <label className={label}>Blur mode</label>
+        <label className={label}>{translation.blurMode.label}</label>
         <div className={select}>
           <Select
             options={options.blurModes}
             initial={find.blurModeIndex()}
             ref={ref.blurMode}
-            placeholder="Pick blur mode..."
+            placeholder={translation.blurMode.selectPlaceholder}
             onChange={change.blurMode}
+            translation={translation.blurMode.blurModes}
+            locale={locale}
           />
         </div>
-        <span className={description}>
-          Blur may affect performance of low end devices
-        </span>
+        <span className={description}>{translation.blurMode.description}</span>
       </div>
       <div className={field}>
-        <label className={label}>Background</label>
+        <label className={label}>{translation.background.label}</label>
         <div className={switches}>
           <Switch
             checked={state.backgroundEnabled}
             ref={ref.backgroundEnabled}
             onChange={change.backgroundEnabled}
           >
-            Show the background
+            {translation.background.backgroundEnabledSwitch}
           </Switch>
           <Switch
             checked={state.backgroundAnimated}
             ref={ref.backgroundAnimated}
             onChange={change.backgroundAnimated}
           >
-            Animation shaders
+            {translation.background.backgroundAnimatedSwitch}
           </Switch>
         </div>
       </div>
       <div className={field}>
-        <label className={label}>Animations</label>
+        <label className={label}>{translation.transitions.label}</label>
         <div className={switches}>
           <Switch
             checked={state.transitions}
             ref={ref.transitions}
             onChange={change.transitions}
           >
-            Transitions
+            {translation.transitions.transitionsSwitch}
           </Switch>
         </div>
       </div>
       <div className={field}>
         <Button secondary pill onClick={resetSettings}>
-          Reset Settings
+          {translation.resetSettings.label}
         </Button>
       </div>
     </div>

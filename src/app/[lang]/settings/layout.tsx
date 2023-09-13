@@ -1,4 +1,5 @@
 import { SegmentedControl } from "@/components/SegmentedControl";
+import { translate } from "@/utils/dictionary";
 import { css } from "@styles/css";
 
 const centered = css({
@@ -19,17 +20,31 @@ const main = css({
 
 export default function SettingsLayout({
   children,
+  params: { lang },
 }: {
   children: React.ReactNode;
+  params: { lang: Locale };
 }) {
+  const translation = translate("settings/layout", lang);
   return (
     <div className={centered}>
       <SegmentedControl
         options={[
-          { label: "Account", value: "/settings" },
-          { label: "Payments", value: "/settings/payments" },
-          { label: "Interface", value: "/settings/interface" },
+          {
+            label: "account",
+            value: "/settings",
+          },
+          {
+            label: "payments",
+            value: "/settings/payments",
+          },
+          {
+            label: "interface",
+            value: "/settings/interface",
+          },
         ]}
+        translation={translation.segmentedControl}
+        locale={lang}
       />
       <div className={main}>{children}</div>
     </div>

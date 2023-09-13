@@ -26,6 +26,7 @@ export default defineConfig({
   include: [
     "./src/components/**/*.{js,jsx,ts,tsx}",
     "./src/app/**/*.{js,jsx,ts,tsx}",
+    "./src/utils/**/*.{js,jsx,ts,tsx}",
   ],
 
   // Files to exclude

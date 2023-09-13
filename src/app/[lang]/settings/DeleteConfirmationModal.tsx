@@ -28,18 +28,18 @@ const modalCodeInput = css({
   },
 });
 
-export function useDeleteConfirmationModal() {
+export function useDeleteConfirmationModal(translation: Dictionary.Settings.Index) {
   const { show: showModal, hide } = useModal();
 
   const modalConfig: ModalProps = {
-    label: "Confirm account deletion",
-    description: "Enter deletion code sent via Email",
+    label: translation.modals.deleteConfirmation.title,
+    description: translation.modals.deleteConfirmation.description,
     buttons: [
       <button key="cancel" onClick={hide}>
-        Cancel
+        {translation.modals.deleteConfirmation.buttons.cancel}
       </button>,
-      <button key="update" className={modalConfirm} onClick={hide}>
-        Delete my account!
+      <button key="confirm" className={modalConfirm} onClick={hide}>
+        {translation.modals.deleteConfirmation.buttons.confirm}
       </button>,
     ],
     children: (

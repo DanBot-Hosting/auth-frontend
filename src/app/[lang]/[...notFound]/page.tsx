@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { translate, prependLocale } from "@/utils/dictionary";
 import { css } from "@styles/css";
 import Link from "next/link";
 
@@ -43,19 +44,25 @@ const text = css({
   alignItems: "center",
 });
 
-export default function NotFound() {
+// Not found page is dynamically rendered because of lack of params
+export default function NotFound({
+  params: { lang },
+}: {
+  params: { lang: Locale },
+}) {
+  const translation = translate("not-found", lang);
   return (
     <div className={main}>
       <div className={text}>
-        <h1 className={status}>Error</h1>
+        <h1 className={status}>{translation.errorLabel}</h1>
         <h1 className={code}>
           <span>40</span>
           <span className={rotated}>4</span>
         </h1>
       </div>
-      <Link href="/">
+      <Link href={prependLocale("/", lang)}>
         <Button secondary pill>
-          Home
+          {translation.homeButton}
         </Button>
       </Link>
     </div>

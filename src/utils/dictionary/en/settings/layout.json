@@ -1,0 +1,7 @@
+{
+  "segmentedControl": {
+    "account": "Account",
+    "payments": "Payments",
+    "interface": "Interface"
+  }
+}

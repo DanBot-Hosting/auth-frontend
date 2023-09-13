@@ -5,15 +5,6 @@ import { useAccountDeletionModal } from "./AccountDeletionModal";
 import { usePasswordChangeModal } from "./PasswordChangeModal";
 import { Input } from "@/components/Input";
 
-const main = css({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "1rem",
-  maxW: "37.5rem",
-  w: "100%",
-});
-
 const button = css({
   cursor: "pointer",
 
@@ -106,9 +97,14 @@ const description = css({
   fontWeight: "400",
 });
 
-export default function Settings() {
-  const { show: showPasswordChangeModal } = usePasswordChangeModal();
-  const { show: showAccountDeletionModal } = useAccountDeletionModal();
+export function Client({
+  translation,
+}: {
+  translation: Dictionary.Settings.Index;
+}) {
+  const { show: showPasswordChangeModal } = usePasswordChangeModal(translation);
+  const { show: showAccountDeletionModal } =
+    useAccountDeletionModal(translation);
 
   return (
     <>
@@ -121,42 +117,41 @@ export default function Settings() {
       <div className={fields}>
         <div className={section} id="public">
           <div className={field}>
-            <label className={label}>Username</label>
+            <label className={label}>{translation.username.label}</label>
             <div className={input}>
               <Input placeholder="" />
             </div>
-            <span className={description}>Your publicly visible username</span>
+            <span className={description}>
+              {translation.username.description}
+            </span>
           </div>
           <div className={field}>
-            <label className={label}>Name</label>
+            <label className={label}>{translation.fullname.label}</label>
             <div className={input}>
-              <Input placeholder="First Name" />
-              <Input placeholder="Last Name" />
+              <Input placeholder={translation.fullname.firstNamePlaceholder} />
+              <Input placeholder={translation.fullname.lastNamePlaceholder} />
             </div>
             <span className={description}>
-              You will be addressed by the name you set
+              {translation.fullname.description}
             </span>
           </div>
         </div>
         <div className={section} id="private">
           <div className={field}>
-            <label className={label}>Email</label>
+            <label className={label}>{translation.email.label}</label>
             <div className={input}>
-              <Input placeholder="jane@example.com" />
+              <Input placeholder={translation.email.emailPlaceholder} />
             </div>
           </div>
           <div className={cx(dangerousField, field)}>
-            <button
-              className={button}
-              onClick={() => showPasswordChangeModal()}
-            >
-              Change your password
+            <button className={button} onClick={showPasswordChangeModal}>
+              {translation.manage.passwordChange}
             </button>
             <button
               className={cx(button, red)}
-              onClick={() => showAccountDeletionModal()}
+              onClick={showAccountDeletionModal}
             >
-              Delete the account
+              {translation.manage.accountDeletion}
             </button>
           </div>
         </div>

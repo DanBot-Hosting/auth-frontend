@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHoverable } from "@/hooks/useHoverable";
 import { flush } from "@/utils/css";
+import { prependLocale, normalizePath } from "@/utils/dictionary";
 
 /**
  * A SegmentedControl pill with a list of links and buttons to interact with.
@@ -12,12 +13,16 @@ import { flush } from "@/utils/css";
  *
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * @param {Link[]} props.links - The array of links to be displayed in the SegmentedControl.
- * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] - The callback function to be executed when a link is clicked.
+ * @param {((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)} [props.onTabClick] -
+ * The callback function to be executed when a link is clicked.
+ * @param {{ [key: string]: string; }} props.translation - The translation dictionary for values.
  * @returns {JSX.Element} The rendered SegmentedControl component.
  */
 export function SegmentedControl({
   options,
   onTabClick,
+  translation,
+  locale,
   css: cssProp = {},
 }: DropdownProps) {
   const dropdown = css({
@@ -118,14 +123,14 @@ export function SegmentedControl({
       {options.map((opt, i) => (
         <Link
           key={i}
-          href={opt.value}
+          href={prependLocale(opt.value, locale)}
           onClick={(event) => manage(event, opt)}
           ref={(ref) => linksRef.current.push(ref)}
           onMouseEnter={(event) => set(event.currentTarget)}
           onMouseOut={find}
           className={option}
         >
-          {opt.label}
+          {translation[opt.label] ?? opt.label}
         </Link>
       ))}
     </div>

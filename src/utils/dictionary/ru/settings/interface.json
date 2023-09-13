@@ -1,0 +1,37 @@
+{
+  "theme": {
+    "label": "Тема",
+    "description": "Ваши предпочтения в теме",
+    "selectPlaceholder": "Выберите тему...",
+    "themes": {
+      "dbh": "ДанБот Хостинг",
+      "vampire": "Вампирская",
+      "midnightpurple": "Полуночный Пурпур",
+      "gainsboro": "Гейнсборо"
+    }
+  },
+  "blurMode": {
+    "label": "Режим размытия",
+    "description": "Размытие может повлиять на производительность бюджетных устройств",
+    "selectPlaceholder": "Выберите режим размытия...",
+    "blurModes": {
+      "full": "Полное",
+      "limited": "Ограниченное",
+      "disabled": "Выключено"
+    }
+  },
+  "background": {
+    "label": "Фон",
+    "backgroundEnabledSwitch": "Показывать фон",
+    "backgroundAnimatedSwitch": "Анимированные шейдеры"
+  },
+  "transitions": {
+    "label": "Анимации",
+    "transitionsSwitch": "Переходы"
+  },
+  "resetSettings": {
+    "label": "Сбросить настройки",
+    "notification": "Настройки были успешно сброшены!",
+    "acceptNotification": "Принять"
+  }
+}

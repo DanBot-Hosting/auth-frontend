@@ -7,14 +7,16 @@ import { CaretDown } from "@/utils/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { For } from "million/react";
+import { prependLocale } from "@/utils/dictionary";
 
 /**
  * Pill-styled Header component with additional links and access to user data.
  *
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
+ * @param {Dictionary.Layout} props.translation - The translation dictionary for values.
  * @param {UserHeaderData} [props.user] - The user data to be shown if signed in.
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the Header.
- * @param {HeaderLinks} props.links - List of additional links in the header.
+ * @param {Link[]} props.links - List of additional links in the header.
  * @returns {JSX.Element} The rendered Header component.
  */
 export function Header({
@@ -22,6 +24,8 @@ export function Header({
   dropdownLinks,
   children,
   css: cssProp = {},
+  translation,
+  locale,
   user = {
     username: "domin",
     avatarUrl: "https://avatars.githubusercontent.com/u/69919939",
@@ -216,6 +220,8 @@ export function Header({
         <AccountDropdown
           links={dropdownLinks}
           onTabClick={hideAccountDropdown}
+          translation={translation.header.links.dropdown}
+          locale={locale}
           css={{
             backdropFilter: "unset",
             _before: {
@@ -239,22 +245,32 @@ export function Header({
 
   const signManagement = (
     <span className={cx(part, signSection)}>
-      <div className={cx(secondaryButton, button)}>Sign in</div>
-      <div className={cx(primaryButton, button)}>Register</div>
+      <div className={cx(secondaryButton, button)}>
+        {translation.header.login}
+      </div>
+      <div className={cx(primaryButton, button)}>
+        {translation.header.register}
+      </div>
     </span>
   );
 
   return (
     <div className={header}>
       <span className={part}>
-        <Link className={logo} href="/">
+        <Link className={logo} href={prependLocale("/", locale)}>
           <SimpleLogo />
         </Link>
-        <For each={Object.keys(links)} memo>
+        <For each={links} memo>
           {(key) => (
             <li className={cx(additionalLink, button)}>
               {/* Million's For isn't compatible with Link so we're wrapping it with <li /> */}
-              <Link href={links[key]}>{key}</Link>
+              <Link href={prependLocale(key.link, locale)}>
+                {
+                  translation.header.links.main[
+                    key.label as keyof typeof translation.header.links.main
+                  ]
+                }
+              </Link>
             </li>
           )}
         </For>

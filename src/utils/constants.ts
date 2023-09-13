@@ -126,42 +126,41 @@ export const ErrorMessages = {
 export const footerLinks: FooterLinks = {
   updates: [
     {
-      label: "Discord",
+      label: "discord",
       link: "https://discord.com/invite/dbh",
     },
     {
-      label: "GitHub",
+      label: "github",
       link: "https://github.com/Danbot-Hosting",
     },
   ],
   support: [
     {
-      label: "Contact",
+      label: "contact",
       link: "https://danbot.host/support",
     },
     {
-      label: "FAQ",
+      label: "faq",
       link: "https://status.danbot.host",
     },
   ],
-
   legal: [
     {
-      label: "Terms of Service",
+      label: "termsOfService",
       link: "https://danbot.host/terms",
     },
     {
-      label: "Privacy Policy",
+      label: "privacyPolicy",
       link: "https://danbot.host/privacy",
     },
   ],
 };
 
-export const headerLinks: HeaderLinks = {
-  Panel: "https://panel.danbot.host",
-  Discord: "https://discord.com/invite/dbh",
-};
+export const headerLinks: Link[] = [
+  { label: "panel", link: "https://panel.danbot.host" },
+  { label: "discord", link: "https://discord.com/invite/dbh" },
+];
 
 export const headerDropdownLinks: Link[] = [
-  { label: "Settings", link: "/settings" },
+  { label: "settings", link: "/settings" },
 ];

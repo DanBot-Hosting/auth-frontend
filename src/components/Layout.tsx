@@ -145,9 +145,10 @@ const html = css({
  * `layout.tsx` doesn't allow the usage of client components, so we use wrapper.
  *
  * @param {React.ReactNode} [props.children] - The child components to be rendered within the layout.
+ * @param {[Dictionary.Layout, Dictionary.Settings.Interface]} props.translation - The translation dictionary for values.
  * @returns {JSX.Element} The DOM representing the layout.
  */
-export function Layout({ children }: LayoutProps) {
+export function Layout({ children, translation, locale }: LayoutProps) {
   // Set cookies as well as inline script
   // To avoid attribute warnings
   // And document shadows
@@ -161,7 +162,7 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <html
-      lang="en"
+      lang={locale}
       className={html}
       data-theme={theme}
       data-theme-mode={themeMode}
@@ -170,7 +171,12 @@ export function Layout({ children }: LayoutProps) {
     >
       <body className={cx(inter.className, scrollbar, body)}>
         <header className={header} id="header">
-          <Header links={headerLinks} dropdownLinks={headerDropdownLinks}>
+          <Header
+            links={headerLinks}
+            dropdownLinks={headerDropdownLinks}
+            translation={translation[0]}
+            locale={locale}
+          >
             <div className={progressBar}>
               <ProgressBar />
             </div>
@@ -189,9 +195,9 @@ export function Layout({ children }: LayoutProps) {
         </div>
         <NotificationProvider />
         <OverlayProvider />
-        <ContextMenu />
+        <ContextMenu translation={translation[1]} locale={locale} />
         <footer className={footer} id="footer">
-          <Footer links={footerLinks} />
+          <Footer links={footerLinks} translation={translation[0]} locale={locale} />
         </footer>
         <WebsiteLoadingOverlay />
         {/**

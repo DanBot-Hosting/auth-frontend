@@ -60,6 +60,7 @@ export function useSettings(): UseSettings {
           break;
         case "transitions":
           document.documentElement.dataset.transitions = value;
+          break;
       }
     },
     [get]

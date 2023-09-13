@@ -1,5 +1,3 @@
-type HeaderLinks = Record<string, string>;
-
 interface UserHeaderData {
   username: string;
   avatarUrl: string;
@@ -7,6 +5,8 @@ interface UserHeaderData {
 
 interface HeaderProps extends React.PropsWithChildren, GlobalComponent {
   user?: UserHeaderData;
-  links: HeaderLinks;
+  links: Link[];
   dropdownLinks: Link[];
+  translation: Dictionary.Layout;
+  locale: Locale;
 }

@@ -1,14 +1,19 @@
-interface DropdownProps
+interface DropdownProps<T extends DropdownOption[] = DropdownOption[]>
   extends React.HTMLAttributes<HTMLDivElement>,
     GlobalComponent {
-  options: DropdownOption[];
-  onTabClick?: (option: DropdownOption) => void;
+  options: T;
+  onTabClick?: (option: T[number]) => void;
   initial?: number;
+  translation: {
+    [key in T[number]["label"]]: string;
+  };
+  locale: Locale;
 }
 
 interface DropdownOption {
   label: string;
   value: string;
+  icon?: JSX.Element;
 }
 
 interface DropdownOptionRef extends DropdownOption {

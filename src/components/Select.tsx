@@ -20,11 +20,22 @@ import { CaretDown } from "@phosphor-icons/react";
  * @param {((option: DropdownOption) => void)} [props.onChange] -
  * The callback function to be executed when an option is changed.
  * @param {number} [props.initial] - The index of the initial option to be selected.
+ * @param {{ [x: string]: string; }} props.translation - The translation dictionary for values.
  * @param {SelectProps} props... - The div properties passed to the Select picker component.
  * @returns {JSX.Element} The rendered not responsive Select element.
  */
 export const Select = forwardRef<SelectRef, SelectProps>(function Select(
-  { placeholder, options, onChange, initial, css: cssProp = {}, ...props },
+  {
+    placeholder,
+    options,
+    onChange,
+    initial,
+    translation,
+    locale,
+    children,
+    css: cssProp = {},
+    ...props
+  },
   ref
 ) {
   const selectRef = useRef<HTMLDivElement | null>(null);
@@ -93,7 +104,6 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
     position: "absolute",
     width: "100%",
     top: "calc(100% + 0.625rem)",
-    right: "left",
 
     opacity: "0",
     scale: ".95",
@@ -167,6 +177,12 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
     cssProp
   );
 
+  const picked = css({
+    display: "flex",
+    alignItems: "center",
+    gap: "0.625rem",
+  });
+
   const imperativeDropdownRef = useRef<DropdownRef | null>(null);
   useImperativeHandle(ref, () => {
     return {
@@ -174,6 +190,7 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         switchDropdown(option);
         imperativeDropdownRef.current?.switch(option);
       },
+      ...selectRef,
     };
   });
 
@@ -186,13 +203,19 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         data-selected={!!pickedOption.value || undefined}
         {...props}
       >
-        <div>{pickedOption.label}</div>
+        <div className={picked}>
+          {pickedOption.icon}
+          <span>{translation[pickedOption.label] ?? pickedOption.label}</span>
+        </div>
+        {children}
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>
       <div className={dropdown} ref={dropdownRef}>
         <Dropdown
           options={options}
           initial={initial}
+          translation={translation}
+          locale={locale}
           ref={imperativeDropdownRef}
           onTabClick={switchDropdown}
           css={{

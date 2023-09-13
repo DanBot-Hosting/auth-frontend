@@ -1,0 +1,57 @@
+{
+  "username": {
+    "label": "Username",
+    "description": "Your publicly visible username"
+  },
+  "fullname": {
+    "label": "Name",
+    "description": "You will be addressed by the name you set",
+    "firstNamePlaceholder": "First Name",
+    "lastNamePlaceholder": "Last Name"
+  },
+  "email": {
+    "label": "Email",
+    "emailPlaceholder": "jane@example.com"
+  },
+  "manage": {
+    "passwordChange": "Change your password",
+    "accountDeletion": "Delete the account"
+  },
+  "modals": {
+    "passwordChange": {
+      "title": "Update your password",
+      "description": "Enter your current password and a new password.",
+      "buttons": {
+        "cancel": "Cancel",
+        "confirm": "Change my password!"
+      },
+      "fields": {
+        "currentPassword": {
+          "label": "Current password"
+        },
+        "newPassword": {
+          "label": "New password"
+        },
+        "confirmNewPassword": {
+          "label": "Confirm new password"
+        }
+      }
+    },
+    "accountDeletion": {
+      "title": "Are you sure?",
+      "description": "Are you sure you want to delete your account? This action is irreversible!",
+      "buttons": {
+        "cancel": "Cancel",
+        "confirm": "Get the verification code"
+      }
+    },
+    "deleteConfirmation": {
+      "title": "Confirm account deletion",
+      "description": "Enter deletion code sent via Email",
+      "buttons": {
+        "cancel": "Cancel",
+        "confirm": "Delete my account!"
+      }
+    }
+  }
+}

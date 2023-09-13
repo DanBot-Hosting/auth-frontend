@@ -1,0 +1,57 @@
+{
+  "username": {
+    "label": "Логин",
+    "description": "Ваше общедоступное имя пользователя"
+  },
+  "fullname": {
+    "label": "Имя",
+    "description": "К вам будут обращаться по указанному вами имени",
+    "firstNamePlaceholder": "Имя",
+    "lastNamePlaceholder": "Фамилия"
+  },
+  "email": {
+    "label": "Эл. почта",
+    "emailPlaceholder": "ivan@yandex.ru"
+  },
+  "manage": {
+    "passwordChange": "Изменить пароль",
+    "accountDeletion": "Удалить аккаунт"
+  },
+  "modals": {
+    "passwordChange": {
+      "title": "Изменение вашего пароля",
+      "description": "Введите свой текущий пароль и новый пароль.",
+      "buttons": {
+        "cancel": "Отмена",
+        "confirm": "Изменить мой пароль!"
+      },
+      "fields": {
+        "currentPassword": {
+          "label": "Текущий пароль"
+        },
+        "newPassword": {
+          "label": "Новый пароль"
+        },
+        "confirmNewPassword": {
+          "label": "Подтверждение нового пароля"
+        }
+      }
+    },
+    "accountDeletion": {
+      "title": "Вы уверены?",
+      "description": "Вы уверены, что хотите удалить свою учетную запись? Это действие необратимо!",
+      "buttons": {
+        "cancel": "Отмена",
+        "confirm": "Получить код верификации"
+      }
+    },
+    "deleteConfirmation": {
+      "title": "Подтверждение удаления аккаунта",
+      "description": "Введите код верификации, отправленный по электронной почте",
+      "buttons": {
+        "cancel": "Отмена",
+        "confirm": "Удалить мой аккаунт!"
+      }
+    }
+  }
+}

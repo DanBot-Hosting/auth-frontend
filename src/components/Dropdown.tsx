@@ -20,12 +20,13 @@ import { useHoverable } from "@/hooks/useHoverable";
  * The callback function to be executed when an option is clicked.
  * @param {CSSObject} [props.css={}] - Custom CSS styles to be applied to the component.
  * Is part of panda-css styling.
+ * @param {{[x: string]: string}} props.translation - The translation dictionary for values.
  * @param {DropdownProps} props... - The div properties passed to the wrapper Dropdown component.
  * @returns {JSX.Element} The rendered Dropdown component.
  */
 export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
   function Dropdown(
-    { options, initial, onTabClick, css: cssProp = {}, ...props },
+    { options, initial, onTabClick, css: cssProp = {}, translation, ...props },
     ref
   ) {
     const optionsRef = useRef<(DropdownOptionRef | null)[]>([]);
@@ -84,6 +85,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
       zIndex: "4",
       userSelect: "none",
       cursor: "pointer",
+      gap: "0.625rem",
 
       borderRadius: "0.625rem",
       color: "text.60",
@@ -134,11 +136,12 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
             key={i}
             onClick={(event) => manage(event, opt)}
             ref={(ref) => optionsRef.current.push({ ref, ...opt })}
-            onMouseEnter={(event) => set(event.currentTarget)}
+            onMouseOver={(event) => set(event.currentTarget)}
             onMouseOut={find}
             className={option}
           >
-            {opt.label}
+            {opt.icon}
+            <span>{translation[opt.label] ?? opt.label}</span>
           </button>
         ))}
       </div>

@@ -1,0 +1,38 @@
+{
+  "header": {
+    "links": {
+      "main": {
+        "panel": "Panel",
+        "discord": "Discord"
+      },
+      "dropdown": {
+        "settings": "Settings"
+      }
+    },
+    "register": "Register",
+    "login": "Sign in"
+  },
+  "footer": {
+    "motto": "Free forever hosting you need.",
+    "lowerCopyright": "DanBot Hosting",
+    "categories": {
+      "updates": "Updates",
+      "support": "Support",
+      "legal": "Legal"
+    },
+    "links": {
+      "discord": "Discord",
+      "github": "GitHub",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "languages": {
+      "English": "English",
+      "Russian": "Russian",
+      "Hindi": "Hindi",
+      "Turkish": "Turkish"
+    }
+  }
+}

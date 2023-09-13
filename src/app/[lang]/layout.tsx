@@ -1,6 +1,7 @@
 import "./global.css";
 import type { Metadata } from "next";
 import { Layout } from "@/components/Layout";
+import { translate, locale } from "@/utils/dictionary";
 
 export const metadata: Metadata = {
   title: "DanBot Hosting",
@@ -37,10 +38,22 @@ export const metadata: Metadata = {
   },
 };
 
+export async function generateStaticParams() {
+  return locale.map((locale) => ({ lang: locale.locale }));
+}
+
 export default function RootLayout({
   children,
+  params: { lang },
 }: {
   children: React.ReactNode;
+  params: { lang: Locale };
 }) {
-  return <Layout>{children}</Layout>;
+  const layout = translate("layout", lang);
+  const settingsInterface = translate("settings/interface", lang);
+  return (
+    <Layout translation={[layout, settingsInterface]} locale={lang}>
+      {children}
+    </Layout>
+  );
 }
