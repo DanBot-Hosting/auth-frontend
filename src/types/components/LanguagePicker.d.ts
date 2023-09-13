@@ -12,6 +12,6 @@ interface LanguagePickerProps<
 
 interface LanguagePickerLanguage {
   label: string;
-  emoji: string;
+  icon: JSX.Element;
   locale: Locale;
 }

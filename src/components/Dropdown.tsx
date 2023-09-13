@@ -85,6 +85,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
       zIndex: "4",
       userSelect: "none",
       cursor: "pointer",
+      gap: "0.625rem",
 
       borderRadius: "0.625rem",
       color: "text.60",
@@ -135,11 +136,12 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
             key={i}
             onClick={(event) => manage(event, opt)}
             ref={(ref) => optionsRef.current.push({ ref, ...opt })}
-            onMouseEnter={(event) => set(event.currentTarget)}
+            onMouseOver={(event) => set(event.currentTarget)}
             onMouseOut={find}
             className={option}
           >
-            {translation[opt.label] ?? opt.label}
+            {opt.icon}
+            <span>{translation[opt.label] ?? opt.label}</span>
           </button>
         ))}
       </div>

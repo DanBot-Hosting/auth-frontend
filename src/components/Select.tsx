@@ -177,6 +177,12 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
     cssProp
   );
 
+  const picked = css({
+    display: "flex",
+    alignItems: "center",
+    gap: "0.625rem",
+  });
+
   const imperativeDropdownRef = useRef<DropdownRef | null>(null);
   useImperativeHandle(ref, () => {
     return {
@@ -197,7 +203,10 @@ export const Select = forwardRef<SelectRef, SelectProps>(function Select(
         data-selected={!!pickedOption.value || undefined}
         {...props}
       >
-        <div>{translation[pickedOption.label] ?? pickedOption.label}</div>
+        <div className={picked}>
+          {pickedOption.icon}
+          <span>{translation[pickedOption.label] ?? pickedOption.label}</span>
+        </div>
         {children}
         <CaretDown size={18} weight="light" className={caret} ref={caretRef} />
       </div>

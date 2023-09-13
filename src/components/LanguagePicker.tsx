@@ -16,15 +16,15 @@ export function LanguagePicker({
   );
   const { set } = useCookies();
   const selectRef = useRef<SelectRef | null>(null);
-  const translationLabels = Object.keys(translation).reduce<
-    Record<string, string>
-  >((acc, key) => {
-    const lang = languages.find(({ label }) => label === key);
-    return {
-      ...acc,
-      [`${lang?.emoji} ${lang?.label}`]: `${lang?.emoji} ${translation[key]}`,
-    };
-  }, {});
+  // const translationLabels = Object.keys(translation).reduce<
+  //   Record<string, string>
+  // >((acc, key) => {
+  //   const lang = languages.find(({ label }) => label === key);
+  //   return {
+  //     ...acc,
+  //     [`${lang?.emoji} ${lang?.label}`]: `${lang?.emoji} ${translation[key]}`,
+  //   };
+  // }, {});
 
   const select = css.raw({
     maxW: "15.625rem",
@@ -76,14 +76,15 @@ export function LanguagePicker({
   return (
     <Select
       initial={pickedLocaleIndex}
-      translation={translationLabels}
+      translation={translation}
       locale={locale}
       ref={selectRef}
       css={{ ...select, ...cssProp }}
       onChange={handleTranslationSwitch}
       options={languages.map<DropdownOption>((lang) => ({
-        label: `${lang.emoji} ${lang.label}`,
+        label: lang.label,
         value: lang.locale,
+        icon: lang.icon,
       }))}
     >
       {/* <CaretUpDown size={18} weight="light" className={caret} /> */}

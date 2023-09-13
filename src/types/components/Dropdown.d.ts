@@ -13,6 +13,7 @@ interface DropdownProps<T extends DropdownOption[] = DropdownOption[]>
 interface DropdownOption {
   label: string;
   value: string;
+  icon?: JSX.Element;
 }
 
 interface DropdownOptionRef extends DropdownOption {

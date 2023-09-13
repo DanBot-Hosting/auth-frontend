@@ -1,25 +1,31 @@
+import { FlagIconIN, FlagIconRU, FlagIconTR, FlagIconUS } from "@flagkit/react";
+import { css } from "@styles/css";
 import { use } from "react";
+
+const icon = css({
+  borderRadius: "0.125rem",
+});
 
 // export const locale = ["en", "ru", "hi", "tr"] as const;
 export const locale = [
   {
     locale: "en",
-    emoji: "🇺🇸",
+    icon: <FlagIconUS size={14} className={icon} />,
     label: "English",
   },
   {
     locale: "ru",
-    emoji: "🇷🇺",
+    icon: <FlagIconRU size={14} className={icon} />,
     label: "Russian",
   },
   // {
   //   locale: "hi",
-  //   emoji: "🇮🇳",
+  //   icon: <FlagIconIN size={14} className={icon} />,
   //   label: "Hindi"
   // },
   // {
   //   locale: "tr",
-  //   emoji: "🇹🇷",
+  //   icon: <FlagIconTR size={14} className={icon} />,
   //   label: "Turkish"
   // },
 ] as const;
