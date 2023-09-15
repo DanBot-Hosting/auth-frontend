@@ -1,4 +1,5 @@
 import type { Recursive, Token } from "@styles/types/composition";
+import { Palette, stringify } from "cvet";
 import { generateThemeColors } from "./themes";
 
 const colors: Color[] = [
@@ -6,8 +7,8 @@ const colors: Color[] = [
     name: "Pill Background",
     value: "pillbackground",
     colors: {
-      dark: "hsl(0, 0%, 23.1%)",
-      light: "hsl(0, 0%, 80%)",
+      dark: new Palette("#3B3B3B", "HEX"),
+      light: new Palette("#CCCCCC", "HEX"),
     },
     tokens: [30, 50, 70],
   },
@@ -15,8 +16,8 @@ const colors: Color[] = [
     name: "Background",
     value: "background",
     colors: {
-      dark: "hsl(0, 0%, 2%)",
-      light: "hsl(0, 0%, 98%)",
+      dark: new Palette("#050505", "HEX"),
+      light: new Palette("#FAFAFA", "HEX"),
     },
     tokens: [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
@@ -24,8 +25,8 @@ const colors: Color[] = [
     name: "Text",
     value: "text",
     colors: {
-      dark: "hsl(0, 0%, 98%)",
-      light: "hsl(0, 0%, 2%)",
+      dark: new Palette("#FAFAFA", "HEX"),
+      light: new Palette("#050505", "HEX"),
     },
     tokens: [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
@@ -33,8 +34,8 @@ const colors: Color[] = [
     name: "Accent",
     value: "accent",
     colors: {
-      dark: "hsl(226.5, 46.4%, 70%)",
-      light: "hsl(225.9, 46.7%, 50%)",
+      dark: new Palette("#8F9FD6", "HEX"),
+      light: new Palette("#4460BB", "HEX"),
     },
     tokens: [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
@@ -42,8 +43,8 @@ const colors: Color[] = [
     name: "Primary",
     value: "primary",
     colors: {
-      dark: "hsl(225.7, 58%, 64.5%)",
-      light: "hsl(225.7, 58%, 64.5%)",
+      dark: new Palette("#7089D9", "HEX"),
+      light: new Palette("#7089D9", "HEX"),
     },
     tokens: [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
@@ -51,8 +52,8 @@ const colors: Color[] = [
     name: "Secondary",
     value: "secondary",
     colors: {
-      dark: "hsl(224.3, 45.1%, 10%)",
-      light: "hsl(224.3, 45.1%, 90%)",
+      dark: new Palette("#0e1425", "HEX"),
+      light: new Palette("#dae0f1", "HEX"),
     },
     tokens: [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
@@ -67,17 +68,13 @@ const colors: Color[] = [
     value: "solidoverlay",
     colors: () => ({
       value: {
-        _dark: { value: "hsl(0, 0%, 11%)" },
-        _light: { value: "hsl(0, 0%, 88.6%)" },
+        _dark: { value: stringify(new Palette("#1c1c1c", "HEX").hsl) },
+        _light: { value: stringify(new Palette("#e2e2e2", "HEX").hsl) },
       },
     }),
     tokens: [],
   },
 ];
-
-function hslToHsla(hsl: string, opacity: number) {
-  return hsl.replace("hsl", "hsla").slice(0, -1) + `, ${opacity / 100})`;
-}
 
 export function generateColors() {
   const result: Record<
@@ -93,16 +90,19 @@ export function generateColors() {
       result[color.value] = color.colors();
       continue;
     }
-    for (let token of tokens) {
-      let tokenValue: Recursive<Token> | Token = { value: {} };
-
-      for (let mode in color.colors) {
-        tokenValue.value[`_${mode}`] = {
-          value: hslToHsla(color.colors[mode], token),
+    for (let mode in color.colors) {
+      const modeColor = color.colors[mode];
+      for (let token of tokens) {
+        modeColor.color = {
+          ...modeColor.color,
+          a: token,
+        };
+        // Add missing keys
+        if (!part[token]) part[token] = { value: {} };
+        part[token].value[`_${mode}`] = {
+          value: stringify(modeColor.hsla),
         };
       }
-
-      part[token] = tokenValue;
     }
 
     result[color.value] = part;

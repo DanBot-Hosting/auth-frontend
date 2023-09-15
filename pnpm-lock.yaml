@@ -44,8 +44,8 @@ devDependencies:
     specifier: ^18.2.7
     version: 18.2.7
   cvet:
-    specifier: ^3.1.0
-    version: 3.1.0
+    specifier: ^3.1.1
+    version: 3.1.1
   eslint:
     specifier: ^8.47.0
     version: 8.47.0
@@ -2764,8 +2764,8 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
-  /cvet@3.1.0:
-    resolution: {integrity: sha512-aZg5SHnVtEUgoLPEtRbo3NU5/V8l1mY1VHX1UXnxGMSq+VSfI+TCFK8ZIS7lFaKxQkXuWUxiheabsr5kR5unlA==}
+  /cvet@3.1.1:
+    resolution: {integrity: sha512-3+JyJ1A4ziE5r2dc53KmoHcl3KJlo9vrUXNIfRRhCrSCd6jB46sqRRx9D6PQ0HgHcHOKHrAj7TGvhQWO2AwWbQ==}
     dependencies:
       '@cvet/types': 3.0.0
     dev: true
