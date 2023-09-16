@@ -79,7 +79,13 @@ export function modifyColor(
       const filter = new Filter(themeModes[mode as ThemeModes].rgb, "RGB");
 
       for (const token of theme.colors[mode as ThemeModes]) {
-        filter.blend(new Palette(token as HEX, "HEX").rgb, 90);
+        const tokenPalette = new Palette(token as HEX, "HEX")
+
+        // Smart blending, ignore if lightness is lower than source background color
+        // Hardcoded because background is typically very light or very dark, no complete gray
+        if (tokenPalette.hsl.l < 95 && tokenPalette.hsl.l > 5) {
+          filter.blend(tokenPalette.rgb, 75);
+        };
       }
 
       result[`_${mode}`][`_${theme.value}`] = filter;
