@@ -45,7 +45,7 @@ export function ContextMenu({
       zIndex: "200",
 
       borderRadius: "0.875rem",
-      bg: "solidoverlay",
+      bg: "solidoverlay.100",
 
       transition: "opacity 0.15s ease-in-out, scale 0.15s ease-in-out",
       opacity: "0",

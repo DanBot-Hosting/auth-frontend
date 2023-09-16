@@ -72,13 +72,11 @@ const colors: Color[] = [
   {
     name: "Solid Overlay",
     value: "solidoverlay",
-    colors: () => ({
-      value: {
-        _dark: { value: stringify(new Palette("#1C1C1C", "HEX").hsl) },
-        _light: { value: stringify(new Palette("#E2E2E2", "HEX").hsl) },
-      },
-    }),
-    tokens: [],
+    colors: {
+      dark: new Palette("#1C1C1C", "HEX"),
+      light: new Palette("#E2E2E2", "HEX"),
+    },
+    tokens: [100],
   },
 ];
 
