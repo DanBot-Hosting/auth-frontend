@@ -35,8 +35,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Skip all internal paths (_next)
-    "/((?!_next).*)",
-    // Skip favicons
-    "/favicon/(.*)"
+    "/((?!_next|favicon).*)",
   ],
 };
