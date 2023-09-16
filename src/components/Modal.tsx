@@ -33,7 +33,7 @@ export function Modal({
       gap: "0.625rem",
 
       borderRadius: "1.25rem",
-      bg: "solidoverlay",
+      bg: "solidoverlay.100",
     },
     cssProp
   );

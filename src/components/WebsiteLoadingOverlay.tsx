@@ -32,7 +32,7 @@ export const WebsiteLoadingOverlay = memo(function WebsiteLoadingOverlay({
       flexShrink: "0",
       zIndex: "100",
 
-      bg: "radial-gradient(circle, token(colors.solidoverlay) 0%, #000 1000%)",
+      bg: "radial-gradient(circle, token(colors.solidoverlay.100) 0%, #000 1000%)",
 
       "&[data-hidden]": {
         opacity: "0",
