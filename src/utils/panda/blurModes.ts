@@ -25,6 +25,11 @@ const blurs: Blur[] = [
   },
 ];
 
+/**
+ * Generates and returns a record of theme conditions.
+ *
+ * @return {Record<string, string>} The generated theme conditions.
+ */
 export function generateBlurModeConditions() {
   let result: Record<string, string> = {};
 
@@ -66,6 +71,11 @@ export function generateBlurModes() {
   return result;
 }
 
+/**
+ * Generates an array of SelectOption objects based on the blurs array.
+ *
+ * @return {SelectOption[]} An array of SelectOption objects.
+ */
 export function generateBlurModeOptions(): SelectOption[] {
   return blurs.map(({ value }) => ({
     label: value,

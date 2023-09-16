@@ -1,6 +1,11 @@
-import type { Recursive, Token } from "@styles/types/composition";
 import { Palette, stringify } from "cvet";
-import { generateThemeColors } from "./themes";
+import {
+  generateThemeColors,
+  modifyColor,
+  extendModifiedColor,
+  parseModes,
+} from "@/utils/panda/themes";
+import { Recursive, Token } from "@styles/types/composition";
 
 const colors: Color[] = [
   {
@@ -24,6 +29,7 @@ const colors: Color[] = [
   {
     name: "Text",
     value: "text",
+    skipModification: true,
     colors: {
       dark: new Palette("#FAFAFA", "HEX"),
       light: new Palette("#050505", "HEX"),
@@ -52,8 +58,8 @@ const colors: Color[] = [
     name: "Secondary",
     value: "secondary",
     colors: {
-      dark: new Palette("#0e1425", "HEX"),
-      light: new Palette("#dae0f1", "HEX"),
+      dark: new Palette("#0E1425", "HEX"),
+      light: new Palette("#DAE0F1", "HEX"),
     },
     tokens: [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
@@ -68,44 +74,40 @@ const colors: Color[] = [
     value: "solidoverlay",
     colors: () => ({
       value: {
-        _dark: { value: stringify(new Palette("#1c1c1c", "HEX").hsl) },
-        _light: { value: stringify(new Palette("#e2e2e2", "HEX").hsl) },
+        _dark: { value: stringify(new Palette("#1C1C1C", "HEX").hsl) },
+        _light: { value: stringify(new Palette("#E2E2E2", "HEX").hsl) },
       },
     }),
     tokens: [],
   },
 ];
 
+/**
+ * Generates colors for `panda.config.ts`.
+ *
+ * @return {Recursive<Token>} The generated colors.
+ */
 export function generateColors() {
-  const result: Record<
-    string,
-    Record<number, Recursive<Token>> | Recursive<Token>
-  > = {};
+  const result: Recursive<Token> = {};
 
   for (let color of colors) {
-    let part: Record<number, Recursive<Token> | Token> = {};
     const { tokens } = color;
 
     if (typeof color.colors === "function") {
       result[color.value] = color.colors();
       continue;
     }
-    for (let mode in color.colors) {
-      const modeColor = color.colors[mode];
-      for (let token of tokens) {
-        modeColor.color = {
-          ...modeColor.color,
-          a: token,
-        };
-        // Add missing keys
-        if (!part[token]) part[token] = { value: {} };
-        part[token].value[`_${mode}`] = {
-          value: stringify(modeColor.hsla),
-        };
-      }
-    }
 
-    result[color.value] = part;
+    let modifiedColor: ModifiedColor;
+    if (color.skipModification) {
+      modifiedColor = parseModes(color.colors);
+    } else {
+      modifiedColor = modifyColor(color.colors);
+    }
+    result[color.value] = extendModifiedColor(
+      modifiedColor,
+      tokens
+    ) as Recursive<Token>;
   }
 
   return result;
