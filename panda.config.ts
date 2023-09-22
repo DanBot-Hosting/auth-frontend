@@ -1,13 +1,3 @@
-import {
-  generateBlurModeConditions,
-  generateBlurModes,
-  generateColors,
-  generateThemeModeConditions,
-  generateThemeConditions,
-  generateTransitionConditions,
-  globalCss,
-  keyframes,
-} from "@/utils/panda";
 import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({
@@ -20,7 +10,9 @@ export default defineConfig({
   // Shorten classnames
   hash: true,
   // Opt out of default styles config
-  presets: ["@pandacss/preset-base"],
+  presets: ["@danbot-hosting/panda-preset"],
+  // Eject all default presets, we only use our own
+  eject: true,
 
   // Where to look for css declarations
   include: [
@@ -31,24 +23,6 @@ export default defineConfig({
 
   // Files to exclude
   exclude: [],
-
-  conditions: {
-    ...generateThemeModeConditions(),
-    ...generateThemeConditions(),
-    ...generateBlurModeConditions(),
-    ...generateTransitionConditions(),
-  },
-
-  globalCss,
-
-  // Useful for theme customization
-  theme: {
-    extend: { keyframes },
-    semanticTokens: {
-      blurs: generateBlurModes(),
-      colors: generateColors(),
-    },
-  },
 
   // The output directory for your css system
   outdir: "styles",

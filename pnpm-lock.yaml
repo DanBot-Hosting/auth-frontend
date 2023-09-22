@@ -31,6 +31,9 @@ dependencies:
     version: 4.4.1(@types/react@18.2.20)(react@18.2.0)
 
 devDependencies:
+  '@danbot-hosting/panda-preset':
+    specifier: ^1.1.1
+    version: 1.1.1
   '@pandacss/dev':
     specifier: ^0.13.1
     version: 0.13.1(@internationalized/date@3.4.0)(@types/node@20.5.1)(@types/react-dom@18.2.7)(@types/react@18.2.20)(sharp@0.32.5)(typescript@5.1.6)
@@ -43,9 +46,6 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
-  cvet:
-    specifier: ^3.2.1
-    version: 3.2.1
   eslint:
     specifier: ^8.47.0
     version: 8.47.0
@@ -453,6 +453,15 @@ packages:
 
   /@cvet/types@3.0.0:
     resolution: {integrity: sha512-JKU7Ux50+c6o7RzmxtZ8m20LUI5VIHF1GPWNV1NJRA0dS9qCa/mGNXy6l7qU019hBJJLalC5/KgD/PbBeMZH1w==}
+    dev: true
+
+  /@danbot-hosting/panda-preset@1.1.1:
+    resolution: {integrity: sha512-RZt4qYmWsCnhbFNHJ5cMgvEAON446nmPYhhS/zTGKC89n1T5uuR8D2PH410pRlmNXEnr6fV8xlq7+dF5Mvif6A==}
+    dependencies:
+      '@pandacss/preset-base': 0.15.1
+      '@pandacss/types': 0.15.1
+      cvet: 4.0.0
+      typescript: 5.2.2
     dev: true
 
   /@emmetio/abbreviation@2.3.3:
@@ -1281,6 +1290,12 @@ packages:
       '@pandacss/types': 0.13.1
     dev: true
 
+  /@pandacss/preset-base@0.15.1:
+    resolution: {integrity: sha512-hHlyJYRq8vdlur/AyDm0eW4c/lLWv51IXW1MuxWzQr9IURPVBQyiPFYRbFBE4SI5BDJuOBXAgrscQNj1y3dVvA==}
+    dependencies:
+      '@pandacss/types': 0.15.1
+    dev: true
+
   /@pandacss/preset-panda@0.13.1:
     resolution: {integrity: sha512-KaGsVLefRm8SyGadDdwXJV7OzeQXxDzRrR+jzh3ZpG2+vV3xkzhLNhMZB9Dy/KV04N6MV3yBLeLvh9hClTJubg==}
     dependencies:
@@ -1334,6 +1349,10 @@ packages:
 
   /@pandacss/types@0.13.1:
     resolution: {integrity: sha512-L7W1xa74xOKOrCL2BQhtMk2p2az0tGWfIH4WpilEmIgTAsNA4rAt5NJQX6Mg3vjnhIxaAhj9L0VTk9gXCRYj8Q==}
+    dev: true
+
+  /@pandacss/types@0.15.1:
+    resolution: {integrity: sha512-hjagGv/bRBNXmPqGxzhoKTeiDMvC2TTpgPdG0eQnvnjg82bSr7AkDWh9i9F1PrPQLFBalEQZ69Dr/v+KsA6Lzg==}
     dev: true
 
   /@phosphor-icons/react@2.0.10(react-dom@18.2.0)(react@18.2.0):
@@ -2764,8 +2783,8 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
-  /cvet@3.2.1:
-    resolution: {integrity: sha512-K/gmsf7Gm6lFc5KkghpbW4bX0MF+S5wmQCr6lhSsEBgGDfNcyMGuOvxoTlqKvIi9wm34fBuf7ACCLANlGDQOZg==}
+  /cvet@4.0.0:
+    resolution: {integrity: sha512-Ma2hMep9TT6GUH+H1dZTCWv9kjTGfccY92UyIIXYezCZ3z4Vce91+SLSyXW4y4pMPCM3yKlzDhYWp7GLFd900Q==}
     dependencies:
       '@cvet/types': 3.0.0
     dev: true
@@ -6229,6 +6248,12 @@ packages:
 
   /typescript@5.1.6:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
+
+  /typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true

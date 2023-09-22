@@ -1,4 +1,4 @@
-import { generateBlurModeOptions, generateThemeOptions } from "@/utils/panda";
+import { generateBlurModeOptions, generateThemeOptions } from "@danbot-hosting/panda-preset";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNotification } from "@/hooks/useNotification";
 import { useSettings } from "@/hooks/useSettings";
